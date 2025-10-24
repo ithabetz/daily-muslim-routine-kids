@@ -18,6 +18,7 @@ class AuthService {
     required String email,
     required String password,
     String? displayName,
+    Gender? gender,
   }) async {
     try {
       final UserCredential result = await _auth.createUserWithEmailAndPassword(
@@ -41,6 +42,7 @@ class AuthService {
           photoUrl: user.photoURL,
           createdAt: DateTime.now(),
           lastLoginAt: DateTime.now(),
+          gender: gender,
         );
       }
       return null;

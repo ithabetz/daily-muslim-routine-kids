@@ -364,6 +364,30 @@ abstract class AppLocalizations {
   /// **'كلمات المرور غير متطابقة'**
   String get passwordsDontMatch;
 
+  /// No description provided for @gender.
+  ///
+  /// In ar, this message translates to:
+  /// **'الجنس'**
+  String get gender;
+
+  /// No description provided for @male.
+  ///
+  /// In ar, this message translates to:
+  /// **'ولد'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In ar, this message translates to:
+  /// **'بنت'**
+  String get female;
+
+  /// No description provided for @pleaseSelectGender.
+  ///
+  /// In ar, this message translates to:
+  /// **'يرجى اختيار الجنس'**
+  String get pleaseSelectGender;
+
   /// No description provided for @dailyRoutine.
   ///
   /// In ar, this message translates to:

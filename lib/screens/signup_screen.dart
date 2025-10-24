@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import '../l10n/app_localizations.dart';
+import '../models/user_profile.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -20,6 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   String? _errorMessage;
+  Gender? _selectedGender;
 
   @override
   void dispose() {
@@ -41,6 +43,13 @@ class _SignupScreenState extends State<SignupScreen> {
       return;
     }
 
+    if (_selectedGender == null) {
+      setState(() {
+        _errorMessage = l10n.pleaseSelectGender;
+      });
+      return;
+    }
+
     setState(() {
       _isLoading = true;
       _errorMessage = null;
@@ -52,6 +61,7 @@ class _SignupScreenState extends State<SignupScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text,
         displayName: _nameController.text.trim(),
+        gender: _selectedGender!,
       );
 
       if (!mounted) return;
@@ -175,6 +185,38 @@ class _SignupScreenState extends State<SignupScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return l10n.pleaseEnterName;
+                              }
+                              return null;
+                            },
+                          ),
+                          const SizedBox(height: 16),
+
+                          // Gender field
+                          DropdownButtonFormField<Gender>(
+                            value: _selectedGender,
+                            decoration: InputDecoration(
+                              labelText: l10n.gender,
+                              prefixIcon: const Icon(Icons.person_outline),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              filled: true,
+                              fillColor: Colors.grey.shade50,
+                            ),
+                            items: Gender.values.map((Gender gender) {
+                              return DropdownMenuItem<Gender>(
+                                value: gender,
+                                child: Text(gender.getLocalizedName(l10n)),
+                              );
+                            }).toList(),
+                            onChanged: (Gender? newValue) {
+                              setState(() {
+                                _selectedGender = newValue;
+                              });
+                            },
+                            validator: (value) {
+                              if (value == null) {
+                                return l10n.pleaseSelectGender;
                               }
                               return null;
                             },

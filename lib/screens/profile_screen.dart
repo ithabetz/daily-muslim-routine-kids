@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/date_formatter.dart';
+import '../models/user_profile.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -16,6 +17,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _nameController = TextEditingController();
   bool _isEditing = false;
   bool _isSaving = false;
+  Gender? _selectedGender;
 
   @override
   void initState() {
@@ -26,6 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _loadUserData() {
     final provider = Provider.of<AppProvider>(context, listen: false);
     _nameController.text = provider.userProfile?.displayName ?? '';
+    _selectedGender = provider.userProfile?.gender;
   }
 
   @override
@@ -44,7 +47,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     try {
       final provider = Provider.of<AppProvider>(context, listen: false);
-      await provider.updateProfile(displayName: _nameController.text.trim());
+      await provider.updateProfile(
+        displayName: _nameController.text.trim(),
+        gender: _selectedGender,
+      );
 
       if (!mounted) return;
 
@@ -327,6 +333,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         },
                                       ),
                                       const SizedBox(height: 16),
+                                      
+                                      // Gender field
+                                      DropdownButtonFormField<Gender>(
+                                        value: _selectedGender,
+                                        decoration: InputDecoration(
+                                          labelText: l10n.gender,
+                                          border: const OutlineInputBorder(),
+                                        ),
+                                        items: Gender.values.map((Gender gender) {
+                                          return DropdownMenuItem<Gender>(
+                                            value: gender,
+                                            child: Text(gender.getLocalizedName(l10n)),
+                                          );
+                                        }).toList(),
+                                        onChanged: (Gender? newValue) {
+                                          setState(() {
+                                            _selectedGender = newValue;
+                                          });
+                                        },
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return l10n.pleaseSelectGender;
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(height: 16),
                                       Row(
                                         children: [
                                           Expanded(
@@ -373,6 +406,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     _buildInfoRow(l10n.displayNameLabel, user.displayName ?? l10n.notSet),
                                     const SizedBox(height: 12),
                                     _buildInfoRow(l10n.emailLabel, user.email),
+                                    const SizedBox(height: 12),
+                                    _buildInfoRow(
+                                      l10n.gender,
+                                      user.gender?.getLocalizedName(l10n) ?? l10n.notSet,
+                                    ),
                                     const SizedBox(height: 12),
                                     _buildInfoRow(
                                       l10n.memberSince,

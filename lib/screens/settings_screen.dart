@@ -66,6 +66,53 @@ class SettingsScreen extends StatelessWidget {
                   },
                 ),
                 
+                // Sync with Cloud button
+                ListTile(
+                  leading: const Icon(Icons.cloud_sync, color: Colors.blue),
+                  title: const Text('مزامنة مع السحابة'),
+                  subtitle: const Text('تحميل البيانات من السحابة'),
+                  trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+                  onTap: () async {
+                    // Show loading dialog
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (context) => const AlertDialog(
+                        content: Row(
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(width: 16),
+                            Text('جاري المزامنة...'),
+                          ],
+                        ),
+                      ),
+                    );
+                    
+                    try {
+                      await provider.loadFromCloud();
+                      if (context.mounted) {
+                        Navigator.of(context).pop(); // Close loading dialog
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('تم المزامنة بنجاح!'),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      if (context.mounted) {
+                        Navigator.of(context).pop(); // Close loading dialog
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('فشل في المزامنة: $e'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
+                  },
+                ),
+                
                 const Divider(),
               ],
               

@@ -145,6 +145,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordsDontMatch => 'كلمات المرور غير متطابقة';
 
   @override
+  String get gender => 'الجنس';
+
+  @override
+  String get male => 'ولد';
+
+  @override
+  String get female => 'بنت';
+
+  @override
+  String get pleaseSelectGender => 'يرجى اختيار الجنس';
+
+  @override
   String get dailyRoutine => 'صلوات اليومية';
 
   @override

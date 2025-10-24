@@ -98,33 +98,77 @@ class _QuranScreenState extends State<QuranScreen> {
         title: Text(AppLocalizations.of(context)?.quranKareem ?? 'قرآن الكريم'),
         backgroundColor: KidTheme.primaryGreen,
         foregroundColor: Colors.white,
-        actions: [
-          // Offline mode indicator
-          if (_isOfflineMode)
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              margin: const EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: Colors.orange.shade100,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(Icons.cloud_off, size: 16, color: Colors.orange.shade700),
-                  const SizedBox(width: 4),
-                  Text(
-                    'غير متصل',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.orange.shade700,
-                      fontWeight: FontWeight.w500,
-                    ),
+                actions: [
+                  // Sync button
+                  IconButton(
+                    icon: const Icon(Icons.cloud_sync),
+                    onPressed: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      
+                      try {
+                        await QuranMemorizationService.loadMemorization(syncWithCloud: true);
+                        if (mounted) {
+                          final syncedMemorization = await QuranMemorizationService.loadMemorization();
+                          setState(() {
+                            _memorization = syncedMemorization;
+                            _isOfflineMode = false;
+                            _isLoading = false;
+                          });
+                          
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('تم المزامنة بنجاح!'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                        }
+                      } catch (e) {
+                        if (mounted) {
+                          setState(() {
+                            _isOfflineMode = true;
+                            _isLoading = false;
+                          });
+                          
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('فشل في المزامنة: $e'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      }
+                    },
+                    tooltip: 'مزامنة مع السحابة',
                   ),
+                  
+                  // Offline mode indicator
+                  if (_isOfflineMode)
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      margin: const EdgeInsets.only(right: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.shade100,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.cloud_off, size: 16, color: Colors.orange.shade700),
+                          const SizedBox(width: 4),
+                          Text(
+                            'غير متصل',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.orange.shade700,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                 ],
-              ),
-            ),
-        ],
       ),
       body: Container(
         decoration: KidTheme.quranGradient,
@@ -191,6 +235,15 @@ class _QuranScreenState extends State<QuranScreen> {
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   color: KidTheme.darkGreen,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'من الناس إلى النبأ',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: KidTheme.darkGreen.withOpacity(0.8),
                 ),
               ),
             ],
@@ -267,7 +320,7 @@ class _QuranScreenState extends State<QuranScreen> {
   }
 
   Widget _buildKidsContent() {
-    final surahs = Surah.getJuz30Surahs();
+    final surahs = Surah.getJuz30Surahs().reversed.toList(); // Reverse the order
     
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -280,7 +333,7 @@ class _QuranScreenState extends State<QuranScreen> {
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              childAspectRatio: 1.5,
+              childAspectRatio: 1.2, // Reduced from 1.5 to give more height
               crossAxisSpacing: 12,
               mainAxisSpacing: 12,
             ),
@@ -372,14 +425,14 @@ class _QuranScreenState extends State<QuranScreen> {
             ],
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              // Surah Number - Larger and more prominent
+              // Surah Number - Smaller to save space
               PulseAnimation(
                 isActive: isMemorized,
                 child: Container(
-                  width: 40,
-                  height: 40,
+                  width: 32,
+                  height: 32,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: isMemorized 
@@ -388,12 +441,12 @@ class _QuranScreenState extends State<QuranScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
                         color: (isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen).withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
+                        blurRadius: 6,
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -403,51 +456,49 @@ class _QuranScreenState extends State<QuranScreen> {
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
+                        fontSize: 14,
                       ),
                     ),
                   ),
                 ),
               ),
               
-              const SizedBox(height: 6),
-              
-              // Arabic Name - Larger font
-              Text(
-                surah.nameArabic,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: isMemorized ? KidTheme.darkGreen : KidTheme.darkGreen,
+              // Arabic Name - Smaller font
+              Flexible(
+                child: Text(
+                  surah.nameArabic,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: isMemorized ? KidTheme.darkGreen : KidTheme.darkGreen,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
               ),
               
-              const SizedBox(height: 3),
-              
-              // English Name - Larger font
-              Text(
-                surah.nameEnglish,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: isMemorized ? KidTheme.darkGreen.withOpacity(0.8) : KidTheme.darkGreen.withOpacity(0.7),
-                  fontWeight: FontWeight.w500,
+              // English Name - Smaller font and flexible
+              Flexible(
+                child: Text(
+                  surah.nameEnglish,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: isMemorized ? KidTheme.darkGreen.withOpacity(0.8) : KidTheme.darkGreen.withOpacity(0.7),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
               ),
               
-              const SizedBox(height: 6),
-              
-              // Memorized Status - More prominent
+              // Memorized Status - Smaller and more compact
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
                   color: isMemorized ? KidTheme.successGreen.withOpacity(0.2) : KidTheme.primaryGreen.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: isMemorized ? KidTheme.successGreen.withOpacity(0.4) : KidTheme.primaryGreen.withOpacity(0.3),
                   ),
@@ -457,16 +508,20 @@ class _QuranScreenState extends State<QuranScreen> {
                   children: [
                     Icon(
                       isMemorized ? Icons.check_circle : Icons.radio_button_unchecked,
-                      size: 16,
+                      size: 12,
                       color: isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen,
                     ),
-                    const SizedBox(width: 6),
-                    Text(
-                      isMemorized ? 'محفوظة! 🎉' : 'لم تحفظ',
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen,
+                    const SizedBox(width: 4),
+                    Flexible(
+                      child: Text(
+                        isMemorized ? 'محفوظة!' : 'لم تحفظ',
+                        style: TextStyle(
+                          fontSize: 8,
+                          fontWeight: FontWeight.bold,
+                          color: isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],

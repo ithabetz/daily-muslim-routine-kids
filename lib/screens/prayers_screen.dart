@@ -7,10 +7,13 @@ import '../models/sunnah_prayer.dart';
 import '../services/prayer_time_service.dart';
 import '../widgets/prayer_card.dart';
 import '../widgets/sunnah_prayer_card.dart';
+import '../widgets/azkar_card.dart';
+import '../widgets/collapsible_section.dart';
 import '../widgets/base_islamic_screen.dart';
 import '../widgets/unified_rings_widget.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/date_formatter.dart';
+import '../models/azkar_task.dart';
 
 class PrayersScreen extends StatefulWidget {
   const PrayersScreen({super.key});
@@ -28,6 +31,8 @@ class _PrayersScreenState extends State<PrayersScreen> {
 
   Future<void> _refreshIfNeeded() async {
     final provider = Provider.of<AppProvider>(context, listen: false);
+    await provider.refreshDay();
+    // Force refresh to ensure sunnah prayers are created
     await provider.refreshDay();
   }
 
@@ -72,8 +77,8 @@ class _PrayersScreenState extends State<PrayersScreen> {
             title: 'تقدمك اليوم',
             content: UnifiedRingsWidget(
               configuration: ActivityRingsConfiguration(
-                firstProgress: percentages['fard'] ?? 0.0,
-                secondProgress: percentages['sunnah'] ?? 0.0,
+                firstProgress: (percentages['fard'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
+                secondProgress: (percentages['sunnah'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
                 thirdProgress: 0.0, // Removed wird category
                 firstColor: const Color(0xFF4CAF50), // Green for Fard
                 secondColor: const Color(0xFFFF9800), // Orange for Sunnah
@@ -118,15 +123,22 @@ class _PrayersScreenState extends State<PrayersScreen> {
             children: [
               // Next Prayer Info
               if (provider.prayerTimes != null) ...[
-                _buildNextPrayerInfo(provider.prayerTimes!),
-                const SizedBox(height: 24),
+                CollapsibleSection(
+                  title: 'الصلاة القادمة',
+                  icon: Icons.access_time,
+                  initiallyExpanded: true,
+                  children: [
+                    _buildNextPrayerInfo(provider.prayerTimes!),
+                  ],
+                ),
+                const SizedBox(height: 16),
               ],
 
               // Fard Section - Five Daily Prayers
-              _buildKidsSection(
+              CollapsibleSection(
                 title: 'الصلوات الخمس',
                 icon: Icons.mosque,
-                color: Colors.teal,
+                initiallyExpanded: true,
                 children: provider.todayProgress!.prayers.map((prayer) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -135,13 +147,13 @@ class _PrayersScreenState extends State<PrayersScreen> {
                 }).toList(),
               ),
               
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
               
-              // Basic Sunnah Section - Simplified for Kids
-              _buildKidsSection(
-                title: 'السنن المهمة',
+              // Sunnah and Rawatib Section
+              CollapsibleSection(
+                title: 'السنن والرواتب',
                 icon: Icons.star,
-                color: Colors.orange,
+                initiallyExpanded: false,
                 children: provider.todayProgress!.sunnahPrayers
                     .where((prayer) => _isBasicSunnahForKids(prayer))
                     .map((prayer) {
@@ -150,6 +162,16 @@ class _PrayersScreenState extends State<PrayersScreen> {
                     child: _buildKidsSunnahCard(prayer),
                   );
                 }).toList(),
+              ),
+              
+              const SizedBox(height: 16),
+              
+              // Azkar Section
+              CollapsibleSection(
+                title: 'الأذكار',
+                icon: Icons.favorite,
+                initiallyExpanded: false,
+                children: _buildAzkarCards(),
               ),
               
             ],
@@ -290,48 +312,6 @@ class _PrayersScreenState extends State<PrayersScreen> {
     );
   }
 
-  Widget _buildKidsSection({
-    required String title,
-    required IconData icon,
-    required Color color,
-    required List<Widget> children,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: color.withOpacity(0.2)),
-          ),
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                color: color.withOpacity(0.7),
-                size: 24,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: color.withOpacity(0.8),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 12),
-        ...children,
-      ],
-    );
-  }
 
   Widget _buildKidsPrayerCard(PrayerTask prayer) {
     return Card(
@@ -375,14 +355,44 @@ class _PrayersScreenState extends State<PrayersScreen> {
   }
 
 
-  bool _isBasicSunnahForKids(SunnahPrayer prayer) {
-    // Only include essential sunnah prayers for kids
-    final basicSunnahTypes = [
-      'duha', // Morning prayer
-      'qiyam', // Night prayer
+  List<Widget> _buildAzkarCards() {
+    return [
+      // Morning Azkar
+      Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: AzkarCard(
+          azkar: AzkarTask(type: AzkarType.morning),
+        ),
+      ),
+      // Evening Azkar
+      Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: AzkarCard(
+          azkar: AzkarTask(type: AzkarType.evening),
+        ),
+      ),
     ];
-    return basicSunnahTypes.any((type) => 
-        prayer.type.toString().toLowerCase().contains(type));
+  }
+
+  bool _isBasicSunnahForKids(SunnahPrayer prayer) {
+    // Only show sunnah prayers that actually exist (not the "no sunnah" ones)
+    switch (prayer.type) {
+      case SunnahPrayerType.salatAlDuha:
+      case SunnahPrayerType.qiyamAlLayl:
+      case SunnahPrayerType.fajrSunnahBefore:
+      case SunnahPrayerType.dhuhrSunnahBefore1:
+      case SunnahPrayerType.dhuhrSunnahBefore2:
+      case SunnahPrayerType.dhuhrSunnahAfter:
+      case SunnahPrayerType.maghribSunnahAfter:
+      case SunnahPrayerType.ishaSunnahAfter:
+        return true; // Show these sunnah prayers
+      case SunnahPrayerType.fajrSunnahAfter:
+      case SunnahPrayerType.asrSunnahBefore:
+      case SunnahPrayerType.asrSunnahAfter:
+      case SunnahPrayerType.maghribSunnahBefore:
+      case SunnahPrayerType.ishaSunnahBefore:
+        return false; // Hide these (no sunnah prayers)
+    }
   }
 
 }

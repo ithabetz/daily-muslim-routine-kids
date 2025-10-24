@@ -1,3 +1,30 @@
+import '../l10n/app_localizations.dart';
+
+enum Gender {
+  male,
+  female,
+}
+
+extension GenderExtension on Gender {
+  String get displayName {
+    switch (this) {
+      case Gender.male:
+        return 'Male';
+      case Gender.female:
+        return 'Female';
+    }
+  }
+  
+  String getLocalizedName(AppLocalizations l10n) {
+    switch (this) {
+      case Gender.male:
+        return l10n.male;
+      case Gender.female:
+        return l10n.female;
+    }
+  }
+}
+
 class UserProfile {
   final String uid;
   final String email;
@@ -10,6 +37,7 @@ class UserProfile {
   final String? city;
   final double? latitude;
   final double? longitude;
+  final Gender? gender;
 
   UserProfile({
     required this.uid,
@@ -21,6 +49,7 @@ class UserProfile {
     this.city,
     this.latitude,
     this.longitude,
+    this.gender,
   });
 
   Map<String, dynamic> toJson() {
@@ -34,6 +63,7 @@ class UserProfile {
       'city': city,
       'latitude': latitude,
       'longitude': longitude,
+      'gender': gender?.toString(),
     };
   }
 
@@ -50,6 +80,12 @@ class UserProfile {
       city: json['city'] as String?,
       latitude: json['latitude'] as double?,
       longitude: json['longitude'] as double?,
+      gender: json['gender'] != null 
+          ? Gender.values.firstWhere(
+              (e) => e.toString() == json['gender'],
+              orElse: () => Gender.male,
+            )
+          : null,
     );
   }
 
@@ -63,6 +99,7 @@ class UserProfile {
     String? city,
     double? latitude,
     double? longitude,
+    Gender? gender,
   }) {
     return UserProfile(
       uid: uid ?? this.uid,
@@ -74,6 +111,7 @@ class UserProfile {
       city: city ?? this.city,
       latitude: latitude ?? this.latitude,
       longitude: longitude ?? this.longitude,
+      gender: gender ?? this.gender,
     );
   }
 }

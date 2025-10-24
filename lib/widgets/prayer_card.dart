@@ -25,7 +25,7 @@ class _PrayerCardState extends State<PrayerCard> {
     final l10n = AppLocalizations.of(context)!;
     final timeString = widget.prayer.time != null 
         ? NumberFormatter.toEnglishNumbers(DateFormat('h:mm a').format(widget.prayer.time!))
-        : l10n.timeNotSet;
+        : 'Time not set';
     
     return CelebrationAnimation(
       isActive: _showCelebration,
@@ -167,7 +167,7 @@ class _PrayerCardState extends State<PrayerCard> {
               child: Column(
                 children: [
                   Text(
-                    l10n.completeYourPrayer,
+                    'Complete your prayer:',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -265,13 +265,7 @@ class _PrayerCardState extends State<PrayerCard> {
     final provider = Provider.of<AppProvider>(context, listen: false);
     final wasCompleted = widget.prayer.isCompleted;
     
-    // Update specific prayer details
-    provider.updatePrayerDetails(
-      prayerType: widget.prayer.type,
-      prayedOnTime: prayedOnTime,
-      inMosque: inMosque,
-      prayedOutOfTime: prayedOutOfTime,
-    );
+    provider.togglePrayer(widget.prayer.type);
     
     // Show celebration if prayer was just completed
     if (!wasCompleted && widget.prayer.isCompleted) {
@@ -280,7 +274,6 @@ class _PrayerCardState extends State<PrayerCard> {
       });
       
       // Show success message
-      final l10n = AppLocalizations.of(context)!;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Row(
@@ -288,7 +281,7 @@ class _PrayerCardState extends State<PrayerCard> {
               const Icon(Icons.celebration, color: Colors.white),
               const SizedBox(width: 8),
               Text(
-                l10n.greatJobPrayerCompleted,
+                'Great job! Prayer completed! 🎉',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

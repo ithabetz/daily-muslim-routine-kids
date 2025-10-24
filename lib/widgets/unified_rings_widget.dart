@@ -61,6 +61,7 @@ class UnifiedRingsWidget extends StatelessWidget {
           // First Ring (outermost)
           Positioned.fill(
             child: CircularProgressIndicator(
+              key: ValueKey('first_${configuration.firstProgress}'),
               value: configuration.firstProgress,
               backgroundColor: configuration.firstColor.withOpacity(0.2),
               valueColor: AlwaysStoppedAnimation<Color>(configuration.firstColor),
@@ -73,6 +74,7 @@ class UnifiedRingsWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: CircularProgressIndicator(
+                key: ValueKey('second_${configuration.secondProgress}'),
                 value: configuration.secondProgress,
                 backgroundColor: configuration.secondColor.withOpacity(0.2),
                 valueColor: AlwaysStoppedAnimation<Color>(configuration.secondColor),
@@ -86,6 +88,7 @@ class UnifiedRingsWidget extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(40.0),
               child: CircularProgressIndicator(
+                key: ValueKey('third_${configuration.thirdProgress}'),
                 value: configuration.thirdProgress,
                 backgroundColor: configuration.thirdColor.withOpacity(0.2),
                 valueColor: AlwaysStoppedAnimation<Color>(configuration.thirdColor),

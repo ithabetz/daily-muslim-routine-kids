@@ -58,6 +58,10 @@
   "pleaseConfirmPassword": "يرجى تأكيد كلمة المرور",
   "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
   "passwordsDontMatch": "كلمات المرور غير متطابقة",
+  "gender": "الجنس",
+  "male": "ولد",
+  "female": "بنت",
+  "pleaseSelectGender": "يرجى اختيار الجنس",
   
   "@_MAIN_MENU": {},
   "dailyRoutine": "صلوات اليومية",

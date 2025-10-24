@@ -65,11 +65,13 @@ class AppProvider with ChangeNotifier {
     required String email,
     required String password,
     String? displayName,
+    Gender? gender,
   }) async {
     final profile = await _authService.signUpWithEmailAndPassword(
       email: email,
       password: password,
       displayName: displayName,
+      gender: gender,
     );
 
     if (profile != null) {
@@ -162,7 +164,7 @@ class AppProvider with ChangeNotifier {
     await _authService.sendPasswordResetEmail(email);
   }
 
-  Future<void> updateProfile({String? displayName, String? photoUrl}) async {
+  Future<void> updateProfile({String? displayName, String? photoUrl, Gender? gender}) async {
     if (_userProfile == null) return;
 
     await _authService.updateUserProfile(
@@ -173,11 +175,13 @@ class AppProvider with ChangeNotifier {
     await _cloudStorage.updateUserProfile(_userProfile!.uid, {
       if (displayName != null) 'displayName': displayName,
       if (photoUrl != null) 'photoUrl': photoUrl,
+      if (gender != null) 'gender': gender.toString(),
     });
 
     _userProfile = _userProfile!.copyWith(
       displayName: displayName ?? _userProfile!.displayName,
       photoUrl: photoUrl ?? _userProfile!.photoUrl,
+      gender: gender ?? _userProfile!.gender,
     );
 
     notifyListeners();
@@ -268,6 +272,11 @@ class AppProvider with ChangeNotifier {
           return <void>[];
         },
       );
+
+      // Load data from cloud after local initialization
+      if (_userProfile != null) {
+        await loadFromCloud();
+      }
       
     } catch (e) {
       // Handle initialization errors
@@ -323,6 +332,28 @@ class AppProvider with ChangeNotifier {
       if (_todayProgress == null) {
         _todayProgress = DailyProgress.createForDate(today);
         await StorageService.saveDailyProgress(_todayProgress!);
+      } else {
+        // Check if sunnah prayers are missing and add them
+        final allSunnahTypes = SunnahPrayerType.values;
+        final existingSunnahTypes = _todayProgress!.sunnahPrayers.map((p) => p.type).toSet();
+        final missingSunnahTypes = allSunnahTypes.where((type) => !existingSunnahTypes.contains(type)).toList();
+        
+        if (missingSunnahTypes.isNotEmpty) {
+          // Add missing sunnah prayers
+          final updatedSunnahPrayers = List<SunnahPrayer>.from(_todayProgress!.sunnahPrayers);
+          for (final type in missingSunnahTypes) {
+            updatedSunnahPrayers.add(SunnahPrayer(type: type, isCompleted: false));
+          }
+          
+          _todayProgress = DailyProgress(
+            date: _todayProgress!.date,
+            prayers: _todayProgress!.prayers,
+            azkar: _todayProgress!.azkar,
+            sunnahPrayers: updatedSunnahPrayers,
+          );
+          
+          await StorageService.saveDailyProgress(_todayProgress!);
+        }
       }
       
     notifyListeners();
@@ -486,7 +517,20 @@ class AppProvider with ChangeNotifier {
         await QuranMemorizationService.saveMemorization(cloudMemorization);
       }
       
-      } catch (e) {
+    } catch (e) {
+      // Handle cloud loading errors silently
+    }
+  }
+
+  /// Load all user data from cloud storage
+  Future<void> loadFromCloud() async {
+    if (_userProfile == null) return;
+    
+    try {
+      await _loadUserDataFromCloud();
+      await _saveLoadedDataToLocal();
+      notifyListeners();
+    } catch (e) {
       // Handle cloud loading errors silently
     }
   }

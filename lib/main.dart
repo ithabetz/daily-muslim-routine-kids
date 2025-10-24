@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
               Locale('ar', ''),
             ],
             theme: KidTheme.kidTheme,
-            home: const SplashScreen(),
+            home: const AppInitializer(),
             routes: {
               '/login': (context) => const LoginScreen(),
               '/signup': (context) => const SignupScreen(),
@@ -83,6 +83,95 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
           );
         },
+      ),
+    );
+  }
+}
+
+class AppInitializer extends StatefulWidget {
+  const AppInitializer({super.key});
+
+  @override
+  State<AppInitializer> createState() => _AppInitializerState();
+}
+
+class _AppInitializerState extends State<AppInitializer> {
+  @override
+  void initState() {
+    super.initState();
+    // Initialize app immediately without splash screen
+    Future.microtask(() => _initializeApp());
+  }
+
+  Future<void> _initializeApp() async {
+    // Initialize the app provider
+    final provider = Provider.of<AppProvider>(context, listen: false);
+    await provider.initialize(context: context);
+
+    if (!mounted) return;
+
+    // Check authentication status and navigate directly
+    if (!provider.isAuthenticated) {
+      // Check if this is first time using the app
+      final isFirstLaunch = await StorageService.isFirstLaunch();
+      
+      if (isFirstLaunch) {
+        // Show signup for first-time users
+        Navigator.of(context).pushReplacementNamed('/signup');
+      } else {
+        // Show login for returning users
+        Navigator.of(context).pushReplacementNamed('/login');
+      }
+    } else {
+      // User is authenticated, check location
+      final hasLocation = provider.isLocationSet;
+      
+      if (!hasLocation) {
+        Navigator.of(context).pushReplacementNamed('/setup');
+      } else {
+        Navigator.of(context).pushReplacementNamed('/main-menu');
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Show a minimal loading screen while initializing
+    return Scaffold(
+      backgroundColor: KidTheme.primaryBlue,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // App Title - Large text as shown in the image
+            Text(
+              'الروتين الإسلامي اليومي - للأطفال',
+              style: const TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            
+            // Subtitle - Smaller text as shown in the image
+            Text(
+              'تعلم الصلوات والقرآن للأطفال',
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white70,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 48),
+            
+            // Loading indicator
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ),
+          ],
+        ),
       ),
     );
   }

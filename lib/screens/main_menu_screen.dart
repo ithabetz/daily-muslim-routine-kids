@@ -19,6 +19,15 @@ class MainMenuScreen extends StatelessWidget {
         foregroundColor: Colors.white,
         centerTitle: true,
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, size: 28),
+            onPressed: () {
+              Navigator.of(context).pushNamed('/settings');
+            },
+            tooltip: 'الإعدادات',
+          ),
+        ],
       ),
       body: Container(
         decoration: KidTheme.prayerGradient,

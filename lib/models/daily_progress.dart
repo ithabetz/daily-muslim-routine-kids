@@ -218,10 +218,10 @@ class DailyProgress {
   Map<String, double> getCompletionPercentages() {
     Map<String, double> percentages = {};
     
-    // Prayer completion
+    // Prayer completion (Fard)
     if (prayers.isNotEmpty) {
       int completedPrayers = prayers.where((p) => p.isCompleted).length;
-      percentages['prayers'] = (completedPrayers / prayers.length) * 100;
+      percentages['fard'] = (completedPrayers / prayers.length) * 100;
     }
     
     // Azkar completion
@@ -235,6 +235,22 @@ class DailyProgress {
       int completedSunnah = sunnahPrayers.where((s) => s.isCompleted).length;
       percentages['sunnahPrayers'] = (completedSunnah / sunnahPrayers.length) * 100;
     }
+    
+    // Calculate combined sunnah percentage (azkar + sunnah prayers)
+    double sunnahPercentage = 0.0;
+    if (azkar.isNotEmpty && sunnahPrayers.isNotEmpty) {
+      int totalSunnahTasks = azkar.length + sunnahPrayers.length;
+      int completedSunnahTasks = azkar.where((a) => a.isCompleted).length + 
+                                 sunnahPrayers.where((s) => s.isCompleted).length;
+      sunnahPercentage = (completedSunnahTasks / totalSunnahTasks) * 100;
+    } else if (azkar.isNotEmpty) {
+      int completedAzkar = azkar.where((a) => a.isCompleted).length;
+      sunnahPercentage = (completedAzkar / azkar.length) * 100;
+    } else if (sunnahPrayers.isNotEmpty) {
+      int completedSunnah = sunnahPrayers.where((s) => s.isCompleted).length;
+      sunnahPercentage = (completedSunnah / sunnahPrayers.length) * 100;
+    }
+    percentages['sunnah'] = sunnahPercentage;
     
     return percentages;
   }
