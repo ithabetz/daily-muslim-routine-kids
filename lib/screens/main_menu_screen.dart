@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../l10n/app_localizations.dart';
 import '../theme/kid_theme.dart';
 import '../widgets/celebration_animations.dart';
-import 'prayers_azkar_screen.dart';
+import 'prayers_screen.dart';
 import 'quran_screen.dart';
 
 class MainMenuScreen extends StatelessWidget {
@@ -14,7 +14,7 @@ class MainMenuScreen extends StatelessWidget {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text('${l10n.appTitle} - Kids'),
+        title: Text(l10n.appTitle),
         backgroundColor: KidTheme.primaryBlue,
         foregroundColor: Colors.white,
         centerTitle: true,
@@ -91,7 +91,7 @@ class MainMenuScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Welcome! Let\'s learn together! 🌟',
+                        'مرحباً! دعنا نتعلم معاً! 🌟',
                         style: TextStyle(
                           fontSize: 18,
                           color: KidTheme.darkBlue,
@@ -107,15 +107,15 @@ class MainMenuScreen extends StatelessWidget {
                 _buildKidsMenuCard(
                   context: context,
                   title: 'صلوات اليومية',
-                  titleEnglish: 'Daily Prayers',
+                  titleEnglish: l10n.dailyRoutine,
                   description: 'تعلم الصلوات الخمس اليومية والأذكار',
-                  descriptionEnglish: 'Learn the five daily prayers and dhikr',
+                  descriptionEnglish: l10n.dailyRoutineDescription,
                   icon: Icons.mosque,
                   color: KidTheme.primaryBlue,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => const PrayersAzkarScreen(),
+                        builder: (context) => const PrayersScreen(),
                       ),
                     );
                   },
@@ -127,9 +127,9 @@ class MainMenuScreen extends StatelessWidget {
                 _buildKidsMenuCard(
                   context: context,
                   title: 'قرآن الكريم',
-                  titleEnglish: 'Holy Quran',
+                  titleEnglish: l10n.quranKareem,
                   description: 'تعلم جزء عم مع السور الجميلة',
-                  descriptionEnglish: 'Learn Juz Amma with beautiful surahs',
+                  descriptionEnglish: l10n.quranDescription,
                   icon: Icons.menu_book,
                   color: KidTheme.primaryGreen,
                   onTap: () {
@@ -174,7 +174,7 @@ class MainMenuScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        'Keep learning and growing! 🌈',
+                        'استمر في التعلم والنمو! 🌈',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -346,7 +346,7 @@ class MainMenuScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'Let\'s Start! 🚀',
+                      'لنبدأ! 🚀',
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

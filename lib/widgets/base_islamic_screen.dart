@@ -6,7 +6,7 @@ import '../theme/kid_theme.dart';
 
 /// Base screen component for Islamic app screens that share common structure
 /// This provides a consistent layout and common functionality for screens like
-/// PrayersAzkarScreen, SadaqatScreen, and ZakatScreen
+/// PrayersScreen, QuranScreen, and other Islamic screens
 class BaseIslamicScreen extends StatefulWidget {
   final String title;
   final Widget header;
@@ -105,12 +105,6 @@ class _BaseIslamicScreenState extends State<BaseIslamicScreen> {
     if (title.contains('routine') || title.contains('daily')) {
       // Prayers & Azkar screen
       return provider.todayProgress == null;
-    } else if (title.contains('sadaqat')) {
-      // Sadaqat screen
-      return provider.monthlyProgress == null;
-    } else if (title.contains('zakat')) {
-      // Zakat screen
-      return provider.zakatYear == null;
     }
     
     return false;

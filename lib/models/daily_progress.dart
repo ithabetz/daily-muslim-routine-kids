@@ -65,6 +65,39 @@ class DailyProgress {
     );
   }
 
+  DailyProgress updatePrayerDetails({
+    required PrayerType prayerType,
+    bool? prayedOnTime,
+    bool? inMosque,
+    bool? prayedOutOfTime,
+  }) {
+    final updatedPrayers = prayers.map((prayer) {
+      if (prayer.type == prayerType) {
+        // Determine if prayer is completed based on any checkbox being true
+        final isCompleted = (prayedOnTime ?? prayer.prayedOnTime) || 
+                           (inMosque ?? prayer.inMosque) || 
+                           (prayedOutOfTime ?? prayer.prayedOutOfTime);
+        
+        return PrayerTask(
+          type: prayerType,
+          time: prayer.time,
+          isCompleted: isCompleted,
+          prayedOnTime: prayedOnTime ?? prayer.prayedOnTime,
+          inMosque: inMosque ?? prayer.inMosque,
+          prayedOutOfTime: prayedOutOfTime ?? prayer.prayedOutOfTime,
+        );
+      }
+      return prayer;
+    }).toList();
+    
+    return DailyProgress(
+      date: date,
+      prayers: updatedPrayers,
+      azkar: azkar,
+      sunnahPrayers: sunnahPrayers,
+    );
+  }
+
   DailyProgress updateAzkar(AzkarType azkarType, bool completed) {
     final updatedAzkar = azkar.map((azkar) {
       if (azkar.type == azkarType) {
@@ -141,33 +174,13 @@ class DailyProgress {
       }
     }
     
-    // Scale sunnah score to 2.5 points max
-    double sunnahScore = sunnahMaxScore > 0 ? (sunnahRawScore / sunnahMaxScore) * 2.5 : 0.0;
-
-    // ==========================================
-    // WIRD TASKS (2.5 points max)
-    // ==========================================
-    double wirdRawScore = 0;
-    double wirdMaxScore = 0;
-    
-    // Wird Azkar
-    for (var a in azkar) {
-      if (a.taskType == TaskType.wird) {
-        wirdMaxScore += a.weight;
-        if (a.isCompleted) {
-          wirdRawScore += a.weight;
-        }
-      }
-    }
-    
-    
-    // Scale wird score to 2.5 points max
-    double wirdScore = wirdMaxScore > 0 ? (wirdRawScore / wirdMaxScore) * 2.5 : 0.0;
+    // Scale sunnah score to 5.0 points max (increased from 2.5 since we removed wird)
+    double sunnahScore = sunnahMaxScore > 0 ? (sunnahRawScore / sunnahMaxScore) * 5.0 : 0.0;
 
     // ==========================================
     // TOTAL SCORE (10.0 points max)
     // ==========================================
-    return fardScore + sunnahScore + wirdScore;
+    return fardScore + sunnahScore;
   }
 
   Map<String, dynamic> getScoreBreakdown() {
@@ -193,26 +206,12 @@ class DailyProgress {
       if (s.isCompleted) sunnahRawScore += s.weight;
     }
     
-    double sunnahScore = sunnahMaxScore > 0 ? (sunnahRawScore / sunnahMaxScore) * 2.5 : 0.0;
-
-    double wirdRawScore = 0;
-    double wirdMaxScore = 0;
-    
-    for (var a in azkar) {
-      if (a.taskType == TaskType.wird) {
-        wirdMaxScore += a.weight;
-        if (a.isCompleted) wirdRawScore += a.weight;
-      }
-    }
-    
-    
-    double wirdScore = wirdMaxScore > 0 ? (wirdRawScore / wirdMaxScore) * 2.5 : 0.0;
+    double sunnahScore = sunnahMaxScore > 0 ? (sunnahRawScore / sunnahMaxScore) * 5.0 : 0.0;
 
     return {
       'fard': fardScore,
       'sunnah': sunnahScore,
-      'wird': wirdScore,
-      'total': fardScore + sunnahScore + wirdScore,
+      'total': fardScore + sunnahScore,
     };
   }
 

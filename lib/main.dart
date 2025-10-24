@@ -10,7 +10,7 @@ import 'services/notification_service.dart';
 import 'services/storage_service.dart';
 import 'screens/setup_screen.dart';
 import 'screens/main_menu_screen.dart';
-import 'screens/prayers_azkar_screen.dart';
+import 'screens/prayers_screen.dart';
 import 'screens/quran_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/login_screen.dart';
@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<LocaleProvider>(
         builder: (context, localeProvider, child) {
           return MaterialApp(
-            title: 'Daily Muslim Routine - Kids',
+            title: 'الروتين الإسلامي اليومي - للأطفال',
             locale: localeProvider.locale,
             localizationsDelegates: [
               AppLocalizations.delegate,
@@ -67,7 +67,6 @@ class MyApp extends StatelessWidget {
             ],
             supportedLocales: const [
               Locale('ar', ''),
-              Locale('en', ''),
             ],
             theme: KidTheme.kidTheme,
             home: const SplashScreen(),
@@ -76,7 +75,7 @@ class MyApp extends StatelessWidget {
               '/signup': (context) => const SignupScreen(),
               '/setup': (context) => const SetupScreen(),
               '/main-menu': (context) => const MainMenuScreen(),
-              '/home': (context) => const PrayersAzkarScreen(),
+              '/home': (context) => const PrayersScreen(),
               '/quran': (context) => const QuranScreen(),
               '/settings': (context) => const SettingsScreen(),
               '/profile': (context) => const ProfileScreen(),
@@ -152,7 +151,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 return Column(
                   children: [
                     Text(
-                      l10n?.appTitleBilingual ?? 'Daily Muslim Routine - Kids',
+                      l10n?.appTitle ?? '',
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.bold,
@@ -161,7 +160,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      l10n?.appDescription ?? 'Learn prayers and Quran for kids',
+                      l10n?.appSubtitle ?? '',
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.white70,

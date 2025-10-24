@@ -36,13 +36,9 @@ dependencies:
   
   # Date/Time Utilities
   intl: ^0.20.2
-  http: ^1.2.2
   
   # Icons
   cupertino_icons: ^1.0.6
-  
-  # UUID generation
-  uuid: ^4.4.0
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +53,6 @@ flutter:
   # Assets
   assets:
     - assets/images/
-    - assets/sounds/
   
   # Add custom fonts if needed
   # fonts:

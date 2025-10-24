@@ -351,6 +351,34 @@ class AppProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updatePrayerDetails({
+    required PrayerType prayerType,
+    bool? prayedOnTime,
+    bool? inMosque,
+    bool? prayedOutOfTime,
+  }) async {
+    if (_todayProgress == null) return;
+
+    _todayProgress = _todayProgress!.updatePrayerDetails(
+      prayerType: prayerType,
+      prayedOnTime: prayedOnTime,
+      inMosque: inMosque,
+      prayedOutOfTime: prayedOutOfTime,
+    );
+    await StorageService.saveDailyProgress(_todayProgress!);
+    
+    // Sync with cloud if authenticated
+    if (_userProfile != null) {
+      try {
+        await _cloudStorage.saveDailyProgress(_userProfile!.uid, _todayProgress!);
+      } catch (e) {
+        // Handle sync error silently
+      }
+    }
+
+    notifyListeners();
+  }
+
   Future<void> updateAzkar(AzkarType azkarType, bool completed) async {
     if (_todayProgress == null) return;
     
@@ -439,9 +467,6 @@ class AppProvider with ChangeNotifier {
     await updateSunnahPrayer(sunnahType, !currentPrayer.isCompleted);
   }
 
-  // Placeholder properties for compatibility
-  dynamic get monthlyProgress => null;
-  dynamic get zakatYear => null;
   Future<void> _loadUserDataFromCloud() async {
     if (_userProfile == null) return;
     
@@ -470,8 +495,6 @@ class AppProvider with ChangeNotifier {
     try {
       // Save daily progress to local storage
       if (_todayProgress != null) {
-      final today = DateTime.now();
-        final todayKey = '${today.year}_${today.month.toString().padLeft(2, '0')}_${today.day.toString().padLeft(2, '0')}';
         await StorageService.saveDailyProgress(_todayProgress!);
       }
       

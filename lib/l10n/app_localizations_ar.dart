@@ -12,15 +12,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get appTitle => 'الروتين الإسلامي اليومي - للأطفال';
 
   @override
-  String get appSubtitle => 'الروتين الإسلامي اليومي - للأطفال';
-
-  @override
-  String get appTitleBilingual => 'الروتين الإسلامي اليومي - للأطفال';
-
-  @override
-  String get appDescription => 'تعلم الصلوات والقرآن للأطفال';
-
-  @override
   String get ok => 'موافق';
 
   @override
@@ -58,18 +49,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get no => 'لا';
-
-  @override
-  String get week => 'أسبوع';
-
-  @override
-  String get month => 'شهر';
-
-  @override
-  String get all => 'الكل';
-
-  @override
-  String get trackYourPractices => 'تعلم الصلوات والقرآن';
 
   @override
   String get welcomeBack => 'مرحباً بعودتك';
@@ -193,9 +172,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get isha => 'العشاء';
 
   @override
-  String get prayerTime => 'وقت الصلاة';
-
-  @override
   String get prayedOnTime => 'صليت في الوقت';
 
   @override
@@ -205,19 +181,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get prayedOutOfTime => 'صليت خارج الوقت';
 
   @override
-  String get nextPrayer => 'الصلاة القادمة';
-
-  @override
-  String get prayerReminder => 'تذكير الصلاة';
-
-  @override
   String get morningAzkar => 'أذكار الصباح';
 
   @override
   String get eveningAzkar => 'أذكار المساء';
-
-  @override
-  String get dailyAzkar => 'الأذكار اليومية';
 
   @override
   String get tasbih => 'التسبيح (100 مرة)';
@@ -229,22 +196,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get salatAlaNabi => 'الصلاة على النبي (100 مرة)';
 
   @override
-  String get subhanAllah => 'سبحان الله (100 مرة)';
-
-  @override
-  String get alhamdulillah => 'الحمد لله (100 مرة)';
-
-  @override
-  String get allahuAkbar => 'الله أكبر (100 مرة)';
-
-  @override
   String get quranReading => 'قراءة القرآن';
 
   @override
   String get quranListening => 'الاستماع للقرآن';
-
-  @override
-  String get sunnahPrayers => 'السنن المهمة';
 
   @override
   String get duha => 'صلاة الضحى';
@@ -259,53 +214,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get qiyamDescription => 'صلاة الليل قبل الفجر';
 
   @override
-  String get quranMemorization => 'حفظ القرآن';
-
-  @override
-  String get juzAmma => 'جزء عم';
-
-  @override
   String get memorized => 'محفوظة';
 
   @override
   String get notMemorized => 'لم تحفظ';
 
   @override
-  String get memorizationProgress => 'تقدم الحفظ';
-
-  @override
-  String surahNumber(Object number) {
-    return 'سورة رقم $number';
-  }
-
-  @override
-  String verseCount(Object count) {
-    return '$count آية';
-  }
-
-  @override
   String get meccan => 'مكية';
 
   @override
   String get medinan => 'مدنية';
-
-  @override
-  String get totalScore => 'النقاط الإجمالية';
-
-  @override
-  String get fardScore => 'نقاط النوافل';
-
-  @override
-  String get sunnahScore => 'نقاط السنة';
-
-  @override
-  String get wirdScore => 'نقاط الورد';
-
-  @override
-  String get points => 'نقاط';
-
-  @override
-  String get percentage => 'النسبة المئوية';
 
   @override
   String get settings => 'الإعدادات';
@@ -315,9 +233,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get location => 'الموقع';
-
-  @override
-  String get language => 'اللغة';
 
   @override
   String get about => 'حول';
@@ -336,18 +251,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notSet => 'غير محدد';
-
-  @override
-  String get english => 'الإنجليزية';
-
-  @override
-  String get arabic => 'العربية';
-
-  @override
-  String get selectLanguage => 'اختر اللغة';
-
-  @override
-  String get languageChanged => 'تم تغيير اللغة';
 
   @override
   String get changeLocation => 'تغيير الموقع';
@@ -421,15 +324,6 @@ class AppLocalizationsAr extends AppLocalizations {
   String get passwordResetEmailSent => 'تم إرسال بريد إعادة تعيين كلمة المرور';
 
   @override
-  String get somethingWentWrong => 'حدث خطأ ما';
-
-  @override
-  String get networkError => 'خطأ في الشبكة. يرجى التحقق من اتصالك.';
-
-  @override
-  String get unknownError => 'حدث خطأ غير معروف';
-
-  @override
   String get dontHaveAccountQuestion => 'ليس لديك حساب؟';
 
   @override
@@ -451,7 +345,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dataRestoredSuccessfully => 'تم استعادة البيانات بنجاح';
 
   @override
-  String get failedToRestoreData => 'فشل في استعادة البيانات';
+  String get appSubtitle => 'تعلم الصلوات والقرآن للأطفال';
+
+  @override
+  String get completeYourPrayer => 'أكمل صلاتك:';
+
+  @override
+  String get greatJobPrayerCompleted => 'ممتاز! تمت الصلاة! 🎉';
+
+  @override
+  String get timeNotSet => 'الوقت غير محدد';
 
   @override
   String get prayerTimeTitle => 'وقت الصلاة';
@@ -495,18 +398,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get verses => 'آيات';
-
-  @override
-  String get egyptianPound => 'ج.م';
-
-  @override
-  String get monthlyProgress => 'التقدم الشهري';
-
-  @override
-  String get dailyTarget => 'الهدف اليومي';
-
-  @override
-  String get khatmahProgress => 'تقدم الخطامة';
 
   @override
   String get tahmid => 'التحميد (100 مرة)';
@@ -572,26 +463,8 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sunnah => 'السنة';
 
   @override
-  String get wird => 'الورد';
-
-  @override
-  String get sadaqat => 'الصدقات';
-
-  @override
-  String get muhasabatAlNafsTracker => 'محاسبة النفس';
-
-  @override
   String get mandatory => 'إجباري';
 
   @override
   String get recommended => 'مستحب';
-
-  @override
-  String get dailyDevotion => 'العبادة اليومية';
-
-  @override
-  String get charity => 'الخير';
-
-  @override
-  String get selfAccountability => 'محاسبة النفس';
 }

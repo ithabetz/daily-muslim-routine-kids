@@ -104,7 +104,6 @@ extension AzkarTypeExtension on AzkarType {
       case AzkarType.evening:
       case AzkarType.quranReading:
       case AzkarType.quranListening:
-        return TaskType.wird; // Moved to Wird category
       case AzkarType.istighfar:
       case AzkarType.salatAlaNabi:
       case AzkarType.tasbih:
@@ -112,7 +111,7 @@ extension AzkarTypeExtension on AzkarType {
       case AzkarType.laIlahaIllaAllah:
       case AzkarType.takbir:
       case AzkarType.laHawlaWaLaQuwwata:
-        return TaskType.wird;
+        return TaskType.sunnah;
     }
   }
   

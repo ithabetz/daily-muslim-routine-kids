@@ -6,15 +6,6 @@
   "@appTitle": {
     "description": "The title of the application"
   },
-  "appSubtitle": "الروتين الإسلامي اليومي - للأطفال",
-  "appTitleBilingual": "الروتين الإسلامي اليومي - للأطفال",
-  "@appSubtitle": {
-    "description": "The subtitle of the application"
-  },
-  "appDescription": "تعلم الصلوات والقرآن للأطفال",
-  "@appDescription": {
-    "description": "The description of the application"
-  },
   
   "@_COMMON": {},
   "ok": "موافق",
@@ -30,12 +21,6 @@
   "success": "نجح",
   "yes": "نعم",
   "no": "لا",
-  "week": "أسبوع",
-  "month": "شهر", 
-  "all": "الكل",
-  
-  "@_SPLASH_SCREEN": {},
-  "trackYourPractices": "تعلم الصلوات والقرآن",
   
   "@_LOGIN_SCREEN": {},
   "welcomeBack": "مرحباً بعودتك",
@@ -86,67 +71,41 @@
   "asr": "العصر",
   "maghrib": "المغرب",
   "isha": "العشاء",
-  "prayerTime": "وقت الصلاة",
   "prayedOnTime": "صليت في الوقت",
   "inMosque": "في المسجد",
   "prayedOutOfTime": "صليت خارج الوقت",
-  "nextPrayer": "الصلاة القادمة",
-  "prayerReminder": "تذكير الصلاة",
   
   "@_AZKAR": {},
   "morningAzkar": "أذكار الصباح",
   "eveningAzkar": "أذكار المساء",
-  "dailyAzkar": "الأذكار اليومية",
   "tasbih": "التسبيح (100 مرة)",
   "istighfar": "الاستغفار (100 مرة)",
   "salatAlaNabi": "الصلاة على النبي (100 مرة)",
-  "subhanAllah": "سبحان الله (100 مرة)",
-  "alhamdulillah": "الحمد لله (100 مرة)",
-  "allahuAkbar": "الله أكبر (100 مرة)",
   "quranReading": "قراءة القرآن",
   "quranListening": "الاستماع للقرآن",
   
   "@_SUNNAH_PRAYERS": {},
-  "sunnahPrayers": "السنن المهمة",
   "duha": "صلاة الضحى",
   "qiyam": "قيام الليل",
   "duhaDescription": "صلاة الصباح بعد الشروق",
   "qiyamDescription": "صلاة الليل قبل الفجر",
   
   "@_QURAN": {},
-  "quranMemorization": "حفظ القرآن",
-  "juzAmma": "جزء عم",
   "memorized": "محفوظة",
   "notMemorized": "لم تحفظ",
-  "memorizationProgress": "تقدم الحفظ",
-  "surahNumber": "سورة رقم {number}",
-  "verseCount": "{count} آية",
   "meccan": "مكية",
   "medinan": "مدنية",
-  
-  "@_SCORING": {},
-  "totalScore": "النقاط الإجمالية",
-  "fardScore": "نقاط النوافل",
-  "sunnahScore": "نقاط السنة", 
-  "wirdScore": "نقاط الورد",
-  "points": "نقاط",
-  "percentage": "النسبة المئوية",
   
   "@_SETTINGS": {},
   "settings": "الإعدادات",
   "account": "الحساب",
   "location": "الموقع",
-  "language": "اللغة",
   "about": "حول",
   "version": "الإصدار",
   "appVersion": "1.0.0",
   "aboutApp": "تطبيق للأطفال لتعلم الممارسات الإسلامية",
   "city": "المدينة",
   "notSet": "غير محدد",
-  "english": "الإنجليزية",
-  "arabic": "العربية",
-  "selectLanguage": "اختر اللغة",
-  "languageChanged": "تم تغيير اللغة",
   "changeLocation": "تغيير الموقع",
   "cityName": "اسم المدينة",
   "locationUpdated": "تم تحديث الموقع",
@@ -174,9 +133,6 @@
   "@_ERROR_MESSAGES": {},
   "pleaseEnterEmailAddress": "يرجى إدخال عنوان بريدك الإلكتروني",
   "passwordResetEmailSent": "تم إرسال بريد إعادة تعيين كلمة المرور",
-  "somethingWentWrong": "حدث خطأ ما",
-  "networkError": "خطأ في الشبكة. يرجى التحقق من اتصالك.",
-  "unknownError": "حدث خطأ غير معروف",
   
   "@_ADDITIONAL_STRINGS": {},
   "dontHaveAccountQuestion": "ليس لديك حساب؟",
@@ -186,7 +142,10 @@
   "savingDataLocally": "جاري حفظ البيانات محلياً...",
   "updatingProfile": "جاري تحديث الملف الشخصي...",
   "dataRestoredSuccessfully": "تم استعادة البيانات بنجاح",
-  "failedToRestoreData": "فشل في استعادة البيانات",
+  "appSubtitle": "تعلم الصلوات والقرآن للأطفال",
+  "completeYourPrayer": "أكمل صلاتك:",
+  "greatJobPrayerCompleted": "ممتاز! تمت الصلاة! 🎉",
+  "timeNotSet": "الوقت غير محدد",
   "prayerTimeTitle": "وقت الصلاة",
   "prayerTimeBody": "حان وقت صلاة {prayer}",
   "prayerReminderTitle": "تذكير الصلاة",
@@ -200,10 +159,6 @@
   "shortDateFormat": "MMM d",
   "historyAndReports": "التاريخ والتقارير",
   "verses": "آيات",
-  "egyptianPound": "ج.م",
-  "monthlyProgress": "التقدم الشهري",
-  "dailyTarget": "الهدف اليومي",
-  "khatmahProgress": "تقدم الخطامة",
   
   "@_AZKAR_TYPES": {},
   "tahmid": "التحميد (100 مرة)",
@@ -231,12 +186,6 @@
   "@_TASK_TYPES": {},
   "fard": "الفرض",
   "sunnah": "السنة",
-  "wird": "الورد",
-  "sadaqat": "الصدقات",
-  "muhasabatAlNafsTracker": "محاسبة النفس",
   "mandatory": "إجباري",
-  "recommended": "مستحب",
-  "dailyDevotion": "العبادة اليومية",
-  "charity": "الخير",
-  "selfAccountability": "محاسبة النفس"
+  "recommended": "مستحب"
 }

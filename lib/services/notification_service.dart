@@ -93,8 +93,8 @@ class NotificationService {
     // Different sound settings for prayer time vs reminders
     final androidDetails = AndroidNotificationDetails(
       'prayer_channel',
-      l10n?.prayerNotificationsChannel ?? 'Prayer Notifications',
-      channelDescription: l10n?.prayerNotificationsDescription ?? 'Notifications for prayer times and reminders',
+      l10n?.prayerNotificationsChannel ?? 'إشعارات الصلاة',
+      channelDescription: l10n?.prayerNotificationsDescription ?? 'إشعارات لأوقات الصلاة والتذكيرات',
       importance: Importance.high,
       priority: Priority.high,
       playSound: true,
@@ -125,8 +125,8 @@ class NotificationService {
   }) async {
     final androidDetails = AndroidNotificationDetails(
       'instant_channel',
-      l10n?.instantNotificationsChannel ?? 'Instant Notifications',
-      channelDescription: l10n?.instantNotificationsDescription ?? 'Instant notifications',
+      l10n?.instantNotificationsChannel ?? 'الإشعارات الفورية',
+      channelDescription: l10n?.instantNotificationsDescription ?? 'الإشعارات الفورية',
       importance: Importance.high,
       priority: Priority.high,
     );

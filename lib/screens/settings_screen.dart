@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
-import '../providers/locale_provider.dart';
 import '../services/storage_service.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -91,33 +90,6 @@ class SettingsScreen extends StatelessWidget {
                 onTap: () => _showChangeLocationDialog(context, provider),
               ),
               
-              
-              const Divider(),
-              
-              // Language Section
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  l10n.language,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
-              ),
-              
-              Consumer<LocaleProvider>(
-                builder: (context, localeProvider, child) {
-                  return ListTile(
-                    leading: const Icon(Icons.language),
-                    title: Text(l10n.language),
-                    subtitle: Text(localeProvider.isEnglish ? l10n.english : l10n.arabic),
-                    trailing: const Icon(Icons.chevron_right),
-                    onTap: () => _showLanguageDialog(context, localeProvider),
-                  );
-                },
-              ),
               
               const Divider(),
               
@@ -248,60 +220,6 @@ class SettingsScreen extends StatelessWidget {
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
             child: Text(l10n.clear),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _showLanguageDialog(BuildContext context, LocaleProvider localeProvider) {
-    final l10n = AppLocalizations.of(context)!;
-    
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.selectLanguage),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile<Locale>(
-              title: Text(l10n.english),
-              value: const Locale('en'),
-              groupValue: localeProvider.locale,
-              onChanged: (Locale? value) async {
-                if (value != null) {
-                  await localeProvider.setLocale(value);
-                  if (context.mounted) {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.languageChanged)),
-                    );
-                  }
-                }
-              },
-            ),
-            RadioListTile<Locale>(
-              title: Text(l10n.arabic),
-              value: const Locale('ar'),
-              groupValue: localeProvider.locale,
-              onChanged: (Locale? value) async {
-                if (value != null) {
-                  await localeProvider.setLocale(value);
-                  if (context.mounted) {
-                    Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(l10n.languageChanged)),
-                    );
-                  }
-                }
-              },
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancel),
           ),
         ],
       ),

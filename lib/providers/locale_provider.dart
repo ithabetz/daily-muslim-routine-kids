@@ -48,6 +48,5 @@ class LocaleProvider with ChangeNotifier {
   }
 
   bool get isArabic => _locale.languageCode == 'ar';
-  bool get isEnglish => _locale.languageCode == 'en';
 }
 

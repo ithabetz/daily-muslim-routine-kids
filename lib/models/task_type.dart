@@ -9,9 +9,6 @@ enum PrayerStatus {
 enum TaskType {
   fard,     // Mandatory (5 prayers)
   sunnah,   // Sunnah (Qiyam al-Layl)
-  wird,     // Daily Wird (Quran, Azkar, Salat ala Nabi)
-  sadaqat,  // Monthly Sadaqat (Unified charity tracking)
-  muhasabatAlNafs, // محاسبة النفس (Self-accountability)
 }
 
 extension TaskTypeExtension on TaskType {
@@ -21,12 +18,6 @@ extension TaskTypeExtension on TaskType {
         return l10n.fard;
       case TaskType.sunnah:
         return l10n.sunnah;
-      case TaskType.wird:
-        return l10n.wird;
-      case TaskType.sadaqat:
-        return l10n.sadaqat;
-      case TaskType.muhasabatAlNafs:
-        return l10n.muhasabatAlNafsTracker;
     }
   }
   
@@ -36,12 +27,6 @@ extension TaskTypeExtension on TaskType {
         return 'Mandatory';
       case TaskType.sunnah:
         return 'Recommended';
-      case TaskType.wird:
-        return 'Daily Devotion';
-      case TaskType.sadaqat:
-        return 'Charity';
-      case TaskType.muhasabatAlNafs:
-        return 'Self-Accountability';
     }
   }
   
@@ -51,12 +36,6 @@ extension TaskTypeExtension on TaskType {
         return l10n.mandatory;
       case TaskType.sunnah:
         return l10n.recommended;
-      case TaskType.wird:
-        return l10n.dailyDevotion;
-      case TaskType.sadaqat:
-        return l10n.charity;
-      case TaskType.muhasabatAlNafs:
-        return l10n.selfAccountability;
     }
   }
 }

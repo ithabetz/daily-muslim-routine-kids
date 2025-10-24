@@ -4,6 +4,7 @@ import '../models/quran_memorization.dart';
 import '../services/quran_memorization_service.dart';
 import '../theme/kid_theme.dart';
 import '../widgets/celebration_animations.dart';
+import '../l10n/app_localizations.dart';
 
 class QuranScreen extends StatefulWidget {
   const QuranScreen({super.key});
@@ -75,17 +76,17 @@ class _QuranScreenState extends State<QuranScreen> {
     if (_isLoading) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text('قرآن الكريم - Holy Quran'),
+          title: Text(AppLocalizations.of(context)?.quranKareem ?? 'قرآن الكريم'),
           backgroundColor: Colors.green,
           foregroundColor: Colors.white,
         ),
-        body: const Center(
+        body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text('Loading Quran...'),
+              const CircularProgressIndicator(),
+              const SizedBox(height: 16),
+              Text(AppLocalizations.of(context)?.loading ?? 'جاري التحميل...'),
             ],
           ),
         ),
@@ -94,7 +95,7 @@ class _QuranScreenState extends State<QuranScreen> {
     
     return Scaffold(
       appBar: AppBar(
-        title: const Text('قرآن الكريم - Holy Quran'),
+        title: Text(AppLocalizations.of(context)?.quranKareem ?? 'قرآن الكريم'),
         backgroundColor: KidTheme.primaryGreen,
         foregroundColor: Colors.white,
         actions: [
@@ -113,7 +114,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   Icon(Icons.cloud_off, size: 16, color: Colors.orange.shade700),
                   const SizedBox(width: 4),
                   Text(
-                    'Offline',
+                    'غير متصل',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.orange.shade700,
@@ -185,7 +186,7 @@ class _QuranScreenState extends State<QuranScreen> {
               ),
               const SizedBox(width: 16),
               Text(
-                'جزء عم - Juz Amma',
+                'جزء عم',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -208,7 +209,7 @@ class _QuranScreenState extends State<QuranScreen> {
             child: Column(
               children: [
                 Text(
-                  'تقدمك في الحفظ - Your Memorization Progress',
+                  'تقدمك في الحفظ',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -251,7 +252,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 ),
                 
                 Text(
-                  '${progressPercentage.toStringAsFixed(1)}% Complete',
+                  '${progressPercentage.toStringAsFixed(1)}% مكتمل',
                   style: TextStyle(
                     fontSize: 12,
                     color: Colors.green.shade600,
@@ -321,7 +322,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'Keep memorizing! You\'re amazing!',
+                  'استمر في الحفظ! أنت رائع!',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.amber.shade700,
@@ -519,7 +520,7 @@ class _QuranScreenState extends State<QuranScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('حدث خطأ: $e'),
+            content: Text('${AppLocalizations.of(context)?.error ?? 'خطأ'}: $e'),
             backgroundColor: Colors.red,
           ),
         );
