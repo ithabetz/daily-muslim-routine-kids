@@ -33,17 +33,17 @@ class _PrayersScreenState extends State<PrayersScreen> {
 
   String _getKidsMessageForScore(double percentage, AppLocalizations l10n) {
     if (percentage >= 90) {
-      return "ممتاز! أنت رائع! 🌟\nExcellent! You're amazing!";
+      return "ممتاز! أنت رائع! 🌟";
     } else if (percentage >= 70) {
-      return "أحسنت! استمر هكذا! 👏\nGreat job! Keep it up!";
+      return "أحسنت! استمر هكذا! 👏";
     } else if (percentage >= 50) {
-      return "جيد جداً! تابع التقدم! 😊\nVery good! Keep progressing!";
+      return "جيد جداً! تابع التقدم! 😊";
     } else if (percentage >= 30) {
-      return "لا بأس، حاول مرة أخرى! 💪\nIt's okay, try again!";
+      return "لا بأس، حاول مرة أخرى! 💪";
     } else if (percentage > 0) {
-      return "ابدأ يومك بالصلاة! 🤲\nStart your day with prayers!";
+      return "ابدأ يومك بالصلاة! 🤲";
     } else {
-      return "ابدأ رحلتك الجميلة! 🌈\nBegin your beautiful journey!";
+      return "ابدأ رحلتك الجميلة! 🌈";
     }
   }
 

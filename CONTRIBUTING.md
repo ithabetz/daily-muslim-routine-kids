@@ -1,6 +1,7 @@
-# Contributing to Muslim App
+# المساهمة في تطبيق الروتين الإسلامي اليومي للأطفال
+## Contributing to Daily Muslim Routine - Kids Version
 
-Thank you for considering contributing to the Muslim app! This document provides guidelines and instructions for contributors.
+Thank you for considering contributing to the Daily Muslim Routine Kids app! This document provides guidelines and instructions for contributors.
 
 ---
 
@@ -34,21 +35,19 @@ Thank you for considering contributing to the Muslim app! This document provides
 
 ### Prerequisites
 1. Read [README.md](README.md) for project overview
-2. Read [ARCHITECTURE.md](ARCHITECTURE.md) for code structure
-3. Complete [SETUP_GUIDE.md](SETUP_GUIDE.md) for development environment
-4. Familiarize yourself with [FEATURES.md](FEATURES.md)
+2. Read [FIREBASE_SETUP_KIDS.md](FIREBASE_SETUP_KIDS.md) for Firebase setup
+3. Familiarize yourself with the Arabic-only Android app structure
 
 ### Development Setup
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd Islamic
+cd daily-muslim-routine-kids
 
 # Install dependencies
 flutter pub get
-cd ios && pod install && cd ..
 
-# Run the app
+# Run the app (Android only)
 flutter run
 ```
 

@@ -20,27 +20,27 @@ extension AzkarTypeExtension on AzkarType {
   String get displayName {
     switch (this) {
       case AzkarType.morning:
-        return 'Morning Azkar';
+        return 'أذكار الصباح';
       case AzkarType.evening:
-        return 'Evening Azkar';
+        return 'أذكار المساء';
       case AzkarType.quranReading:
-        return 'Read Quran';
+        return 'قراءة القرآن';
       case AzkarType.quranListening:
-        return 'Listen to Quran';
+        return 'الاستماع للقرآن';
       case AzkarType.istighfar:
-        return 'Istighfar (100x)';
+        return 'الاستغفار (100 مرة)';
       case AzkarType.salatAlaNabi:
-        return 'Salat ala Nabi (100x)';
+        return 'الصلاة على النبي (100 مرة)';
       case AzkarType.laHawlaWaLaQuwwata:
-        return 'La Hawla Wa La Quwwata Illa Billah (100x)';
+        return 'لا حول ولا قوة إلا بالله (100 مرة)';
       case AzkarType.tasbih:
-        return 'Subhan Allah (100x)';
+        return 'سبحان الله (100 مرة)';
       case AzkarType.tahmid:
-        return 'Alhamdulillah (100x)';
+        return 'الحمد لله (100 مرة)';
       case AzkarType.takbir:
-        return 'Allahu Akbar (100x)';
+        return 'الله أكبر (100 مرة)';
       case AzkarType.laIlahaIllaAllah:
-        return 'La Ilaha Illa Allah (100x)';
+        return 'لا إله إلا الله (100 مرة)';
     }
   }
 
@@ -118,9 +118,9 @@ extension AzkarTypeExtension on AzkarType {
   double get weight {
     switch (this) {
       case AzkarType.morning:
-        return 0.7; // Morning Azkar gets 0.7 points
+        return 0.7; // أذكار الصباح تحصل على 0.7 نقطة
       case AzkarType.evening:
-        return 0.7; // Evening Azkar gets 0.7 points
+        return 0.7; // أذكار المساء تحصل على 0.7 نقطة
       case AzkarType.quranReading:
         return 0.2; // Quran Reading gets 0.2 points
       case AzkarType.quranListening:

@@ -1,6 +1,7 @@
-# Daily Muslim Routine - Kids Version 👶
+# الروتين الإسلامي اليومي - للأطفال 👶
+## Daily Muslim Routine - Kids Version
 
-A simplified Flutter app designed specifically for children to learn and track their daily Islamic practices. This version focuses on the essentials: daily prayers and Quran memorization (Juz Amma).
+A simplified Flutter app designed specifically for children to learn and track their daily Islamic practices. This Arabic-focused Android app helps kids develop healthy Islamic habits through prayer tracking and Quran memorization.
 
 ## 🌟 Features
 
@@ -15,21 +16,21 @@ A simplified Flutter app designed specifically for children to learn and track t
 - **Juz Amma Focus**: Complete Juz 30 (Amma) with all 37 surahs
 - **Memorization Tracking**: Mark surahs as memorized with visual feedback
 - **Progress Visualization**: See how many surahs you've memorized
-- **Child-Friendly Cards**: Large, colorful surah cards with Arabic and English names
+- **Child-Friendly Cards**: Large, colorful surah cards with Arabic names
 
 ### 🎨 Child-Friendly Design
 - **Bright Colors**: Engaging color scheme with teal, green, and orange
 - **Large Text**: Easy-to-read fonts and buttons
-- **Simple Navigation**: Only 2 main screens to avoid confusion
+- **Simple Navigation**: Clean, intuitive interface
 - **Encouraging Messages**: Positive feedback and motivation
-- **Bilingual Support**: Arabic and English throughout
+- **Arabic-First**: Primary language is Arabic with English support
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Flutter SDK (>=3.0.0)
 - Dart SDK
-- Android Studio / Xcode
+- Android Studio (Android-only app)
 - Firebase project (see FIREBASE_SETUP_KIDS.md)
 
 ### Installation
@@ -48,9 +49,9 @@ A simplified Flutter app designed specifically for children to learn and track t
 3. **Setup Firebase**
    - Follow instructions in `FIREBASE_SETUP_KIDS.md`
    - Configure Firebase project for kids version
-   - Add `google-services.json` and `GoogleService-Info.plist`
+   - Add `google-services.json` to `android/app/`
 
-4. **Run the app**
+4. **Run the app (Android only)**
    ```bash
    flutter run
    ```
@@ -58,7 +59,7 @@ A simplified Flutter app designed specifically for children to learn and track t
 ## 📱 App Structure
 
 ### Main Menu
-- **Welcome Message**: Bilingual greeting for kids
+- **Welcome Message**: Arabic greeting for kids
 - **Two Main Options**: Daily Prayers and Quran
 - **Fun Footer**: Encouraging message with stars
 
@@ -102,11 +103,12 @@ dependencies:
 - **Focused Content**: Only essential Islamic practices
 - **Simplified UI**: Large buttons, clear navigation
 - **Child-Safe**: No complex calculations or adult features
+- **Arabic-First**: Primary language is Arabic
 
 ## 🎯 Target Audience
 
 - **Age Range**: 6-12 years old
-- **Language**: Arabic and English speakers
+- **Language**: Arabic speakers (with English support)
 - **Learning Level**: Beginner to intermediate
 - **Parental Guidance**: Designed for use with parental supervision
 
@@ -142,7 +144,7 @@ dependencies:
 ### Educational Approach
 - **Positive Reinforcement**: Encouraging messages and rewards
 - **Visual Progress**: Clear progress indicators
-- **Bilingual Learning**: Arabic and English together
+- **Arabic-First Learning**: Primary Arabic with English support
 - **Gamification**: Progress rings and completion tracking
 
 ## 🚀 Future Enhancements
@@ -177,11 +179,11 @@ lib/
 ├── providers/               # State management
 ├── screens/                 # UI screens
 │   ├── main_menu_screen.dart
-│   ├── prayers_azkar_screen.dart
+│   ├── prayers_screen.dart
 │   └── quran_screen.dart
 ├── services/               # Business logic
 ├── widgets/                # Reusable components
-└── l10n/                   # Localization
+└── l10n/                   # Localization (Arabic)
 ```
 
 ## 📞 Support
@@ -189,6 +191,7 @@ lib/
 ### Documentation
 - `FIREBASE_SETUP_KIDS.md` - Firebase configuration
 - `README.md` - This file
+- `CONTRIBUTING.md` - Development guidelines
 - Code comments for technical details
 
 ### Issues

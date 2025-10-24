@@ -11,9 +11,9 @@ extension SunnahPrayerTypeExtension on SunnahPrayerType {
   String get displayName {
     switch (this) {
       case SunnahPrayerType.salatAlDuha:
-        return 'Salat al-Duha (Morning Prayer)';
+        return 'صلاة الضحى';
       case SunnahPrayerType.qiyamAlLayl:
-        return 'Qiyam al-Layl (Night Prayer)';
+        return 'قيام الليل';
     }
   }
 
@@ -38,9 +38,9 @@ extension SunnahPrayerTypeExtension on SunnahPrayerType {
   String get description {
     switch (this) {
       case SunnahPrayerType.salatAlDuha:
-        return 'Morning prayer after sunrise';
+        return 'صلاة الصباح بعد الشروق';
       case SunnahPrayerType.qiyamAlLayl:
-        return 'Night prayer before Fajr';
+        return 'صلاة الليل قبل الفجر';
     }
   }
   
