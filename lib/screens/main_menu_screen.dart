@@ -30,7 +30,7 @@ class MainMenuScreen extends StatelessWidget {
         ],
       ),
       body: Container(
-        decoration: KidTheme.prayerGradient,
+        color: Colors.white,
         child: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(20.0),
@@ -42,26 +42,12 @@ class MainMenuScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(24),
                   margin: const EdgeInsets.only(bottom: 32),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        KidTheme.primaryBlue.withOpacity(0.1),
-                        KidTheme.primaryGreen.withOpacity(0.1),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: KidTheme.lightBlueBg,
                     borderRadius: BorderRadius.circular(24),
                     border: Border.all(
-                      color: KidTheme.primaryBlue.withOpacity(0.3),
+                      color: KidTheme.primaryBlue,
                       width: 2,
                     ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: KidTheme.primaryBlue.withOpacity(0.1),
-                        blurRadius: 12,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
                   ),
                   child: Column(
                     children: [
@@ -73,13 +59,6 @@ class MainMenuScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: KidTheme.primaryBlue,
                             borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: KidTheme.primaryBlue.withOpacity(0.3),
-                                blurRadius: 8,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
                           ),
                           child: const Icon(
                             Icons.child_care,
@@ -94,7 +73,7 @@ class MainMenuScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
-                          color: KidTheme.darkBlue,
+                          color: KidTheme.primaryBlue,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -103,7 +82,7 @@ class MainMenuScreen extends StatelessWidget {
                         l10n.letsLearnTogether,
                         style: TextStyle(
                           fontSize: 18,
-                          color: KidTheme.darkBlue,
+                          color: KidTheme.primaryBlue,
                           fontWeight: FontWeight.w500,
                         ),
                         textAlign: TextAlign.center,
@@ -140,7 +119,7 @@ class MainMenuScreen extends StatelessWidget {
                   description: 'تعلم جزء عم مع السور الجميلة',
                   descriptionEnglish: l10n.quranDescription,
                   icon: Icons.menu_book,
-                  color: KidTheme.primaryGreen,
+                  color: KidTheme.primaryBlue,
                   onTap: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -156,17 +135,10 @@ class MainMenuScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        KidTheme.primaryYellow.withOpacity(0.2),
-                        KidTheme.primaryOrange.withOpacity(0.2),
-                      ],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
+                    color: KidTheme.lightOrangeBg,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
-                      color: KidTheme.primaryYellow.withOpacity(0.4),
+                      color: KidTheme.primaryOrange,
                       width: 2,
                     ),
                   ),
@@ -187,7 +159,7 @@ class MainMenuScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: KidTheme.darkOrange,
+                          color: KidTheme.primaryOrange,
                         ),
                       ),
                       const SizedBox(width: 12),
@@ -232,16 +204,9 @@ class MainMenuScreen extends StatelessWidget {
           padding: const EdgeInsets.all(28),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24),
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                color.withOpacity(0.15),
-                color.withOpacity(0.08),
-              ],
-            ),
+            color: color == KidTheme.primaryBlue ? KidTheme.lightBlueBg : KidTheme.lightGreenBg,
             border: Border.all(
-              color: color.withOpacity(0.3),
+              color: color,
               width: 2,
             ),
           ),
@@ -255,13 +220,6 @@ class MainMenuScreen extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: color,
                     borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: color.withOpacity(0.4),
-                        blurRadius: 12,
-                        offset: const Offset(0, 6),
-                      ),
-                    ],
                   ),
                   child: Icon(
                     icon,
@@ -279,7 +237,7 @@ class MainMenuScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: color.withOpacity(0.9),
+                  color: color,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -292,7 +250,7 @@ class MainMenuScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
-                  color: color.withOpacity(0.8),
+                  color: color,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -304,7 +262,7 @@ class MainMenuScreen extends StatelessWidget {
                 description,
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.grey.shade700,
+                  color: KidTheme.mediumGray,
                   height: 1.4,
                   fontWeight: FontWeight.w500,
                 ),
@@ -318,7 +276,7 @@ class MainMenuScreen extends StatelessWidget {
                 descriptionEnglish,
                 style: TextStyle(
                   fontSize: 14,
-                  color: Colors.grey.shade600,
+                  color: KidTheme.mediumGray,
                   height: 1.3,
                   fontWeight: FontWeight.w500,
                 ),
@@ -331,19 +289,8 @@ class MainMenuScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [color, color.withOpacity(0.8)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  color: color,
                   borderRadius: BorderRadius.circular(30),
-                  boxShadow: [
-                    BoxShadow(
-                      color: color.withOpacity(0.3),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../theme/kid_theme.dart';
 
 // Centralized color constants for all ring types
 class RingColors {
@@ -167,7 +168,7 @@ class ScoreCardContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           gradient: LinearGradient(
             colors: [
-              Colors.teal.shade50,
+              KidTheme.lightBlueBg,
               Colors.white,
             ],
             begin: Alignment.topLeft,
@@ -181,7 +182,7 @@ class ScoreCardContainer extends StatelessWidget {
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: Colors.teal.shade800,
+                color: KidTheme.darkBlue,
               ),
               textAlign: TextAlign.center,
             ),

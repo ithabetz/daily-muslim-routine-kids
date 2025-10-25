@@ -18,6 +18,7 @@ import 'screens/signup_screen.dart';
 import 'screens/profile_screen.dart';
 import 'l10n/app_localizations.dart';
 import 'theme/kid_theme.dart';
+import 'widgets/praying_child_animation.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -137,40 +138,41 @@ class _AppInitializerState extends State<AppInitializer> {
 
 @override
   Widget build(BuildContext context) {
-    // final l10n = AppLocalizations.of(context)!;
-    // Show a minimal loading screen while initializing
     return Scaffold(
       backgroundColor: KidTheme.primaryBlue,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // App Title - Large text as shown in the image
+            // Animated praying child
+            const PrayingChildAnimation(
+              size: 180,
+              color: Colors.white,
+            ),
+            const SizedBox(height: 40),
+            
+            // App title
             Text(
-              AppLocalizations.of(context)?.appTitle ?? "Islamic Daily Routine Kids",
+              AppLocalizations.of(context)?.appTitle ?? "يوم في حياه طفل مسلم",
               style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
                 color: Colors.white,
               ),
               textAlign: TextAlign.center,
+              maxLines: 2,
             ),
-            const SizedBox(height: 8),
             
-            // Subtitle - Smaller text as shown in the image
-            Text(
-              AppLocalizations.of(context)?.appSubtitle ?? "Daily Islamic Activities for Kids",
-              style: const TextStyle(
-                fontSize: 16,
-                color: Colors.white70,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 48),
+            const SizedBox(height: 20),
             
             // Loading indicator
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            const SizedBox(
+              width: 30,
+              height: 30,
+              child: CircularProgressIndicator(
+                strokeWidth: 3,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
             ),
           ],
         ),
@@ -178,4 +180,3 @@ class _AppInitializerState extends State<AppInitializer> {
     );
   }
 }
-

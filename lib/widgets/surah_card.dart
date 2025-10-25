@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/surah.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/kid_theme.dart';
 
 class SurahCard extends StatelessWidget {
   final Surah surah;
@@ -130,8 +131,8 @@ class SurahCard extends StatelessWidget {
                             ),
                             decoration: BoxDecoration(
                               color: surah.revelationType == 'Meccan'
-                                  ? Colors.amber.shade50
-                                  : Colors.blue.shade50,
+                                  ? KidTheme.lightOrangeBg
+                                  : KidTheme.lightBlueBg,
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
@@ -141,8 +142,8 @@ class SurahCard extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 11,
                                 color: surah.revelationType == 'Meccan'
-                                    ? Colors.amber.shade800
-                                    : Colors.blue.shade800,
+                                    ? KidTheme.darkOrange
+                                    : KidTheme.darkBlue,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),

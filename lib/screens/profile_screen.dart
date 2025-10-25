@@ -218,7 +218,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.teal, Colors.teal.shade300],
+                      colors: [KidTheme.primaryBlue, KidTheme.primaryBlue.withOpacity(0.7)],
                     ),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 32),
@@ -250,14 +250,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     errorBuilder: (_, __, ___) => Icon(
                                       Icons.person,
                                       size: 50,
-                                      color: Colors.teal.shade300,
+                                      color: KidTheme.primaryBlue.withOpacity(0.7),
                                     ),
                                   ),
                                 )
                               : Icon(
                                   Icons.person,
                                   size: 50,
-                                  color: Colors.teal.shade300,
+                                  color: KidTheme.primaryBlue.withOpacity(0.7),
                                 ),
                         ),
                       ),

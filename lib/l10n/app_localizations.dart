@@ -97,7 +97,7 @@ abstract class AppLocalizations {
   /// The title of the application
   ///
   /// In ar, this message translates to:
-  /// **'الروتين الإسلامي اليومي - للأطفال'**
+  /// **'يوم في حياه طفل مسلم'**
   String get appTitle;
 
   /// No description provided for @ok.

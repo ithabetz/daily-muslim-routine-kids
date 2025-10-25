@@ -78,9 +78,9 @@ class _PrayersScreenState extends State<PrayersScreen> {
                 firstProgress: (breakdown['fard'] ?? 0.0) / 50.0, // Fard max: 50 points
                 secondProgress: (breakdown['sunnah'] ?? 0.0) / 30.0, // Sunnah max: 30 points
                 thirdProgress: (breakdown['azkar'] ?? 0.0) / 20.0, // Azkar max: 20 points
-                firstColor: const Color(0xFF4CAF50), // Green for Fard
-                secondColor: const Color(0xFFFF9800), // Orange for Sunnah
-                thirdColor: const Color(0xFF2196F3), // Blue for Azkar
+                firstColor: KidTheme.fardPrayerColor,  // Green for Fard
+                secondColor: KidTheme.sunnahPrayerColor, // Orange for Sunnah
+                thirdColor: KidTheme.azkarPrayerColor,   // Blue for Azkar
                 firstScore: breakdown['fard'] ?? 0.0,
                 secondScore: breakdown['sunnah'] ?? 0.0,
                 thirdScore: breakdown['azkar'] ?? 0.0,
@@ -94,16 +94,16 @@ class _PrayersScreenState extends State<PrayersScreen> {
             bottomWidget: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
               decoration: BoxDecoration(
-                color: Colors.amber.shade50,
+                color: KidTheme.lightYellowBg,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.amber.shade200),
+                border: Border.all(color: KidTheme.primaryYellow.withOpacity(0.3)),
               ),
               child: Text(
                 _getKidsMessageForScore(provider.todayScorePercentage, l10n),
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: Colors.amber.shade800,
+                  color: KidTheme.darkOrange,
                   height: 1.4,
                 ),
                 textAlign: TextAlign.center,

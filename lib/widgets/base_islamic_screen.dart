@@ -70,6 +70,7 @@ class _BaseIslamicScreenState extends State<BaseIslamicScreen> {
           return Container(
             color: Colors.white,
             child: RefreshIndicator(
+              color: KidTheme.primaryBlue,
               onRefresh: widget.onRefresh ?? () async {},
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),

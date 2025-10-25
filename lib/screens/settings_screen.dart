@@ -64,7 +64,7 @@ class SettingsScreen extends StatelessWidget {
                           )
                         : Icon(
                             Icons.person,
-                            color: Colors.teal.shade700,
+                            color: KidTheme.primaryGreen,
                           ),
                   ),
                   title: Text(provider.userProfile?.displayName ?? l10n.user),

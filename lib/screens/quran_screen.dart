@@ -78,7 +78,7 @@ class _QuranScreenState extends State<QuranScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)?.quranKareem ?? 'قرآن الكريم'),
-          backgroundColor: KidTheme.primaryGreen,
+          backgroundColor: KidTheme.primaryBlue,
           foregroundColor: Colors.white,
         ),
         body: Center(
@@ -97,7 +97,7 @@ class _QuranScreenState extends State<QuranScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)?.quranKareem ?? 'قرآن الكريم'),
-        backgroundColor: KidTheme.primaryGreen,
+        backgroundColor: KidTheme.primaryBlue,
         foregroundColor: Colors.white,
                 actions: [
                   // Sync button
@@ -121,7 +121,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text(AppLocalizations.of(context)?.syncSuccess ?? 'تم المزامنة بنجاح'),
-                              backgroundColor: KidTheme.successGreen,
+                              backgroundColor: KidTheme.primaryBlue,
                             ),
                           );
                         }
@@ -172,13 +172,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 ],
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [KidTheme.lightBlueBg, Colors.white],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
+        color: Colors.white,
         child: SafeArea(
           child: Column(
             children: [
@@ -206,20 +200,9 @@ class _QuranScreenState extends State<QuranScreen> {
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [KidTheme.primaryGreen.withOpacity(0.1), KidTheme.primaryGreen.withOpacity(0.05)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: KidTheme.lightBlueBg,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: KidTheme.primaryGreen.withOpacity(0.3), width: 2),
-        boxShadow: [
-          BoxShadow(
-            color: KidTheme.primaryGreen.withOpacity(0.1),
-            blurRadius: 12,
-            offset: const Offset(0, 6),
-          ),
-        ],
+        border: Border.all(color: KidTheme.primaryBlue, width: 2),
       ),
       child: Column(
         children: [
@@ -231,7 +214,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 isActive: true,
                 child: Icon(
                   Icons.menu_book,
-                  color: KidTheme.primaryGreen,
+                  color: KidTheme.primaryBlue,
                   size: 36,
                 ),
               ),
@@ -241,7 +224,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: KidTheme.darkGreen,
+                  color: KidTheme.primaryBlue,
                 ),
               ),
               const SizedBox(height: 4),
@@ -250,7 +233,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
-                  color: KidTheme.darkGreen.withOpacity(0.8),
+                  color: KidTheme.primaryBlue,
                 ),
               ),
             ],
@@ -259,59 +242,51 @@ class _QuranScreenState extends State<QuranScreen> {
           const SizedBox(height: 16),
           
           // Progress Info with Circle
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: KidTheme.primaryGreen.withOpacity(0.2)),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  'تقدمك في الحفظ',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: KidTheme.darkGreen,
-                  ),
-                  textAlign: TextAlign.center,
+          Column(
+            children: [
+              Text(
+                'تقدمك في الحفظ',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: KidTheme.primaryBlue,
                 ),
-                const SizedBox(height: 16),
-                
-                // Progress Circle
-                UnifiedRingsWidget(
-                  showSingleRing: true,
-                  configuration: ActivityRingsConfiguration(
-                    firstProgress: progressPercentage / 100,
-                    secondProgress: 0.0, // Not used for single ring
-                    thirdProgress: 0.0, // Not used for single ring
-                    firstColor: KidTheme.primaryGreen,
-                    secondColor: KidTheme.primaryGreen, // Same color for consistency
-                    thirdColor: KidTheme.primaryGreen, // Same color for consistency
-                    firstScore: memorizedCount.toDouble(),
-                    secondScore: 0.0,
-                    thirdScore: 0.0,
-                    totalScore: progressPercentage,
-                    firstLabel: 'محفوظة',
-                    secondLabel: '',
-                    thirdLabel: '',
-                    centerLabel: '%',
-                  ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 16),
+              
+              // Progress Circle
+              UnifiedRingsWidget(
+                showSingleRing: true,
+                configuration: ActivityRingsConfiguration(
+                  firstProgress: progressPercentage / 100,
+                  secondProgress: 0.0, // Not used for single ring
+                  thirdProgress: 0.0, // Not used for single ring
+                  firstColor: KidTheme.primaryBlue,
+                  secondColor: KidTheme.primaryBlue, // Same color for consistency
+                  thirdColor: KidTheme.primaryBlue, // Same color for consistency
+                  firstScore: memorizedCount.toDouble(),
+                  secondScore: 0.0,
+                  thirdScore: 0.0,
+                  totalScore: progressPercentage,
+                  firstLabel: 'محفوظة',
+                  secondLabel: '',
+                  thirdLabel: '',
+                  centerLabel: '%',
                 ),
-                
-                const SizedBox(height: 12),
-                
-                Text(
-                  '$memorizedCount من $totalSurahs سورة محفوظة',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: KidTheme.darkGreen,
-                  ),
+              ),
+              
+              const SizedBox(height: 12),
+              
+              Text(
+                '$memorizedCount من $totalSurahs سورة محفوظة',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: KidTheme.primaryBlue,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ],
       ),
@@ -351,15 +326,15 @@ class _QuranScreenState extends State<QuranScreen> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.amber.shade50,
+              color: KidTheme.lightOrangeBg,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.amber.shade200),
+              border: Border.all(color: KidTheme.primaryOrange.withOpacity(0.3)),
             ),
             child: Column(
               children: [
                 Icon(
                   Icons.star,
-                  color: Colors.amber.shade600,
+                  color: KidTheme.primaryOrange,
                   size: 32,
                 ),
                 const SizedBox(height: 8),
@@ -368,7 +343,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.amber.shade800,
+                    color: KidTheme.darkOrange,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -377,7 +352,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   'استمر في الحفظ! أنت رائع!',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.amber.shade700,
+                    color: KidTheme.darkOrange.withOpacity(0.8),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -406,18 +381,18 @@ class _QuranScreenState extends State<QuranScreen> {
             borderRadius: BorderRadius.circular(20),
             gradient: LinearGradient(
               colors: isMemorized 
-                ? [KidTheme.successGreen.withOpacity(0.15), KidTheme.successGreen.withOpacity(0.08)]
-                : [KidTheme.primaryGreen.withOpacity(0.08), KidTheme.primaryGreen.withOpacity(0.04)],
+                ? [KidTheme.primaryBlue.withOpacity(0.15), KidTheme.primaryBlue.withOpacity(0.08)]
+                : [KidTheme.primaryBlue.withOpacity(0.08), KidTheme.primaryBlue.withOpacity(0.04)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             border: Border.all(
-              color: isMemorized ? KidTheme.successGreen.withOpacity(0.4) : KidTheme.primaryGreen.withOpacity(0.3),
+              color: isMemorized ? KidTheme.primaryBlue.withOpacity(0.4) : KidTheme.primaryBlue.withOpacity(0.3),
               width: 2,
             ),
             boxShadow: [
               BoxShadow(
-                color: (isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen).withOpacity(0.1),
+                color: (isMemorized ? KidTheme.primaryBlue : KidTheme.primaryBlue).withOpacity(0.1),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
@@ -435,15 +410,15 @@ class _QuranScreenState extends State<QuranScreen> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: isMemorized 
-                        ? [KidTheme.successGreen, KidTheme.successGreen.withOpacity(0.8)]
-                        : [KidTheme.primaryGreen, KidTheme.primaryGreen.withOpacity(0.8)],
+                        ? [KidTheme.primaryBlue, KidTheme.primaryBlue.withOpacity(0.8)]
+                        : [KidTheme.primaryBlue, KidTheme.primaryBlue.withOpacity(0.8)],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: [
                       BoxShadow(
-                        color: (isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen).withOpacity(0.3),
+                        color: (isMemorized ? KidTheme.primaryBlue : KidTheme.primaryBlue).withOpacity(0.3),
                         blurRadius: 6,
                         offset: const Offset(0, 3),
                       ),
@@ -469,7 +444,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: isMemorized ? KidTheme.darkGreen : KidTheme.darkGreen,
+                    color: isMemorized ? KidTheme.primaryBlue : KidTheme.primaryBlue,
                   ),
                   textAlign: TextAlign.center,
                   maxLines: 2,
@@ -483,7 +458,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   surah.nameEnglish,
                   style: TextStyle(
                     fontSize: 10,
-                    color: isMemorized ? KidTheme.darkGreen.withOpacity(0.8) : KidTheme.darkGreen.withOpacity(0.7),
+                    color: isMemorized ? KidTheme.primaryBlue.withOpacity(0.8) : KidTheme.primaryBlue.withOpacity(0.7),
                     fontWeight: FontWeight.w500,
                   ),
                   textAlign: TextAlign.center,
@@ -496,10 +471,10 @@ class _QuranScreenState extends State<QuranScreen> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: isMemorized ? KidTheme.successGreen.withOpacity(0.2) : KidTheme.primaryGreen.withOpacity(0.1),
+                  color: isMemorized ? KidTheme.primaryBlue.withOpacity(0.2) : KidTheme.primaryBlue.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: isMemorized ? KidTheme.successGreen.withOpacity(0.4) : KidTheme.primaryGreen.withOpacity(0.3),
+                    color: isMemorized ? KidTheme.primaryBlue.withOpacity(0.4) : KidTheme.primaryBlue.withOpacity(0.3),
                   ),
                 ),
                 child: Row(
@@ -508,7 +483,7 @@ class _QuranScreenState extends State<QuranScreen> {
                     Icon(
                       isMemorized ? Icons.check_circle : Icons.radio_button_unchecked,
                       size: 12,
-                      color: isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen,
+                      color: isMemorized ? KidTheme.primaryBlue : KidTheme.primaryBlue,
                     ),
                     const SizedBox(width: 4),
                     Flexible(
@@ -517,7 +492,7 @@ class _QuranScreenState extends State<QuranScreen> {
                         style: TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
-                          color: isMemorized ? KidTheme.successGreen : KidTheme.primaryGreen,
+                          color: isMemorized ? KidTheme.primaryBlue : KidTheme.primaryBlue,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -561,7 +536,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 ),
               ],
             ),
-            backgroundColor: KidTheme.successGreen,
+            backgroundColor: KidTheme.primaryBlue,
             duration: const Duration(seconds: 2),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(

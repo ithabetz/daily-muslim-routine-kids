@@ -113,7 +113,7 @@ class _SetupScreenState extends State<SetupScreen> {
               const Icon(
                 Icons.mosque,
                 size: 80,
-                color: Colors.teal,
+                color: KidTheme.primaryGreen,
               ),
               const SizedBox(height: 24),
               Text(
@@ -138,7 +138,7 @@ class _SetupScreenState extends State<SetupScreen> {
                 label: Text(l10n.detectMyLocation),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.all(16),
-                  backgroundColor: Colors.teal,
+                  backgroundColor: KidTheme.primaryGreen,
                   foregroundColor: Colors.white,
                 ),
               ),

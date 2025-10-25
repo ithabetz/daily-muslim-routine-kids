@@ -2,38 +2,65 @@ import 'package:flutter/material.dart';
 
 /// Kid-friendly theme colors and styling for the Muslim routine app
 class KidTheme {
-  // Bright, cheerful colors for kids
-  static const Color primaryBlue = Color(0xFF4A90E2);
-  static const Color primaryGreen = Color(0xFF7ED321);
-  static const Color primaryOrange = Color(0xFFFF9500);
-  static const Color primaryPink = Color(0xFFFF6B9D);
-  static const Color primaryPurple = Color(0xFF9013FE);
-  static const Color primaryYellow = Color(0xFFFFD700);
+  // ========== PRIMARY IDENTITY COLORS ==========
+  // Main brand colors - unified and consistent
+  static const Color primaryBlue = Color(0xFF4A90E2);      // Main: Prayers & Primary actions
+  static const Color primaryGreen = Color(0xFF51C878);     // Secondary: Quran & Success
+  static const Color primaryOrange = Color(0xFFFF9500);    // Accent: Highlights & Encouragement
+  static const Color primaryYellow = Color(0xFFFFD700);    // Rewards & Achievements
   
-  // Background colors
-  static const Color lightBlueBg = Colors.white;
+  // ========== SUPPORTING COLORS ==========
+  // For variety while maintaining harmony
+  static const Color secondaryPurple = Color(0xFF9013FE);  // Optional: Special features
+  static const Color secondaryPink = Color(0xFFFF6B9D);     // Optional: Special features
+  static const Color accentCyan = Color(0xFF00C9FF);        // Optional: Special features
+  
+  // ========== LIGHT BACKGROUND COLORS ==========
+  // Subtle backgrounds that match primary colors
+  static const Color lightBlueBg = Color(0xFFE3F2FD);
   static const Color lightGreenBg = Color(0xFFE8F5E8);
   static const Color lightOrangeBg = Color(0xFFFFF3E0);
-  static const Color lightPinkBg = Color(0xFFFFF0F5);
-  static const Color lightPurpleBg = Color(0xFFF3E5F5);
   static const Color lightYellowBg = Color(0xFFFFFDE7);
+  static const Color lightPurpleBg = Color(0xFFF3E5F5);
+  static const Color lightPinkBg = Color(0xFFFFF0F5);
   
-  // Text colors
+  // ========== DARK TEXT COLORS ==========
+  // For contrast with light backgrounds
   static const Color darkBlue = Color(0xFF1565C0);
   static const Color darkGreen = Color(0xFF2E7D32);
   static const Color darkOrange = Color(0xFFE65100);
-  static const Color darkPink = Color(0xFFC2185B);
   static const Color darkPurple = Color(0xFF4A148C);
+  static const Color darkGray = Color(0xFF424242);
   
-  // Success and completion colors
+  // ========== SEMANTIC COLORS ==========
   static const Color successGreen = Color(0xFF4CAF50);
   static const Color warningOrange = Color(0xFFFF9800);
   static const Color errorRed = Color(0xFFE53E3E);
   
-  // Shadow colors
-  static const Color lightShadow = Color(0x1A000000);
-  static const Color mediumShadow = Color(0x33000000);
+  // ========== NEUTRAL COLORS ==========
+  static const Color white = Colors.white;
+  static const Color lightGray = Color(0xFFF5F5F5);
+  static const Color mediumGray = Color(0xFF9E9E9E);
+  static const Color darkGrayText = Color(0xFF616161);
   
+  // ========== SHADOW & BORDER COLORS ==========
+  static const Color lightShadow = Color(0x1A000000);
+  static const Color mediumShadow = Color(0x330000000);
+  
+  // ========== PRAYER SPECIFIC COLORS ==========
+  // Standardized for prayer elements
+  static const Color basePrayerColor = Colors.white;
+  static const Color basePrayerBorderColor = Color(0xFFBBDEFB);  // Light blue border
+  
+  // Highlight for completed prayers
+  static const Color highlightPrayerColor = Color(0xFFE8F5E8);  // Light green
+  static const Color highlightPrayerBorderColor = Color(0xFFC8E6C9);  // Green border
+  
+  // Specific prayer ring colors (matches unified rings widget)
+  static const Color fardPrayerColor = successGreen;      // Green - Fard prayers
+  static const Color sunnahPrayerColor = warningOrange;   // Orange - Sunnah prayers
+  static const Color azkarPrayerColor = Color(0xFF2196F3); // Blue - Azkar
+
   /// Get kid-friendly theme data
   static ThemeData get kidTheme {
     return ThemeData(
@@ -310,8 +337,8 @@ class KidTheme {
   static List<Color> get celebrationColors => [
     primaryYellow,
     primaryOrange,
-    primaryPink,
-    primaryPurple,
+    secondaryPink,
+    secondaryPurple,
     primaryBlue,
     primaryGreen,
   ];
@@ -322,14 +349,6 @@ class KidTheme {
   static const double standardCardBorderRadius = 16.0;
   static const double standardIconSize = 20.0;
   static const double standardIconPadding = 6.0;
-  
-  // Base color for all prayer elements (white)
-  static const Color basePrayerColor = Colors.white;
-  static const Color basePrayerBorderColor = Color(0xFFBBDEFB);
-  
-  // Highlight color for completed elements (green)
-  static const Color highlightPrayerColor = Color(0xFFE8F5E8);
-  static const Color highlightPrayerBorderColor = Color(0xFFC8E6C9);
   
   /// Get standardized card decoration for prayer elements
   static BoxDecoration getStandardCardDecoration({bool isCompleted = false}) {
