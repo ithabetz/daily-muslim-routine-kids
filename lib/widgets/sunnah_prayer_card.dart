@@ -27,58 +27,23 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
       isActive: _showCelebration,
       onComplete: () => setState(() => _showCelebration = false),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: LinearGradient(
-            colors: widget.prayer.isCompleted 
-                ? [Colors.orange.withOpacity(0.1), Colors.orange.withOpacity(0.05)]
-                : [Colors.white, Colors.orange.withOpacity(0.1)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          border: Border.all(
-            color: widget.prayer.isCompleted 
-                ? Colors.orange.withOpacity(0.4)
-                : Colors.orange.withOpacity(0.2),
-            width: 2,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: widget.prayer.isCompleted 
-                  ? Colors.orange.withOpacity(0.1)
-                  : Colors.orange.withOpacity(0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.all(KidTheme.standardCardPadding),
+        decoration: KidTheme.getStandardCardDecoration(isCompleted: widget.prayer.isCompleted),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Header Row with Icon and Prayer Info
             Row(
               children: [
-                // Prayer Icon - Larger and more prominent
+                // Prayer Icon - Standardized size
                 Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: widget.prayer.isCompleted 
-                        ? Colors.orange
-                        : Colors.orange.shade300,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.orange.withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
+                  padding: EdgeInsets.all(KidTheme.standardIconPadding),
+                  decoration: KidTheme.getStandardIconDecoration(isCompleted: widget.prayer.isCompleted),
                   child: Icon(
                     widget.prayer.type.icon,
                     color: Colors.white,
-                    size: 32,
+                    size: KidTheme.standardIconSize,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -91,21 +56,21 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
                       Text(
                         widget.prayer.type.getLocalizedName(l10n),
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: widget.prayer.isCompleted 
-                              ? Colors.orange.shade700
-                              : Colors.orange.shade800,
+                              ? KidTheme.successGreen
+                              : KidTheme.darkBlue,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         widget.prayer.type.getLocalizedDescription(l10n),
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: widget.prayer.isCompleted 
-                              ? Colors.orange.shade600
-                              : Colors.orange.shade700,
+                              ? KidTheme.successGreen.withOpacity(0.8)
+                              : KidTheme.darkBlue.withOpacity(0.7),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -113,29 +78,17 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
                   ),
                 ),
                 
-                // Points indicator - Larger and more prominent
+                // Points indicator - Standardized
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+                    horizontal: 12,
+                    vertical: 6,
                   ),
-                  decoration: BoxDecoration(
-                    color: widget.prayer.isCompleted 
-                        ? Colors.orange
-                        : Colors.orange.shade300,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.orange.withOpacity(0.3),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
+                  decoration: KidTheme.getStandardPointsDecoration(isCompleted: widget.prayer.isCompleted),
                   child: Text(
                     '+${NumberFormatter.formatDecimal(widget.prayer.weight, decimalPlaces: 1)}',
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -144,33 +97,38 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
               ],
             ),
             
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             
-            // Checkboxes Section - Larger touch targets
+            // Checkboxes Section - Standardized
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(16),
+                color: Colors.white.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Colors.orange.withOpacity(0.2),
+                  color: widget.prayer.isCompleted 
+                      ? KidTheme.highlightPrayerBorderColor
+                      : KidTheme.basePrayerBorderColor,
                 ),
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     'أكمل صلاة السنة:',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 11,
                       fontWeight: FontWeight.w600,
-                      color: Colors.orange.shade800,
+                      color: widget.prayer.isCompleted 
+                          ? KidTheme.successGreen
+                          : KidTheme.darkBlue,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 6),
                   
                   // Checkboxes in a more kid-friendly layout
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildKidCheckbox(
                         context: context,
@@ -178,7 +136,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
                         value: widget.prayer.isCompleted,
                         enabled: true,
                         onChanged: (value) => _updatePrayer(context, isCompleted: value),
-                        color: Colors.orange,
+                        color: KidTheme.successGreen,
                       ),
                     ],
                   ),
@@ -199,38 +157,37 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
     required ValueChanged<bool?> onChanged,
     required Color color,
   }) {
-    return Expanded(
-      child: Column(
-        children: [
-          Transform.scale(
-            scale: 1.5,
-            child: Checkbox(
-              value: value,
-              onChanged: enabled ? onChanged : null,
-              activeColor: color,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              side: BorderSide(
-                color: enabled ? color : Colors.grey.shade400,
-                width: 3,
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Transform.scale(
+          scale: 1.1,
+          child: Checkbox(
+            value: value,
+            onChanged: enabled ? onChanged : null,
+            activeColor: color,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            side: BorderSide(
+              color: enabled ? color : Colors.grey.shade400,
+              width: 2,
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: enabled ? Colors.orange.shade800 : Colors.grey.shade600,
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.w500,
+            color: enabled ? KidTheme.darkBlue : Colors.grey.shade600,
           ),
-        ],
-      ),
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
     );
   }
 
@@ -265,7 +222,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
               ),
             ],
           ),
-          backgroundColor: Colors.orange,
+          backgroundColor: KidTheme.successGreen,
           duration: const Duration(seconds: 2),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(

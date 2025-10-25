@@ -199,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         child: Consumer<AppProvider>(
-        builder: (context, provider, child) {
+          builder: (context, provider, child) {
           final user = provider.userProfile;
 
           if (user == null) {
@@ -463,7 +463,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             ),
           );
-        },
+          },
+        ),
       ),
     );
   }

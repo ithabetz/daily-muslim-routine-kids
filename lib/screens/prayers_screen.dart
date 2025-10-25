@@ -164,7 +164,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                 initiallyExpanded: false,
                 children: provider.todayProgress!.prayers.map((prayer) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.only(bottom: 8),
                     child: _buildKidsPrayerCard(prayer),
                   );
                 }).toList(),
@@ -181,7 +181,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                     .where((prayer) => _isBasicSunnahForKids(prayer))
                     .map((prayer) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
+                    padding: const EdgeInsets.only(bottom: 6),
                     child: _buildKidsSunnahCard(prayer),
                   );
                 }).toList(),
@@ -338,22 +338,13 @@ class _PrayersScreenState extends State<PrayersScreen> {
 
   Widget _buildKidsPrayerCard(PrayerTask prayer) {
     return Card(
-      elevation: 3,
+      elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
       ),
       child: Container(
-        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          gradient: LinearGradient(
-            colors: [
-              KidTheme.lightBlueBg.withOpacity(0.3),
-              KidTheme.lightBlueBg.withOpacity(0.1),
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
         ),
         child: PrayerCard(prayer: prayer),
       ),
@@ -364,13 +355,11 @@ class _PrayersScreenState extends State<PrayersScreen> {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
       ),
       child: Container(
-        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: KidTheme.lightOrangeBg.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
         ),
         child: SunnahPrayerCard(prayer: prayer),
       ),
@@ -382,14 +371,14 @@ class _PrayersScreenState extends State<PrayersScreen> {
     return [
       // Morning Azkar
       Padding(
-        padding: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.only(bottom: 8),
         child: AzkarCard(
           azkar: AzkarTask(type: AzkarType.morning),
         ),
       ),
       // Evening Azkar
       Padding(
-        padding: const EdgeInsets.only(bottom: 12),
+        padding: const EdgeInsets.only(bottom: 8),
         child: AzkarCard(
           azkar: AzkarTask(type: AzkarType.evening),
         ),

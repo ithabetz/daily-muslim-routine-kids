@@ -27,7 +27,7 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
         child: Consumer<AppProvider>(
-        builder: (context, provider, child) {
+          builder: (context, provider, child) {
           return ListView(
             children: [
               const SizedBox(height: 16),
@@ -186,7 +186,8 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 32),
             ],
           );
-        },
+          },
+        ),
       ),
     );
   }

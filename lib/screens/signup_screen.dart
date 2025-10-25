@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../models/user_profile.dart';
+import '../theme/kid_theme.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

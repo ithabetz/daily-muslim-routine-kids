@@ -314,4 +314,74 @@ class KidTheme {
     primaryBlue,
     primaryGreen,
   ];
+
+  // Standardized card dimensions and colors for prayer page
+  static const double standardCardHeight = 140.0;
+  static const double standardCardPadding = 16.0;
+  static const double standardCardBorderRadius = 16.0;
+  static const double standardIconSize = 28.0;
+  static const double standardIconPadding = 12.0;
+  
+  // Base color for all prayer elements (light blue)
+  static const Color basePrayerColor = Color(0xFFE3F2FD);
+  static const Color basePrayerBorderColor = Color(0xFFBBDEFB);
+  
+  // Highlight color for completed elements (green)
+  static const Color highlightPrayerColor = Color(0xFFE8F5E8);
+  static const Color highlightPrayerBorderColor = Color(0xFFC8E6C9);
+  
+  /// Get standardized card decoration for prayer elements
+  static BoxDecoration getStandardCardDecoration({bool isCompleted = false}) {
+    return BoxDecoration(
+      borderRadius: BorderRadius.circular(standardCardBorderRadius),
+      gradient: LinearGradient(
+        colors: isCompleted 
+            ? [highlightPrayerColor, highlightPrayerColor.withOpacity(0.7)]
+            : [basePrayerColor, basePrayerColor.withOpacity(0.7)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      ),
+      border: Border.all(
+        color: isCompleted ? highlightPrayerBorderColor : basePrayerBorderColor,
+        width: 2,
+      ),
+      boxShadow: [
+        BoxShadow(
+          color: (isCompleted ? highlightPrayerBorderColor : basePrayerBorderColor).withOpacity(0.2),
+          blurRadius: 6,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    );
+  }
+  
+  /// Get standardized icon decoration for prayer elements
+  static BoxDecoration getStandardIconDecoration({bool isCompleted = false}) {
+    return BoxDecoration(
+      color: isCompleted ? successGreen : primaryBlue,
+      borderRadius: BorderRadius.circular(12),
+      boxShadow: [
+        BoxShadow(
+          color: (isCompleted ? successGreen : primaryBlue).withOpacity(0.3),
+          blurRadius: 6,
+          offset: const Offset(0, 3),
+        ),
+      ],
+    );
+  }
+  
+  /// Get standardized points indicator decoration
+  static BoxDecoration getStandardPointsDecoration({bool isCompleted = false}) {
+    return BoxDecoration(
+      color: isCompleted ? successGreen : primaryBlue,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(
+          color: (isCompleted ? successGreen : primaryBlue).withOpacity(0.3),
+          blurRadius: 4,
+          offset: const Offset(0, 2),
+        ),
+      ],
+    );
+  }
 }

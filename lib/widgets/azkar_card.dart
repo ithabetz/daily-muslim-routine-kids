@@ -5,6 +5,7 @@ import '../providers/app_provider.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/number_formatter.dart';
 import '../widgets/celebration_animations.dart';
+import '../theme/kid_theme.dart';
 
 class AzkarCard extends StatefulWidget {
   final AzkarTask azkar;
@@ -26,58 +27,23 @@ class _AzkarCardState extends State<AzkarCard> {
       isActive: _showCelebration,
       onComplete: () => setState(() => _showCelebration = false),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          gradient: LinearGradient(
-            colors: widget.azkar.isCompleted 
-                ? [Colors.purple.withOpacity(0.1), Colors.purple.withOpacity(0.05)]
-                : [Colors.white, Colors.purple.withOpacity(0.1)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          border: Border.all(
-            color: widget.azkar.isCompleted 
-                ? Colors.purple.withOpacity(0.4)
-                : Colors.purple.withOpacity(0.2),
-            width: 2,
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: widget.azkar.isCompleted 
-                  ? Colors.purple.withOpacity(0.1)
-                  : Colors.purple.withOpacity(0.1),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        padding: EdgeInsets.all(KidTheme.standardCardPadding),
+        decoration: KidTheme.getStandardCardDecoration(isCompleted: widget.azkar.isCompleted),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             // Header Row with Icon and Azkar Info
             Row(
               children: [
-                // Azkar Icon - Larger and more prominent
+                // Azkar Icon - Standardized size
                 Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: widget.azkar.isCompleted 
-                        ? Colors.purple
-                        : Colors.purple.shade300,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.purple.withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: const Offset(0, 4),
-                      ),
-                    ],
-                  ),
+                  padding: EdgeInsets.all(KidTheme.standardIconPadding),
+                  decoration: KidTheme.getStandardIconDecoration(isCompleted: widget.azkar.isCompleted),
                   child: Icon(
                     widget.azkar.type.icon,
                     color: Colors.white,
-                    size: 32,
+                    size: KidTheme.standardIconSize,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -90,21 +56,21 @@ class _AzkarCardState extends State<AzkarCard> {
                       Text(
                         widget.azkar.type.getLocalizedName(l10n),
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: widget.azkar.isCompleted 
-                              ? Colors.purple.shade700
-                              : Colors.purple.shade800,
+                              ? KidTheme.successGreen
+                              : KidTheme.darkBlue,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         widget.azkar.type.getLocalizedDescription(l10n),
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           color: widget.azkar.isCompleted 
-                              ? Colors.purple.shade600
-                              : Colors.purple.shade700,
+                              ? KidTheme.successGreen.withOpacity(0.8)
+                              : KidTheme.darkBlue.withOpacity(0.7),
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -112,29 +78,17 @@ class _AzkarCardState extends State<AzkarCard> {
                   ),
                 ),
                 
-                // Points indicator - Larger and more prominent
+                // Points indicator - Standardized
                 Container(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+                    horizontal: 12,
+                    vertical: 6,
                   ),
-                  decoration: BoxDecoration(
-                    color: widget.azkar.isCompleted 
-                        ? Colors.purple
-                        : Colors.purple.shade300,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.purple.withOpacity(0.3),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
+                  decoration: KidTheme.getStandardPointsDecoration(isCompleted: widget.azkar.isCompleted),
                   child: Text(
                     '+${NumberFormatter.formatDecimal(widget.azkar.weight, decimalPlaces: 1)}',
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
@@ -143,33 +97,38 @@ class _AzkarCardState extends State<AzkarCard> {
               ],
             ),
             
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             
-            // Checkboxes Section - Larger touch targets
+            // Checkboxes Section - Standardized
             Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.5),
-                borderRadius: BorderRadius.circular(16),
+                color: Colors.white.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Colors.purple.withOpacity(0.2),
+                  color: widget.azkar.isCompleted 
+                      ? KidTheme.highlightPrayerBorderColor
+                      : KidTheme.basePrayerBorderColor,
                 ),
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     'أكمل الأذكار:',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 11,
                       fontWeight: FontWeight.w600,
-                      color: Colors.purple.shade800,
+                      color: widget.azkar.isCompleted 
+                          ? KidTheme.successGreen
+                          : KidTheme.darkBlue,
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 6),
                   
                   // Checkboxes in a more kid-friendly layout
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _buildKidCheckbox(
                         context: context,
@@ -177,7 +136,7 @@ class _AzkarCardState extends State<AzkarCard> {
                         value: widget.azkar.isCompleted,
                         enabled: true,
                         onChanged: (value) => _updateAzkar(context, isCompleted: value),
-                        color: Colors.purple,
+                        color: KidTheme.successGreen,
                       ),
                     ],
                   ),
@@ -198,38 +157,37 @@ class _AzkarCardState extends State<AzkarCard> {
     required ValueChanged<bool?> onChanged,
     required Color color,
   }) {
-    return Expanded(
-      child: Column(
-        children: [
-          Transform.scale(
-            scale: 1.5,
-            child: Checkbox(
-              value: value,
-              onChanged: enabled ? onChanged : null,
-              activeColor: color,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              side: BorderSide(
-                color: enabled ? color : Colors.grey.shade400,
-                width: 3,
-              ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Transform.scale(
+          scale: 1.1,
+          child: Checkbox(
+            value: value,
+            onChanged: enabled ? onChanged : null,
+            activeColor: color,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            side: BorderSide(
+              color: enabled ? color : Colors.grey.shade400,
+              width: 2,
             ),
           ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: enabled ? Colors.purple.shade800 : Colors.grey.shade600,
-            ),
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
+        ),
+        const SizedBox(height: 4),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 9,
+            fontWeight: FontWeight.w500,
+            color: enabled ? KidTheme.darkBlue : Colors.grey.shade600,
           ),
-        ],
-      ),
+          textAlign: TextAlign.center,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ],
     );
   }
 
@@ -264,7 +222,7 @@ class _AzkarCardState extends State<AzkarCard> {
               ),
             ],
           ),
-          backgroundColor: Colors.purple,
+          backgroundColor: KidTheme.successGreen,
           duration: const Duration(seconds: 2),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(

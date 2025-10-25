@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import '../services/prayer_time_service.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/kid_theme.dart';
 
 class SetupScreen extends StatefulWidget {
   const SetupScreen({super.key});
