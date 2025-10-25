@@ -70,19 +70,14 @@ class _PrayersScreenState extends State<PrayersScreen> {
             'azkar': 0.0,
             'total': 0.0
           };
-          final percentages = provider.todayProgress?.getCompletionPercentages() ?? {
-            'fard': 0.0, 
-            'sunnah': 0.0,
-            'azkar': 0.0
-          };
 
           return ScoreCardContainer(
             title: 'تقدمك اليوم',
             content: UnifiedRingsWidget(
               configuration: ActivityRingsConfiguration(
-                firstProgress: (percentages['fard'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
-                secondProgress: (percentages['sunnah'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
-                thirdProgress: (percentages['azkar'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
+                firstProgress: (breakdown['fard'] ?? 0.0) / 50.0, // Fard max: 50 points
+                secondProgress: (breakdown['sunnah'] ?? 0.0) / 30.0, // Sunnah max: 30 points
+                thirdProgress: (breakdown['azkar'] ?? 0.0) / 20.0, // Azkar max: 20 points
                 firstColor: const Color(0xFF4CAF50), // Green for Fard
                 secondColor: const Color(0xFFFF9800), // Orange for Sunnah
                 thirdColor: const Color(0xFF2196F3), // Blue for Azkar
@@ -177,14 +172,18 @@ class _PrayersScreenState extends State<PrayersScreen> {
                 title: 'السنن والرواتب',
                 icon: Icons.star,
                 initiallyExpanded: false,
-                children: provider.todayProgress!.sunnahPrayers
-                    .where((prayer) => _isBasicSunnahForKids(prayer))
-                    .map((prayer) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: _buildKidsSunnahCard(prayer),
-                  );
-                }).toList(),
+                children: (() {
+                  final sunnahPrayers = provider.todayProgress!.sunnahPrayers
+                      .where((prayer) => _isBasicSunnahForKids(prayer))
+                      .toList();
+                  sunnahPrayers.sort((a, b) => _getSunnahPrayerOrder(a.type).compareTo(_getSunnahPrayerOrder(b.type)));
+                  return sunnahPrayers.map((prayer) {
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: _buildKidsSunnahCard(prayer),
+                    );
+                  }).toList();
+                })(),
               ),
               
               const SizedBox(height: 16),
@@ -359,6 +358,30 @@ class _PrayersScreenState extends State<PrayersScreen> {
           child: AzkarCard(azkar: azkar),
         ))
         .toList();
+  }
+
+  /// Get the display order for Sunnah prayers
+  int _getSunnahPrayerOrder(SunnahPrayerType type) {
+    switch (type) {
+      case SunnahPrayerType.qiyamAlLayl:
+        return 1; // قيام الليل
+      case SunnahPrayerType.fajrSunnahBefore:
+        return 2; // قبل الفجر (ركعتان)
+      case SunnahPrayerType.salatAlDuha:
+        return 3; // صلاة الضحى
+      case SunnahPrayerType.dhuhrSunnahBefore1:
+        return 4; // قبل الظهر (ركعتان)
+      case SunnahPrayerType.dhuhrSunnahBefore2:
+        return 5; // قبل الظهر (ركعتان)
+      case SunnahPrayerType.dhuhrSunnahAfter:
+        return 6; // بعد الظهر (ركعتان)
+      case SunnahPrayerType.maghribSunnahAfter:
+        return 7; // بعد المغرب (ركعتان)
+      case SunnahPrayerType.ishaSunnahAfter:
+        return 8; // بعد العشاء (ركعتان)
+      default:
+        return 999; // Other sunnah prayers at the end
+    }
   }
 
   bool _isBasicSunnahForKids(SunnahPrayer prayer) {

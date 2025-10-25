@@ -118,27 +118,27 @@ extension AzkarTypeExtension on AzkarType {
   double get weight {
     switch (this) {
       case AzkarType.morning:
-        return 0.7; // أذكار الصباح تحصل على 0.7 نقطة
+        return 10.0; // أذكار الصباح تحصل على 10.0 نقطة
       case AzkarType.evening:
-        return 0.7; // أذكار المساء تحصل على 0.7 نقطة
+        return 10.0; // أذكار المساء تحصل على 10.0 نقطة
       case AzkarType.quranReading:
-        return 0.2; // Quran Reading gets 0.2 points
+        return 0.0; // Quran Reading gets 0.0 points (not counted)
       case AzkarType.quranListening:
-        return 0.2; // Quran Listening gets 0.2 points
+        return 0.0; // Quran Listening gets 0.0 points (not counted)
       case AzkarType.istighfar:
-        return 0.1; // Istighfar gets 0.1 points
+        return 0.0; // Istighfar gets 0.0 points (not counted)
       case AzkarType.salatAlaNabi:
-        return 0.1; // Salat ala Nabi gets 0.1 points
+        return 0.0; // Salat ala Nabi gets 0.0 points (not counted)
       case AzkarType.tasbih:
-        return 0.1; // Tasbih gets 0.1 points
+        return 0.0; // Tasbih gets 0.0 points (not counted)
       case AzkarType.tahmid:
-        return 0.1; // Tahmid gets 0.1 points
+        return 0.0; // Tahmid gets 0.0 points (not counted)
       case AzkarType.laIlahaIllaAllah:
-        return 0.1; // La Ilaha Illa Allah gets 0.1 points
+        return 0.0; // La Ilaha Illa Allah gets 0.0 points (not counted)
       case AzkarType.takbir:
-        return 0.1; // Takbir gets 0.1 points
+        return 0.0; // Takbir gets 0.0 points (not counted)
       case AzkarType.laHawlaWaLaQuwwata:
-        return 0.1; // La Hawla Wa La Quwwata Illa Billah gets 0.1 points
+        return 0.0; // La Hawla Wa La Quwwata Illa Billah gets 0.0 points (not counted)
     }
   }
 

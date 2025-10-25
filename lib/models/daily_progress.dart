@@ -123,7 +123,6 @@ class DailyProgress {
         return SunnahPrayer(
           type: sunnahType,
           isCompleted: completed,
-          weight: prayer.weight,
         );
       }
       return prayer;
@@ -139,18 +138,18 @@ class DailyProgress {
 
   double calculateScore() {
     // ==========================================
-    // FARD TASKS (5.0 points max)
+    // FARD TASKS (50.0 points max)
     // ==========================================
-    // 5 Daily Prayers - Each prayer worth 1.0 point max (0.5 on-time + 0.5 mosque)
-    // Out of time prayer: 0.25 points only
-    // Total possible: 5 prayers × 1.0 point = 5.0 points
+    // 5 Daily Prayers - Each prayer worth 10.0 points max (5.0 on-time + 5.0 mosque)
+    // Out of time prayer: 2.5 points only
+    // Total possible: 5 prayers × 10.0 points = 50.0 points
     double fardScore = 0;
     if (prayers.isNotEmpty) {
       fardScore = prayers.fold(0.0, (sum, p) => sum + p.score);
     }
 
     // ==========================================
-    // SUNNAH PRAYERS (2.5 points max)
+    // SUNNAH PRAYERS (30.0 points max)
     // ==========================================
     double sunnahPrayerScore = 0;
     double sunnahPrayerMaxScore = 0;
@@ -160,10 +159,11 @@ class DailyProgress {
         sunnahPrayerScore += s.weight;
       }
     }
-    double sunnahScore = sunnahPrayerMaxScore > 0 ? (sunnahPrayerScore / sunnahPrayerMaxScore) * 2.5 : 0.0;
+    // Direct calculation: total weight = 30.0, so no conversion needed
+    double sunnahScore = sunnahPrayerScore;
 
     // ==========================================
-    // AZKAR (2.5 points max)
+    // AZKAR (20.0 points max)
     // ==========================================
     double azkarRawScore = 0;
     double azkarMaxScore = 0;
@@ -173,10 +173,10 @@ class DailyProgress {
         azkarRawScore += a.weight;
       }
     }
-    double azkarScore = azkarMaxScore > 0 ? (azkarRawScore / azkarMaxScore) * 2.5 : 0.0;
+    double azkarScore = azkarMaxScore > 0 ? (azkarRawScore / azkarMaxScore) * 20.0 : 0.0;
 
     // ==========================================
-    // TOTAL SCORE (10.0 points max)
+    // TOTAL SCORE (100.0 points max)
     // ==========================================
     return fardScore + sunnahScore + azkarScore;
   }
@@ -185,8 +185,8 @@ class DailyProgress {
     double fardScore = 0;
     if (prayers.isNotEmpty) {
       double totalPrayerScore = prayers.fold(0.0, (sum, p) => sum + p.score);
-      double maxPossibleScore = prayers.length * 1.0;
-      fardScore = maxPossibleScore > 0 ? (totalPrayerScore / maxPossibleScore) * 5.0 : 0.0;
+      double maxPossibleScore = prayers.length * 10.0;
+      fardScore = maxPossibleScore > 0 ? (totalPrayerScore / maxPossibleScore) * 50.0 : 0.0;
     }
 
     // Calculate Sunnah Prayers score separately
@@ -196,7 +196,8 @@ class DailyProgress {
       sunnahPrayerMaxScore += s.weight;
       if (s.isCompleted) sunnahPrayerScore += s.weight;
     }
-    double sunnahScore = sunnahPrayerMaxScore > 0 ? (sunnahPrayerScore / sunnahPrayerMaxScore) * 2.5 : 0.0;
+    // Direct calculation: total weight = 30.0, so no conversion needed
+    double sunnahScore = sunnahPrayerScore;
 
     // Calculate Azkar score separately
     double azkarRawScore = 0;
@@ -205,7 +206,7 @@ class DailyProgress {
       azkarMaxScore += a.weight;
       if (a.isCompleted) azkarRawScore += a.weight;
     }
-    double azkarScore = azkarMaxScore > 0 ? (azkarRawScore / azkarMaxScore) * 2.5 : 0.0;
+    double azkarScore = azkarMaxScore > 0 ? (azkarRawScore / azkarMaxScore) * 20.0 : 0.0;
 
     return {
       'fard': fardScore,

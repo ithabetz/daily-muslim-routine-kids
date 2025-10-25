@@ -102,30 +102,30 @@ class PrayerTask {
   double get score {
     if (!isCompleted) return 0.0;
     
-    // New scoring system: each prayer max 1.0 point
-    // - 0.5 points for praying on time
-    // - 0.5 points for praying in mosque
-    // - If prayed out of time: only 0.25 points (no mosque bonus)
+    // New scoring system: each prayer max 10.0 points
+    // - 5.0 points for praying on time
+    // - 5.0 points for praying in mosque
+    // - If prayed out of time: only 2.5 points (no mosque bonus)
     
     double totalScore = 0.0;
     
     if (prayedOnTime) {
-      totalScore += 0.5; // Half point for on time
+      totalScore += 5.0; // Five points for on time
     }
     
     if (inMosque && prayedOnTime) {
-      totalScore += 0.5; // Half point for in mosque (only if prayed on time)
+      totalScore += 5.0; // Five points for in mosque (only if prayed on time)
     }
     
-    // If prayed out of time but not on time, only 0.25 points
+    // If prayed out of time but not on time, only 2.5 points
     if (prayedOutOfTime && !prayedOnTime) {
-      totalScore = 0.25;
+      totalScore = 2.5;
     }
     
     return totalScore;
   }
   
   // Maximum possible score per prayer (on time)
-  static const double maxScore = 1.0;
+  static const double maxScore = 10.0;
 }
 

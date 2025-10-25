@@ -57,7 +57,7 @@ class AppProvider with ChangeNotifier {
 
   double get todayScorePercentage {
     if (_todayProgress == null) return 0.0;
-    return (_todayProgress!.getTotalScore() / 30.0) * 100;
+    return (_todayProgress!.getTotalScore() / 100.0) * 100;
   }
 
   // Authentication Methods
@@ -491,7 +491,6 @@ class AppProvider with ChangeNotifier {
       orElse: () => SunnahPrayer(
         type: sunnahType,
         isCompleted: false,
-        weight: 1.0,
       ),
     );
     

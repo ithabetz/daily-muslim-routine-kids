@@ -224,18 +224,46 @@ extension SunnahPrayerTypeExtension on SunnahPrayerType {
         return Icons.nights_stay;
     }
   }
+  
+  double get weight {
+    switch (this) {
+      case SunnahPrayerType.qiyamAlLayl:
+        return 6.0; // قيام الليل: 6 نقطة
+      case SunnahPrayerType.fajrSunnahBefore:
+        return 3.0; // قبل الفجر (ركعتان): 3 نقطة
+      case SunnahPrayerType.salatAlDuha:
+        return 6.0; // صلاة الضحى: 6 نقطة
+      case SunnahPrayerType.dhuhrSunnahBefore1:
+        return 3.0; // قبل الظهر (ركعتان): 3 نقطة
+      case SunnahPrayerType.dhuhrSunnahBefore2:
+        return 3.0; // قبل الظهر (ركعتان): 3 نقطة
+      case SunnahPrayerType.dhuhrSunnahAfter:
+        return 3.0; // بعد الظهر (ركعتان): 3 نقطة
+      case SunnahPrayerType.maghribSunnahAfter:
+        return 3.0; // بعد المغرب (ركعتان): 3 نقطة
+      case SunnahPrayerType.ishaSunnahAfter:
+        return 3.0; // بعد العشاء (ركعتان): 3 نقطة
+      
+      // No sunnah prayers (0 points)
+      case SunnahPrayerType.fajrSunnahAfter:
+      case SunnahPrayerType.asrSunnahBefore:
+      case SunnahPrayerType.asrSunnahAfter:
+      case SunnahPrayerType.maghribSunnahBefore:
+      case SunnahPrayerType.ishaSunnahBefore:
+        return 0.0;
+    }
+  }
 }
 
 class SunnahPrayer {
   final SunnahPrayerType type;
   final TaskType taskType = TaskType.sunnah;
   bool isCompleted;
-  final double weight;
+  double get weight => type.weight; // Use weight from SunnahPrayerType
 
   SunnahPrayer({
     required this.type,
     this.isCompleted = false,
-    this.weight = 0.5, // Same weight as other Sunnah tasks
   });
 
   Map<String, dynamic> toJson() {
@@ -252,7 +280,6 @@ class SunnahPrayer {
         (e) => e.toString() == json['type'],
       ),
       isCompleted: json['isCompleted'] ?? false,
-      weight: json['weight'] ?? 0.5,
     );
   }
 
