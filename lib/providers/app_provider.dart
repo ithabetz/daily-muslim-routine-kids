@@ -395,6 +395,7 @@ class AppProvider with ChangeNotifier {
       prayedOnTime: prayedOnTime,
       inMosque: inMosque,
       prayedOutOfTime: prayedOutOfTime,
+      gender: _userProfile?.gender,
     );
     await StorageService.saveDailyProgress(_todayProgress!);
     

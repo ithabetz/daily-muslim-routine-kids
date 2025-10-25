@@ -2,6 +2,7 @@ import 'prayer.dart';
 import 'azkar_task.dart';
 import 'sunnah_prayer.dart';
 import 'task_type.dart';
+import 'user_profile.dart';
 
 class DailyProgress {
   final DateTime date;
@@ -70,21 +71,60 @@ class DailyProgress {
     bool? prayedOnTime,
     bool? inMosque,
     bool? prayedOutOfTime,
+    Gender? gender,
   }) {
     final updatedPrayers = prayers.map((prayer) {
       if (prayer.type == prayerType) {
+        // Apply gender-specific rules
+        bool finalPrayedOnTime = prayedOnTime ?? prayer.prayedOnTime;
+        bool finalInMosque = inMosque ?? prayer.inMosque;
+        bool finalPrayedOutOfTime = prayedOutOfTime ?? prayer.prayedOutOfTime;
+        
+        // For boys: if prayed out of time, clear other options
+        if (gender == Gender.male && finalPrayedOutOfTime) {
+          finalPrayedOnTime = false;
+          finalInMosque = false;
+        }
+        
+        // For boys: if prayed on time, clear out of time option
+        if (gender == Gender.male && finalPrayedOnTime) {
+          finalPrayedOutOfTime = false;
+        }
+        
+        // For boys: mosque option is only valid if prayed on time
+        if (gender == Gender.male && finalInMosque && !finalPrayedOnTime) {
+          finalInMosque = false;
+        }
+        
+        // For girls: mutually exclusive - only one can be true
+        if (gender == Gender.female) {
+          if (finalPrayedOnTime) {
+            finalInMosque = false;
+            finalPrayedOutOfTime = false;
+          } else if (finalInMosque) {
+            finalPrayedOnTime = false;
+            finalPrayedOutOfTime = false;
+          } else if (finalPrayedOutOfTime) {
+            finalPrayedOnTime = false;
+            finalInMosque = false;
+          }
+        }
+        
+        // For girls: mosque option is only valid if prayed on time
+        if (gender == Gender.female && finalInMosque && !finalPrayedOnTime) {
+          finalInMosque = false;
+        }
+        
         // Determine if prayer is completed based on any checkbox being true
-        final isCompleted = (prayedOnTime ?? prayer.prayedOnTime) || 
-                           (inMosque ?? prayer.inMosque) || 
-                           (prayedOutOfTime ?? prayer.prayedOutOfTime);
+        final isCompleted = finalPrayedOnTime || finalInMosque || finalPrayedOutOfTime;
         
         return PrayerTask(
           type: prayerType,
           time: prayer.time,
           isCompleted: isCompleted,
-          prayedOnTime: prayedOnTime ?? prayer.prayedOnTime,
-          inMosque: inMosque ?? prayer.inMosque,
-          prayedOutOfTime: prayedOutOfTime ?? prayer.prayedOutOfTime,
+          prayedOnTime: finalPrayedOnTime,
+          inMosque: finalInMosque,
+          prayedOutOfTime: finalPrayedOutOfTime,
         );
       }
       return prayer;
