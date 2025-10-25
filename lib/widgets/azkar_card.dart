@@ -29,7 +29,14 @@ class _AzkarCardState extends State<AzkarCard> {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: EdgeInsets.all(KidTheme.standardCardPadding),
-        decoration: KidTheme.getStandardCardDecoration(isCompleted: widget.azkar.isCompleted),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: widget.azkar.isCompleted ? Colors.green.shade200 : Colors.grey.shade300,
+            width: 1,
+          ),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

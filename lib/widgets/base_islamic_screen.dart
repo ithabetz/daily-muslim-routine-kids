@@ -39,6 +39,7 @@ class _BaseIslamicScreenState extends State<BaseIslamicScreen> {
     final l10n = AppLocalizations.of(context)!;
     
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(widget.title),
         backgroundColor: KidTheme.primaryBlue,
@@ -66,28 +67,31 @@ class _BaseIslamicScreenState extends State<BaseIslamicScreen> {
             return Center(child: Text(l10n.noData));
           }
 
-          return RefreshIndicator(
-            onRefresh: widget.onRefresh ?? () async {},
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Header section
-                    widget.header,
-                    const SizedBox(height: 16),
-                    
-                    // Main content (usually the rings/cards)
-                    widget.mainContent,
-                    const SizedBox(height: 24),
-                    
-                    // Sections
-                    widget.sections,
-                    
-                    const SizedBox(height: 24),
-                  ],
+          return Container(
+            color: Colors.white,
+            child: RefreshIndicator(
+              onRefresh: widget.onRefresh ?? () async {},
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      // Header section
+                      widget.header,
+                      const SizedBox(height: 16),
+                      
+                      // Main content (usually the rings/cards)
+                      widget.mainContent,
+                      const SizedBox(height: 24),
+                      
+                      // Sections
+                      widget.sections,
+                      
+                      const SizedBox(height: 24),
+                    ],
+                  ),
                 ),
               ),
             ),

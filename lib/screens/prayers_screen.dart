@@ -211,11 +211,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [KidTheme.lightBlueBg, Colors.white],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: KidTheme.primaryBlue.withOpacity(0.2)),
       ),
@@ -280,11 +276,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [KidTheme.lightBlueBg, Colors.white],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: KidTheme.primaryBlue.withOpacity(0.2)),
       ),
@@ -337,32 +329,20 @@ class _PrayersScreenState extends State<PrayersScreen> {
 
 
   Widget _buildKidsPrayerCard(PrayerTask prayer) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
-        ),
-        child: PrayerCard(prayer: prayer),
-      ),
+      child: PrayerCard(prayer: prayer),
     );
   }
 
   Widget _buildKidsSunnahCard(SunnahPrayer prayer) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
+    return Container(
+      decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(KidTheme.standardCardBorderRadius),
-        ),
-        child: SunnahPrayerCard(prayer: prayer),
-      ),
+      child: SunnahPrayerCard(prayer: prayer),
     );
   }
 

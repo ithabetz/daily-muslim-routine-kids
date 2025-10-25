@@ -29,7 +29,14 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: EdgeInsets.all(KidTheme.standardCardPadding),
-        decoration: KidTheme.getStandardCardDecoration(isCompleted: widget.prayer.isCompleted),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: widget.prayer.isCompleted ? Colors.green.shade200 : Colors.grey.shade300,
+            width: 1,
+          ),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -103,12 +110,12 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.6),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: widget.prayer.isCompleted 
                       ? KidTheme.highlightPrayerBorderColor
-                      : KidTheme.basePrayerBorderColor,
+                      : Colors.grey.shade300,
                 ),
               ),
               child: Column(

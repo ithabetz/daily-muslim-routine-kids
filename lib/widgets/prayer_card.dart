@@ -33,7 +33,14 @@ class _PrayerCardState extends State<PrayerCard> {
       child: Container(
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: EdgeInsets.all(KidTheme.standardCardPadding),
-        decoration: KidTheme.getStandardCardDecoration(isCompleted: widget.prayer.isCompleted),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: widget.prayer.isCompleted ? Colors.green.shade200 : Colors.grey.shade300,
+            width: 1,
+          ),
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -107,12 +114,12 @@ class _PrayerCardState extends State<PrayerCard> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.6),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: widget.prayer.isCompleted 
                       ? KidTheme.highlightPrayerBorderColor
-                      : KidTheme.basePrayerBorderColor,
+                      : Colors.grey.shade300,
                 ),
               ),
               child: Column(
@@ -151,7 +158,7 @@ class _PrayerCardState extends State<PrayerCard> {
                           value: widget.prayer.inMosque,
                           enabled: (widget.prayer.prayedOutOfTime || widget.prayer.prayedOnTime),
                           onChanged: (value) => _updatePrayer(context, inMosque: value),
-                          color: KidTheme.primaryBlue,
+                          color: Colors.grey.shade400,
                         ),
                       ),
                       Expanded(
