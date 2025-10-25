@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import '../l10n/app_localizations.dart';
+import '../theme/kid_theme.dart';
 import '../utils/date_formatter.dart';
 import '../models/user_profile.dart';
 
@@ -57,7 +58,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(l10n.profileUpdatedSuccessfully),
-          backgroundColor: Colors.green,
+          backgroundColor: KidTheme.successGreen,
         ),
       );
 
@@ -70,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${l10n.failedToUpdateProfile}: $e'),
-          backgroundColor: Colors.red,
+          backgroundColor: KidTheme.errorRed,
         ),
       );
     } finally {
@@ -95,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ElevatedButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.red,
+              backgroundColor: KidTheme.errorRed,
               foregroundColor: Colors.white,
             ),
             child: Text(l10n.logout),
@@ -123,7 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('${l10n.error}: $e'),
-            backgroundColor: Colors.red,
+            backgroundColor: KidTheme.errorRed,
           ),
         );
       }
@@ -173,7 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(e.toString()),
-            backgroundColor: Colors.red,
+            backgroundColor: KidTheme.errorRed,
           ),
         );
       }
@@ -186,10 +187,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.profile),
-        backgroundColor: Colors.teal,
+        backgroundColor: KidTheme.primaryBlue,
         foregroundColor: Colors.white,
       ),
-      body: Consumer<AppProvider>(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [KidTheme.lightBlueBg, Colors.white],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Consumer<AppProvider>(
         builder: (context, provider, child) {
           final user = provider.userProfile;
 
@@ -366,7 +375,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             child: ElevatedButton(
                                               onPressed: _isSaving ? null : _handleSave,
                                               style: ElevatedButton.styleFrom(
-                                                backgroundColor: Colors.teal,
+                                                backgroundColor: KidTheme.primaryBlue,
                                                 foregroundColor: Colors.white,
                                               ),
                                               child: _isSaving

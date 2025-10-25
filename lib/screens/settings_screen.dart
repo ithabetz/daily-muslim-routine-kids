@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../l10n/app_localizations.dart';
 import '../providers/app_provider.dart';
 import '../services/storage_service.dart';
+import '../theme/kid_theme.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -14,10 +15,18 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.settings),
-        backgroundColor: Colors.teal,
+        backgroundColor: KidTheme.primaryBlue,
         foregroundColor: Colors.white,
       ),
-      body: Consumer<AppProvider>(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [KidTheme.lightBlueBg, Colors.white],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Consumer<AppProvider>(
         builder: (context, provider, child) {
           return ListView(
             children: [
@@ -29,17 +38,17 @@ class SettingsScreen extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Text(
                     l10n.account,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.teal,
+                      color: KidTheme.primaryBlue,
                     ),
                   ),
                 ),
                 
                 ListTile(
                   leading: CircleAvatar(
-                    backgroundColor: Colors.teal.shade100,
+                    backgroundColor: KidTheme.lightBlueBg,
                     child: provider.userProfile?.photoUrl != null
                         ? ClipOval(
                             child: Image.network(
@@ -49,7 +58,7 @@ class SettingsScreen extends StatelessWidget {
                               fit: BoxFit.cover,
                               errorBuilder: (_, __, ___) => Icon(
                                 Icons.person,
-                                color: Colors.teal.shade700,
+                                color: KidTheme.darkBlue,
                               ),
                             ),
                           )
@@ -68,7 +77,7 @@ class SettingsScreen extends StatelessWidget {
                 
                 // Sync with Cloud button
                 ListTile(
-                  leading: const Icon(Icons.cloud_sync, color: Colors.blue),
+                  leading: Icon(Icons.cloud_sync, color: KidTheme.primaryBlue),
                   title: const Text('مزامنة مع السحابة'),
                   subtitle: const Text('تحميل البيانات من السحابة'),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -93,9 +102,9 @@ class SettingsScreen extends StatelessWidget {
                       if (context.mounted) {
                         Navigator.of(context).pop(); // Close loading dialog
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('تم المزامنة بنجاح!'),
-                            backgroundColor: Colors.green,
+                          SnackBar(
+                            content: const Text('تم المزامنة بنجاح!'),
+                            backgroundColor: KidTheme.successGreen,
                           ),
                         );
                       }
@@ -105,7 +114,7 @@ class SettingsScreen extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text('فشل في المزامنة: $e'),
-                            backgroundColor: Colors.red,
+                            backgroundColor: KidTheme.errorRed,
                           ),
                         );
                       }
@@ -124,7 +133,7 @@ class SettingsScreen extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.teal,
+                    color: KidTheme.primaryBlue,
                   ),
                 ),
               ),
@@ -148,7 +157,7 @@ class SettingsScreen extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.teal,
+                    color: KidTheme.primaryBlue,
                   ),
                 ),
               ),
@@ -169,7 +178,7 @@ class SettingsScreen extends StatelessWidget {
               
               // Data Management
               ListTile(
-                leading: const Icon(Icons.delete_outline, color: Colors.red),
+                leading: Icon(Icons.delete_outline, color: KidTheme.errorRed),
                 title: Text(l10n.clearAllData),
                 onTap: () => _showClearDataDialog(context),
               ),
@@ -265,7 +274,7 @@ class SettingsScreen extends StatelessWidget {
                 }
               }
             },
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            style: TextButton.styleFrom(foregroundColor: KidTheme.errorRed),
             child: Text(l10n.clear),
           ),
         ],

@@ -144,43 +144,41 @@ class DailyProgress {
     // 5 Daily Prayers - Each prayer worth 1.0 point max (0.5 on-time + 0.5 mosque)
     // Out of time prayer: 0.25 points only
     // Total possible: 5 prayers × 1.0 point = 5.0 points
-    // No scaling needed - direct calculation
     double fardScore = 0;
     if (prayers.isNotEmpty) {
       fardScore = prayers.fold(0.0, (sum, p) => sum + p.score);
     }
 
     // ==========================================
-    // SUNNAH TASKS (2.5 points max)
+    // SUNNAH PRAYERS (2.5 points max)
     // ==========================================
-    double sunnahRawScore = 0;
-    double sunnahMaxScore = 0;
-    
-    // Sunnah Azkar
-    for (var a in azkar) {
-      if (a.taskType == TaskType.sunnah) {
-        sunnahMaxScore += a.weight;
-        if (a.isCompleted) {
-          sunnahRawScore += a.weight;
-        }
-      }
-    }
-    
-    // Sunnah Prayers
+    double sunnahPrayerScore = 0;
+    double sunnahPrayerMaxScore = 0;
     for (var s in sunnahPrayers) {
-      sunnahMaxScore += s.weight;
+      sunnahPrayerMaxScore += s.weight;
       if (s.isCompleted) {
-        sunnahRawScore += s.weight;
+        sunnahPrayerScore += s.weight;
       }
     }
-    
-    // Scale sunnah score to 5.0 points max (increased from 2.5 since we removed wird)
-    double sunnahScore = sunnahMaxScore > 0 ? (sunnahRawScore / sunnahMaxScore) * 5.0 : 0.0;
+    double sunnahScore = sunnahPrayerMaxScore > 0 ? (sunnahPrayerScore / sunnahPrayerMaxScore) * 2.5 : 0.0;
+
+    // ==========================================
+    // AZKAR (2.5 points max)
+    // ==========================================
+    double azkarRawScore = 0;
+    double azkarMaxScore = 0;
+    for (var a in azkar) {
+      azkarMaxScore += a.weight;
+      if (a.isCompleted) {
+        azkarRawScore += a.weight;
+      }
+    }
+    double azkarScore = azkarMaxScore > 0 ? (azkarRawScore / azkarMaxScore) * 2.5 : 0.0;
 
     // ==========================================
     // TOTAL SCORE (10.0 points max)
     // ==========================================
-    return fardScore + sunnahScore;
+    return fardScore + sunnahScore + azkarScore;
   }
 
   Map<String, dynamic> getScoreBreakdown() {
@@ -191,27 +189,29 @@ class DailyProgress {
       fardScore = maxPossibleScore > 0 ? (totalPrayerScore / maxPossibleScore) * 5.0 : 0.0;
     }
 
-    double sunnahRawScore = 0;
-    double sunnahMaxScore = 0;
-    
-    for (var a in azkar) {
-      if (a.taskType == TaskType.sunnah) {
-        sunnahMaxScore += a.weight;
-        if (a.isCompleted) sunnahRawScore += a.weight;
-      }
-    }
-    
+    // Calculate Sunnah Prayers score separately
+    double sunnahPrayerScore = 0;
+    double sunnahPrayerMaxScore = 0;
     for (var s in sunnahPrayers) {
-      sunnahMaxScore += s.weight;
-      if (s.isCompleted) sunnahRawScore += s.weight;
+      sunnahPrayerMaxScore += s.weight;
+      if (s.isCompleted) sunnahPrayerScore += s.weight;
     }
-    
-    double sunnahScore = sunnahMaxScore > 0 ? (sunnahRawScore / sunnahMaxScore) * 5.0 : 0.0;
+    double sunnahScore = sunnahPrayerMaxScore > 0 ? (sunnahPrayerScore / sunnahPrayerMaxScore) * 2.5 : 0.0;
+
+    // Calculate Azkar score separately
+    double azkarRawScore = 0;
+    double azkarMaxScore = 0;
+    for (var a in azkar) {
+      azkarMaxScore += a.weight;
+      if (a.isCompleted) azkarRawScore += a.weight;
+    }
+    double azkarScore = azkarMaxScore > 0 ? (azkarRawScore / azkarMaxScore) * 2.5 : 0.0;
 
     return {
       'fard': fardScore,
       'sunnah': sunnahScore,
-      'total': fardScore + sunnahScore,
+      'azkar': azkarScore,
+      'total': fardScore + sunnahScore + azkarScore,
     };
   }
 
@@ -224,33 +224,17 @@ class DailyProgress {
       percentages['fard'] = (completedPrayers / prayers.length) * 100;
     }
     
-    // Azkar completion
+    // Azkar completion (separate category)
     if (azkar.isNotEmpty) {
       int completedAzkar = azkar.where((a) => a.isCompleted).length;
       percentages['azkar'] = (completedAzkar / azkar.length) * 100;
     }
     
-    // Sunnah prayers completion
+    // Sunnah prayers completion (separate category)
     if (sunnahPrayers.isNotEmpty) {
       int completedSunnah = sunnahPrayers.where((s) => s.isCompleted).length;
-      percentages['sunnahPrayers'] = (completedSunnah / sunnahPrayers.length) * 100;
+      percentages['sunnah'] = (completedSunnah / sunnahPrayers.length) * 100;
     }
-    
-    // Calculate combined sunnah percentage (azkar + sunnah prayers)
-    double sunnahPercentage = 0.0;
-    if (azkar.isNotEmpty && sunnahPrayers.isNotEmpty) {
-      int totalSunnahTasks = azkar.length + sunnahPrayers.length;
-      int completedSunnahTasks = azkar.where((a) => a.isCompleted).length + 
-                                 sunnahPrayers.where((s) => s.isCompleted).length;
-      sunnahPercentage = (completedSunnahTasks / totalSunnahTasks) * 100;
-    } else if (azkar.isNotEmpty) {
-      int completedAzkar = azkar.where((a) => a.isCompleted).length;
-      sunnahPercentage = (completedAzkar / azkar.length) * 100;
-    } else if (sunnahPrayers.isNotEmpty) {
-      int completedSunnah = sunnahPrayers.where((s) => s.isCompleted).length;
-      sunnahPercentage = (completedSunnah / sunnahPrayers.length) * 100;
-    }
-    percentages['sunnah'] = sunnahPercentage;
     
     return percentages;
   }

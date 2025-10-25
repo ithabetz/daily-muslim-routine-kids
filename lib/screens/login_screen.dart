@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      backgroundColor: Colors.teal.shade50,
+      backgroundColor: KidTheme.lightBlueBg,
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(

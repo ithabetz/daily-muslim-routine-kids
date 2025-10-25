@@ -101,6 +101,7 @@ class _SetupScreenState extends State<SetupScreen> {
     final l10n = AppLocalizations.of(context)!;
     
     return Scaffold(
+      backgroundColor: KidTheme.lightBlueBg,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

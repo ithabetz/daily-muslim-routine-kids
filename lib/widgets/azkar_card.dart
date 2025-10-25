@@ -158,7 +158,7 @@ class _AzkarCardState extends State<AzkarCard> {
               child: Column(
                 children: [
                   Text(
-                    'Complete your Azkar:',
+                    'أكمل الأذكار:',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -237,10 +237,13 @@ class _AzkarCardState extends State<AzkarCard> {
     final provider = Provider.of<AppProvider>(context, listen: false);
     final wasCompleted = widget.azkar.isCompleted;
     
-    provider.toggleAzkar(widget.azkar.type);
+    // Use the new value directly instead of toggling
+    if (isCompleted != null) {
+      provider.updateAzkar(widget.azkar.type, isCompleted);
+    }
     
     // Show celebration if azkar was just completed
-    if (!wasCompleted && widget.azkar.isCompleted) {
+    if (!wasCompleted && isCompleted == true) {
       setState(() {
         _showCelebration = true;
       });
@@ -253,7 +256,7 @@ class _AzkarCardState extends State<AzkarCard> {
               const Icon(Icons.celebration, color: Colors.white),
               const SizedBox(width: 8),
               Text(
-                'Great job! Azkar completed! 🎉',
+                'ممتاز! تم إكمال الأذكار! 🎉',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

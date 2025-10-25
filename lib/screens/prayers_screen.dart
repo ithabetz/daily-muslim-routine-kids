@@ -14,6 +14,7 @@ import '../widgets/unified_rings_widget.dart';
 import '../l10n/app_localizations.dart';
 import '../utils/date_formatter.dart';
 import '../models/azkar_task.dart';
+import '../theme/kid_theme.dart';
 
 class PrayersScreen extends StatefulWidget {
   const PrayersScreen({super.key});
@@ -65,12 +66,14 @@ class _PrayersScreenState extends State<PrayersScreen> {
         builder: (context, provider, child) {
           final breakdown = provider.todayProgress?.getScoreBreakdown() ?? {
             'fard': 0.0, 
-            'sunnah': 0.0, 
+            'sunnah': 0.0,
+            'azkar': 0.0,
             'total': 0.0
           };
           final percentages = provider.todayProgress?.getCompletionPercentages() ?? {
             'fard': 0.0, 
-            'sunnah': 0.0
+            'sunnah': 0.0,
+            'azkar': 0.0
           };
 
           return ScoreCardContainer(
@@ -79,17 +82,17 @@ class _PrayersScreenState extends State<PrayersScreen> {
               configuration: ActivityRingsConfiguration(
                 firstProgress: (percentages['fard'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
                 secondProgress: (percentages['sunnah'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
-                thirdProgress: 0.0, // Removed wird category
+                thirdProgress: (percentages['azkar'] ?? 0.0) / 100.0, // Convert percentage to 0.0-1.0
                 firstColor: const Color(0xFF4CAF50), // Green for Fard
                 secondColor: const Color(0xFFFF9800), // Orange for Sunnah
-                thirdColor: const Color(0xFF2196F3), // Blue (unused)
+                thirdColor: const Color(0xFF2196F3), // Blue for Azkar
                 firstScore: breakdown['fard'] ?? 0.0,
                 secondScore: breakdown['sunnah'] ?? 0.0,
-                thirdScore: 0.0, // Removed wird category
+                thirdScore: breakdown['azkar'] ?? 0.0,
                 totalScore: provider.todayScore,
                 firstLabel: 'الفرض',
                 secondLabel: 'السنة',
-                thirdLabel: '', // Empty since we removed wird
+                thirdLabel: 'الأذكار',
                 centerLabel: 'النقاط',
               ),
             ),
@@ -123,13 +126,33 @@ class _PrayersScreenState extends State<PrayersScreen> {
             children: [
               // Next Prayer Info
               if (provider.prayerTimes != null) ...[
-                CollapsibleSection(
-                  title: 'الصلاة القادمة',
-                  icon: Icons.access_time,
-                  initiallyExpanded: true,
-                  children: [
-                    _buildNextPrayerInfo(provider.prayerTimes!),
-                  ],
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.access_time,
+                            color: KidTheme.primaryBlue,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            'الصلاة القادمة',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: KidTheme.darkBlue,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
+                      _buildNextPrayerInfo(provider.prayerTimes!),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],
@@ -138,7 +161,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
               CollapsibleSection(
                 title: 'الصلوات الخمس',
                 icon: Icons.mosque,
-                initiallyExpanded: true,
+                initiallyExpanded: false,
                 children: provider.todayProgress!.prayers.map((prayer) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
@@ -189,12 +212,12 @@ class _PrayersScreenState extends State<PrayersScreen> {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.teal.shade100, Colors.teal.shade50],
+          colors: [KidTheme.lightBlueBg, Colors.white],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.teal.shade200),
+        border: Border.all(color: KidTheme.primaryBlue.withOpacity(0.2)),
       ),
       child: Column(
         children: [
@@ -202,7 +225,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
             children: [
               Icon(
                 Icons.calendar_today,
-                color: Colors.teal.shade700,
+                color: KidTheme.primaryBlue,
                 size: 24,
               ),
               const SizedBox(width: 12),
@@ -212,7 +235,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
-                    color: Colors.teal.shade800,
+                    color: KidTheme.darkBlue,
                   ),
                 ),
               ),
@@ -224,7 +247,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
               children: [
                 Icon(
                   Icons.location_on,
-                  color: Colors.teal.shade600,
+                  color: KidTheme.primaryBlue,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
@@ -232,7 +255,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                   provider.city!,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.teal.shade700,
+                    color: KidTheme.darkBlue,
                   ),
                 ),
               ],
@@ -258,18 +281,18 @@ class _PrayersScreenState extends State<PrayersScreen> {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue.shade100, Colors.blue.shade50],
+          colors: [KidTheme.lightBlueBg, Colors.white],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.blue.shade200),
+        border: Border.all(color: KidTheme.primaryBlue.withOpacity(0.2)),
       ),
       child: Row(
         children: [
           Icon(
             Icons.access_time,
-            color: Colors.blue.shade700,
+            color: KidTheme.primaryBlue,
             size: 28,
           ),
           const SizedBox(width: 16),
@@ -282,7 +305,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
-                    color: Colors.blue.shade800,
+                    color: KidTheme.darkBlue,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -291,7 +314,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
-                    color: Colors.blue.shade900,
+                    color: KidTheme.darkBlue,
                   ),
                 ),
                 if (hours > 0 || minutes > 0) ...[
@@ -300,7 +323,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                     'في ${hours > 0 ? '$hours ساعة و ' : ''}$minutes دقيقة',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.blue.shade700,
+                      color: KidTheme.primaryBlue,
                     ),
                   ),
                 ],
@@ -325,8 +348,8 @@ class _PrayersScreenState extends State<PrayersScreen> {
           borderRadius: BorderRadius.circular(12),
           gradient: LinearGradient(
             colors: [
-              Colors.teal.withOpacity(0.05),
-              Colors.teal.withOpacity(0.02),
+              KidTheme.lightBlueBg.withOpacity(0.3),
+              KidTheme.lightBlueBg.withOpacity(0.1),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -347,7 +370,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: Colors.orange.withOpacity(0.02),
+          color: KidTheme.lightOrangeBg.withOpacity(0.3),
         ),
         child: SunnahPrayerCard(prayer: prayer),
       ),

@@ -159,7 +159,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
               child: Column(
                 children: [
                   Text(
-                    'Complete your Sunnah prayer:',
+                    'أكمل صلاة السنة:',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -238,10 +238,13 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
     final provider = Provider.of<AppProvider>(context, listen: false);
     final wasCompleted = widget.prayer.isCompleted;
     
-    provider.toggleSunnahPrayer(widget.prayer.type);
+    // Use the new value directly instead of toggling
+    if (isCompleted != null) {
+      provider.updateSunnahPrayer(widget.prayer.type, isCompleted);
+    }
     
     // Show celebration if prayer was just completed
-    if (!wasCompleted && widget.prayer.isCompleted) {
+    if (!wasCompleted && isCompleted == true) {
       setState(() {
         _showCelebration = true;
       });
@@ -254,7 +257,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
               const Icon(Icons.celebration, color: Colors.white),
               const SizedBox(width: 8),
               Text(
-                'Great job! Sunnah prayer completed! 🎉',
+                'ممتاز! تم إكمال صلاة السنة! 🎉',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

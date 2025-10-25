@@ -25,7 +25,7 @@ class _PrayerCardState extends State<PrayerCard> {
     final l10n = AppLocalizations.of(context)!;
     final timeString = widget.prayer.time != null 
         ? NumberFormatter.toEnglishNumbers(DateFormat('h:mm a').format(widget.prayer.time!))
-        : 'Time not set';
+        : 'لم يتم تحديد الوقت';
     
     return CelebrationAnimation(
       isActive: _showCelebration,
@@ -167,7 +167,7 @@ class _PrayerCardState extends State<PrayerCard> {
               child: Column(
                 children: [
                   Text(
-                    'Complete your prayer:',
+                    'أكمل صلاتك:',
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
@@ -265,7 +265,12 @@ class _PrayerCardState extends State<PrayerCard> {
     final provider = Provider.of<AppProvider>(context, listen: false);
     final wasCompleted = widget.prayer.isCompleted;
     
-    provider.togglePrayer(widget.prayer.type);
+    provider.updatePrayerDetails(
+      prayerType: widget.prayer.type,
+      prayedOnTime: prayedOnTime,
+      inMosque: inMosque,
+      prayedOutOfTime: prayedOutOfTime,
+    );
     
     // Show celebration if prayer was just completed
     if (!wasCompleted && widget.prayer.isCompleted) {
@@ -281,7 +286,7 @@ class _PrayerCardState extends State<PrayerCard> {
               const Icon(Icons.celebration, color: Colors.white),
               const SizedBox(width: 8),
               Text(
-                'Great job! Prayer completed! 🎉',
+                'ممتاز! تم إكمال الصلاة! 🎉',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

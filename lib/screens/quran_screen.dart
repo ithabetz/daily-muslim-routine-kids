@@ -77,7 +77,7 @@ class _QuranScreenState extends State<QuranScreen> {
       return Scaffold(
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)?.quranKareem ?? 'قرآن الكريم'),
-          backgroundColor: Colors.green,
+          backgroundColor: KidTheme.primaryGreen,
           foregroundColor: Colors.white,
         ),
         body: Center(
@@ -120,7 +120,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('تم المزامنة بنجاح!'),
-                              backgroundColor: Colors.green,
+                              backgroundColor: KidTheme.successGreen,
                             ),
                           );
                         }
@@ -134,7 +134,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('فشل في المزامنة: $e'),
-                              backgroundColor: Colors.red,
+                              backgroundColor: KidTheme.errorRed,
                             ),
                           );
                         }
@@ -149,19 +149,19 @@ class _QuranScreenState extends State<QuranScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       margin: const EdgeInsets.only(right: 8),
                       decoration: BoxDecoration(
-                        color: Colors.orange.shade100,
+                        color: KidTheme.lightOrangeBg,
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Icon(Icons.cloud_off, size: 16, color: Colors.orange.shade700),
+                          Icon(Icons.cloud_off, size: 16, color: KidTheme.warningOrange),
                           const SizedBox(width: 4),
                           Text(
                             'غير متصل',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.orange.shade700,
+                              color: KidTheme.warningOrange,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -171,7 +171,13 @@ class _QuranScreenState extends State<QuranScreen> {
                 ],
       ),
       body: Container(
-        decoration: KidTheme.quranGradient,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [KidTheme.lightBlueBg, Colors.white],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
         child: SafeArea(
           child: Column(
             children: [
@@ -257,7 +263,7 @@ class _QuranScreenState extends State<QuranScreen> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.green.shade200),
+              border: Border.all(color: KidTheme.primaryGreen.withOpacity(0.2)),
             ),
             child: Column(
               children: [
@@ -266,7 +272,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: Colors.green.shade700,
+                    color: KidTheme.darkGreen,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -276,7 +282,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 Container(
                   height: 20,
                   decoration: BoxDecoration(
-                    color: Colors.green.shade100,
+                    color: KidTheme.lightGreenBg,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: FractionallySizedBox(
@@ -285,7 +291,7 @@ class _QuranScreenState extends State<QuranScreen> {
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                          colors: [Colors.green.shade400, Colors.green.shade600],
+                          colors: [KidTheme.primaryGreen, KidTheme.darkGreen],
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -300,7 +306,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: Colors.green.shade700,
+                    color: KidTheme.darkGreen,
                   ),
                 ),
                 
@@ -308,7 +314,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   '${progressPercentage.toStringAsFixed(1)}% مكتمل',
                   style: TextStyle(
                     fontSize: 12,
-                    color: Colors.green.shade600,
+                    color: KidTheme.primaryGreen,
                   ),
                 ),
               ],
