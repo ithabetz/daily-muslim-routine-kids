@@ -30,7 +30,6 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: EdgeInsets.all(KidTheme.standardCardPadding),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: widget.prayer.isCompleted ? Colors.green.shade200 : Colors.grey.shade300,
@@ -106,49 +105,37 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
             
             const SizedBox(height: 6),
             
-            // Checkboxes Section - Standardized
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: widget.prayer.isCompleted 
-                      ? KidTheme.highlightPrayerBorderColor
-                      : Colors.grey.shade300,
+            // Checkboxes Section - Just text, no box
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  l10n.completeSunnahPrayer,
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w600,
+                    color: widget.prayer.isCompleted 
+                        ? KidTheme.successGreen
+                        : KidTheme.darkBlue,
+                  ),
                 ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    l10n.completeSunnahPrayer,
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.w600,
-                      color: widget.prayer.isCompleted 
-                          ? KidTheme.successGreen
-                          : KidTheme.darkBlue,
+                const SizedBox(height: 3),
+                
+                // Checkboxes in a more kid-friendly layout
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildKidCheckbox(
+                      context: context,
+                      label: l10n.prayedSunnah,
+                      value: widget.prayer.isCompleted,
+                      enabled: true,
+                      onChanged: (value) => _updatePrayer(context, isCompleted: value),
+                      color: KidTheme.successGreen,
                     ),
-                  ),
-                  const SizedBox(height: 3),
-                  
-                  // Checkboxes in a more kid-friendly layout
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildKidCheckbox(
-                        context: context,
-                        label: l10n.prayedSunnah,
-                        value: widget.prayer.isCompleted,
-                        enabled: true,
-                        onChanged: (value) => _updatePrayer(context, isCompleted: value),
-                        color: KidTheme.successGreen,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
