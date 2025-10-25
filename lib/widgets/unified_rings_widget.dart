@@ -45,10 +45,12 @@ class ActivityRingsConfiguration {
 // Simplified unified rings widget for kids version
 class UnifiedRingsWidget extends StatelessWidget {
   final ActivityRingsConfiguration configuration;
+  final bool showSingleRing;
 
   const UnifiedRingsWidget({
     super.key,
     required this.configuration,
+    this.showSingleRing = false,
   });
 
   @override
@@ -58,44 +60,57 @@ class UnifiedRingsWidget extends StatelessWidget {
       height: 200,
       child: Stack(
         children: [
-          // First Ring (outermost)
-          Positioned.fill(
-            child: CircularProgressIndicator(
-              key: ValueKey('first_${configuration.firstProgress}'),
-              value: configuration.firstProgress,
-              backgroundColor: configuration.firstColor.withOpacity(0.2),
-              valueColor: AlwaysStoppedAnimation<Color>(configuration.firstColor),
-              strokeWidth: 8.0,
-            ),
-          ),
-          
-          // Second Ring (middle)
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
+          if (showSingleRing) ...[
+            // Single Ring for Quran progress
+            Positioned.fill(
               child: CircularProgressIndicator(
-                key: ValueKey('second_${configuration.secondProgress}'),
-                value: configuration.secondProgress,
-                backgroundColor: configuration.secondColor.withOpacity(0.2),
-                valueColor: AlwaysStoppedAnimation<Color>(configuration.secondColor),
+                key: ValueKey('single_${configuration.firstProgress}'),
+                value: configuration.firstProgress,
+                backgroundColor: configuration.firstColor.withOpacity(0.2),
+                valueColor: AlwaysStoppedAnimation<Color>(configuration.firstColor),
+                strokeWidth: 12.0,
+              ),
+            ),
+          ] else ...[
+            // First Ring (outermost)
+            Positioned.fill(
+              child: CircularProgressIndicator(
+                key: ValueKey('first_${configuration.firstProgress}'),
+                value: configuration.firstProgress,
+                backgroundColor: configuration.firstColor.withOpacity(0.2),
+                valueColor: AlwaysStoppedAnimation<Color>(configuration.firstColor),
                 strokeWidth: 8.0,
               ),
             ),
-          ),
-          
-          // Third Ring (innermost)
-          Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.all(40.0),
-              child: CircularProgressIndicator(
-                key: ValueKey('third_${configuration.thirdProgress}'),
-                value: configuration.thirdProgress,
-                backgroundColor: configuration.thirdColor.withOpacity(0.2),
-                valueColor: AlwaysStoppedAnimation<Color>(configuration.thirdColor),
-                strokeWidth: 8.0,
+            
+            // Second Ring (middle)
+            Positioned.fill(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: CircularProgressIndicator(
+                  key: ValueKey('second_${configuration.secondProgress}'),
+                  value: configuration.secondProgress,
+                  backgroundColor: configuration.secondColor.withOpacity(0.2),
+                  valueColor: AlwaysStoppedAnimation<Color>(configuration.secondColor),
+                  strokeWidth: 8.0,
+                ),
               ),
             ),
-          ),
+            
+            // Third Ring (innermost)
+            Positioned.fill(
+              child: Padding(
+                padding: const EdgeInsets.all(40.0),
+                child: CircularProgressIndicator(
+                  key: ValueKey('third_${configuration.thirdProgress}'),
+                  value: configuration.thirdProgress,
+                  backgroundColor: configuration.thirdColor.withOpacity(0.2),
+                  valueColor: AlwaysStoppedAnimation<Color>(configuration.thirdColor),
+                  strokeWidth: 8.0,
+                ),
+              ),
+            ),
+          ],
           
           // Center content
           Center(

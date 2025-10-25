@@ -4,6 +4,7 @@ import '../models/quran_memorization.dart';
 import '../services/quran_memorization_service.dart';
 import '../theme/kid_theme.dart';
 import '../widgets/celebration_animations.dart';
+import '../widgets/unified_rings_widget.dart';
 import '../l10n/app_localizations.dart';
 
 class QuranScreen extends StatefulWidget {
@@ -257,7 +258,7 @@ class _QuranScreenState extends State<QuranScreen> {
           
           const SizedBox(height: 16),
           
-          // Progress Info
+          // Progress Info with Circle
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -276,30 +277,30 @@ class _QuranScreenState extends State<QuranScreen> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 16),
                 
-                // Progress Bar
-                Container(
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: KidTheme.lightGreenBg,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: FractionallySizedBox(
-                    alignment: Alignment.centerLeft,
-                    widthFactor: progressPercentage / 100,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [KidTheme.primaryGreen, KidTheme.darkGreen],
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
+                // Progress Circle
+                UnifiedRingsWidget(
+                  showSingleRing: true,
+                  configuration: ActivityRingsConfiguration(
+                    firstProgress: progressPercentage / 100,
+                    secondProgress: 0.0, // Not used for single ring
+                    thirdProgress: 0.0, // Not used for single ring
+                    firstColor: KidTheme.primaryGreen,
+                    secondColor: KidTheme.primaryGreen, // Same color for consistency
+                    thirdColor: KidTheme.primaryGreen, // Same color for consistency
+                    firstScore: memorizedCount.toDouble(),
+                    secondScore: 0.0,
+                    thirdScore: 0.0,
+                    totalScore: progressPercentage,
+                    firstLabel: 'محفوظة',
+                    secondLabel: '',
+                    thirdLabel: '',
+                    centerLabel: '%',
                   ),
                 ),
                 
-                const SizedBox(height: 8),
+                const SizedBox(height: 12),
                 
                 Text(
                   '$memorizedCount من $totalSurahs سورة محفوظة',
@@ -307,14 +308,6 @@ class _QuranScreenState extends State<QuranScreen> {
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: KidTheme.darkGreen,
-                  ),
-                ),
-                
-                Text(
-                  '${progressPercentage.toStringAsFixed(1)}% مكتمل',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: KidTheme.primaryGreen,
                   ),
                 ),
               ],
