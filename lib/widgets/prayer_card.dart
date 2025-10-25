@@ -32,7 +32,6 @@ class _PrayerCardState extends State<PrayerCard> {
         margin: const EdgeInsets.symmetric(vertical: 6),
         padding: EdgeInsets.all(KidTheme.standardCardPadding),
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
             color: widget.prayer.isCompleted ? Colors.green.shade200 : Colors.grey.shade300,
@@ -45,10 +44,16 @@ class _PrayerCardState extends State<PrayerCard> {
             // Header Row with Icon and Prayer Info
             Row(
               children: [
-                // Prayer Icon - Standardized size
+                // Prayer Icon - Transparent container
                 Container(
                   padding: EdgeInsets.all(KidTheme.standardIconPadding),
-                  decoration: KidTheme.getStandardIconDecoration(isCompleted: widget.prayer.isCompleted),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade400,
+                      width: 2,
+                    ),
+                  ),
                   child: Icon(
                     widget.prayer.type.icon,
                     color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade600,
@@ -87,13 +92,19 @@ class _PrayerCardState extends State<PrayerCard> {
                   ),
                 ),
                 
-                // Points indicator - Standardized
+                // Points indicator - Transparent container
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 6,
                   ),
-                  decoration: KidTheme.getStandardPointsDecoration(isCompleted: widget.prayer.isCompleted),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                      color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade400,
+                      width: 1,
+                    ),
+                  ),
                   child: Text(
                     '+${NumberFormatter.formatDecimal(widget.prayer.score, decimalPlaces: 1)}',
                     style: TextStyle(
@@ -108,11 +119,10 @@ class _PrayerCardState extends State<PrayerCard> {
             
             const SizedBox(height: 6),
             
-            // Checkboxes Section - Standardized
+            // Checkboxes Section - Transparent container
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: widget.prayer.isCompleted 
