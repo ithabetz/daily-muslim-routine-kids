@@ -23,9 +23,7 @@ class _PrayerCardState extends State<PrayerCard> {
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final timeString = widget.prayer.time != null 
-        ? NumberFormatter.toEnglishNumbers(DateFormat('h:mm a').format(widget.prayer.time!))
-        : 'لم يتم تحديد الوقت';
+    final timeString = NumberFormatter.toEnglishNumbers(DateFormat('h:mm a').format(widget.prayer.time));
     
     return CelebrationAnimation(
       isActive: _showCelebration,
@@ -126,7 +124,7 @@ class _PrayerCardState extends State<PrayerCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'أكمل صلاتك:',
+                    AppLocalizations.of(context)?.completeYourPrayer ?? 'أكمل صلاتك',
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -144,7 +142,7 @@ class _PrayerCardState extends State<PrayerCard> {
                       Expanded(
                         child: _buildKidCheckbox(
                           context: context,
-                          label: l10n.prayedOnTime,
+                          label: AppLocalizations.of(context)?.prayedOnTime ?? 'صليت في الوقت',
                           value: widget.prayer.prayedOnTime,
                           enabled: !widget.prayer.prayedOutOfTime,
                           onChanged: (value) => _updatePrayer(context, prayedOnTime: value),
@@ -154,7 +152,7 @@ class _PrayerCardState extends State<PrayerCard> {
                       Expanded(
                         child: _buildKidCheckbox(
                           context: context,
-                          label: l10n.inMosque,
+                          label: AppLocalizations.of(context)?.inMosque ?? 'في المسجد',
                           value: widget.prayer.inMosque,
                           enabled: (widget.prayer.prayedOutOfTime || widget.prayer.prayedOnTime),
                           onChanged: (value) => _updatePrayer(context, inMosque: value),
@@ -164,7 +162,7 @@ class _PrayerCardState extends State<PrayerCard> {
                       Expanded(
                         child: _buildKidCheckbox(
                           context: context,
-                          label: l10n.prayedOutOfTime,
+                          label: AppLocalizations.of(context)?.prayedOutOfTime ?? 'صليت متأخراً',
                           value: widget.prayer.prayedOutOfTime,
                           enabled: true,
                           onChanged: (value) => _updatePrayer(context, prayedOutOfTime: value),
@@ -254,7 +252,7 @@ class _PrayerCardState extends State<PrayerCard> {
               const Icon(Icons.celebration, color: Colors.white),
               const SizedBox(width: 8),
               Text(
-                'ممتاز! تم إكمال الصلاة! 🎉',
+                AppLocalizations.of(context)?.excellentPrayerCompleted ?? 'ممتاز! تم إنجاز الصلاة',
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

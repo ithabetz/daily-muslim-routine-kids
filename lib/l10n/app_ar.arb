@@ -150,6 +150,7 @@
   "completeYourPrayer": "أكمل صلاتك:",
   "greatJobPrayerCompleted": "ممتاز! تمت الصلاة! 🎉",
   "timeNotSet": "الوقت غير محدد",
+  "timeNotDetermined": "لم يتم تحديد الوقت",
   "prayerTimeTitle": "وقت الصلاة",
   "prayerTimeBody": "حان وقت صلاة {prayer}",
   "prayerReminderTitle": "تذكير الصلاة",
@@ -187,9 +188,55 @@
   "salatAlDuhaDescription": "صلاة الصباح بعد الشروق",
   "qiyamAlLaylDescription": "صلاة الليل قبل الفجر",
   
+  "@_ENCOURAGEMENT_MESSAGES": {},
+  "excellentMessage": "ممتاز! أنت رائع! 🌟",
+  "greatJobMessage": "أحسنت! استمر هكذا! 👏",
+  "goodProgressMessage": "جيد جداً! تابع التقدم! 😊",
+  "keepTryingMessage": "لا بأس، حاول مرة أخرى! 💪",
+  "startPrayerMessage": "ابدأ يومك بالصلاة! 🤲",
+  "startJourneyMessage": "ابدأ رحلتك الجميلة! 🌈",
+  
   "@_TASK_TYPES": {},
   "fard": "الفرض",
   "sunnah": "السنة",
   "mandatory": "إجباري",
-  "recommended": "مستحب"
+  "recommended": "مستحب",
+  
+  "@_HARDCODED_STRINGS_TO_FIX": {},
+  "welcomeGreeting": "مرحباً! أهلاً وسهلاً",
+  "letsLearnTogether": "مرحباً! دعنا نتعلم معاً! 🌟",
+  "continueLearning": "استمر في التعلم والنمو! 🌈",
+  "letsStart": "لنبدأ! 🚀",
+  "syncWithCloud": "مزامنة مع السحابة",
+  "syncWithCloudDescription": "تحميل البيانات من السحابة",
+  "syncSuccess": "تم المزامنة بنجاح!",
+  "syncFailed": "فشل في المزامنة:",
+  "offlineMode": "غير متصل",
+  "syncing": "جاري المزامنة...",
+  "completeSunnahPrayer": "أكمل صلاة السنة:",
+  "completeAzkar": "أكمل الأذكار:",
+  "prayedSunnah": "صليت السنة",
+  "completedAzkar": "أكملت الأذكار",
+  "excellentPrayerCompleted": "ممتاز! تم إكمال الصلاة! 🎉",
+  "excellentSunnahCompleted": "ممتاز! تم إكمال صلاة السنة! 🎉",
+  "excellentAzkarCompleted": "ممتاز! تم إكمال الأذكار! 🎉",
+  "surahMemorized": "تم حفظ السورة! 🎉 رائع!",
+  "surahUnmemorized": "تم إلغاء حفظ السورة",
+  "continueMemorizing": "استمر في الحفظ! أنت رائع!",
+  "nextPrayer": "الصلاة القادمة",
+  "inHoursAndMinutes": "في {hours} ساعة و {minutes} دقيقة",
+  "inMinutes": "في {minutes} دقيقة",
+  "points": "النقاط",
+  "fardLabel": "الفرض",
+  "sunnahLabel": "السنة",
+  "azkarLabel": "الأذكار",
+  "todayProgress": "تقدمك اليوم",
+  "fiveDailyPrayers": "الصلوات الخمس",
+  "sunnahAndRawatib": "السنن والرواتب",
+  "azkarSection": "الأذكار",
+  "juzAmma": "جزء عم",
+  "fromPeopleToNews": "من الناس إلى النبأ",
+  "memorizationProgress": "تقدمك في الحفظ",
+  "surahsMemorized": "{memorized} من {total} سورة محفوظة",
+  "percentComplete": "{percentage}% مكتمل"
 }

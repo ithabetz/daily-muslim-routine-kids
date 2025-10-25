@@ -122,7 +122,7 @@ class _AzkarCardState extends State<AzkarCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'أكمل الأذكار:',
+                    l10n.completeAzkar,
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -139,7 +139,7 @@ class _AzkarCardState extends State<AzkarCard> {
                     children: [
                       _buildKidCheckbox(
                         context: context,
-                        label: 'أكملت الأذكار',
+                        label: l10n.completedAzkar,
                         value: widget.azkar.isCompleted,
                         enabled: true,
                         onChanged: (value) => _updateAzkar(context, isCompleted: value),
@@ -199,6 +199,7 @@ class _AzkarCardState extends State<AzkarCard> {
   }
 
   void _updateAzkar(BuildContext context, {bool? isCompleted}) {
+    final l10n = AppLocalizations.of(context)!;
     final provider = Provider.of<AppProvider>(context, listen: false);
     final wasCompleted = widget.azkar.isCompleted;
     
@@ -221,7 +222,7 @@ class _AzkarCardState extends State<AzkarCard> {
               const Icon(Icons.celebration, color: Colors.white),
               const SizedBox(width: 8),
               Text(
-                'ممتاز! تم إكمال الأذكار! 🎉',
+                l10n.excellentAzkarCompleted,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,

@@ -25,7 +25,7 @@ class MainMenuScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pushNamed('/settings');
             },
-            tooltip: 'الإعدادات',
+            tooltip: l10n.settings,
           ),
         ],
       ),
@@ -90,7 +90,7 @@ class MainMenuScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'مرحباً! أهلاً وسهلاً',
+                        l10n.welcomeGreeting,
                         style: TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -100,7 +100,7 @@ class MainMenuScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'مرحباً! دعنا نتعلم معاً! 🌟',
+                        l10n.letsLearnTogether,
                         style: TextStyle(
                           fontSize: 18,
                           color: KidTheme.darkBlue,
@@ -183,7 +183,7 @@ class MainMenuScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 12),
                       Text(
-                        'استمر في التعلم والنمو! 🌈',
+                        l10n.continueLearning,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -355,7 +355,7 @@ class MainMenuScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'لنبدأ! 🚀',
+                      AppLocalizations.of(context)?.letsStart ?? 'Let\'s Start',
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -263,22 +263,4 @@ class DailyProgress {
     );
   }
 
-  static List<SunnahPrayer> _reorderSunnahPrayers(List<SunnahPrayer> prayers) {
-    // Reorder sunnah prayers by type for consistent display
-    final orderedTypes = [
-      SunnahPrayerType.salatAlDuha,
-      SunnahPrayerType.qiyamAlLayl,
-    ];
-    
-    List<SunnahPrayer> orderedPrayers = [];
-    for (var type in orderedTypes) {
-      final prayer = prayers.firstWhere(
-        (p) => p.type == type,
-        orElse: () => SunnahPrayer(type: type, isCompleted: false, weight: 1.0),
-      );
-      orderedPrayers.add(prayer);
-    }
-    
-    return orderedPrayers;
-  }
 }

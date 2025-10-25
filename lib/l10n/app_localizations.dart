@@ -808,6 +808,12 @@ abstract class AppLocalizations {
   /// **'الوقت غير محدد'**
   String get timeNotSet;
 
+  /// No description provided for @timeNotDetermined.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم يتم تحديد الوقت'**
+  String get timeNotDetermined;
+
   /// No description provided for @prayerTimeTitle.
   ///
   /// In ar, this message translates to:
@@ -1000,6 +1006,42 @@ abstract class AppLocalizations {
   /// **'صلاة الليل قبل الفجر'**
   String get qiyamAlLaylDescription;
 
+  /// No description provided for @excellentMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'ممتاز! أنت رائع! 🌟'**
+  String get excellentMessage;
+
+  /// No description provided for @greatJobMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'أحسنت! استمر هكذا! 👏'**
+  String get greatJobMessage;
+
+  /// No description provided for @goodProgressMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'جيد جداً! تابع التقدم! 😊'**
+  String get goodProgressMessage;
+
+  /// No description provided for @keepTryingMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'لا بأس، حاول مرة أخرى! 💪'**
+  String get keepTryingMessage;
+
+  /// No description provided for @startPrayerMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابدأ يومك بالصلاة! 🤲'**
+  String get startPrayerMessage;
+
+  /// No description provided for @startJourneyMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'ابدأ رحلتك الجميلة! 🌈'**
+  String get startJourneyMessage;
+
   /// No description provided for @fard.
   ///
   /// In ar, this message translates to:
@@ -1023,6 +1065,222 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'مستحب'**
   String get recommended;
+
+  /// No description provided for @welcomeGreeting.
+  ///
+  /// In ar, this message translates to:
+  /// **'مرحباً! أهلاً وسهلاً'**
+  String get welcomeGreeting;
+
+  /// No description provided for @letsLearnTogether.
+  ///
+  /// In ar, this message translates to:
+  /// **'مرحباً! دعنا نتعلم معاً! 🌟'**
+  String get letsLearnTogether;
+
+  /// No description provided for @continueLearning.
+  ///
+  /// In ar, this message translates to:
+  /// **'استمر في التعلم والنمو! 🌈'**
+  String get continueLearning;
+
+  /// No description provided for @letsStart.
+  ///
+  /// In ar, this message translates to:
+  /// **'لنبدأ! 🚀'**
+  String get letsStart;
+
+  /// No description provided for @syncWithCloud.
+  ///
+  /// In ar, this message translates to:
+  /// **'مزامنة مع السحابة'**
+  String get syncWithCloud;
+
+  /// No description provided for @syncWithCloudDescription.
+  ///
+  /// In ar, this message translates to:
+  /// **'تحميل البيانات من السحابة'**
+  String get syncWithCloudDescription;
+
+  /// No description provided for @syncSuccess.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم المزامنة بنجاح!'**
+  String get syncSuccess;
+
+  /// No description provided for @syncFailed.
+  ///
+  /// In ar, this message translates to:
+  /// **'فشل في المزامنة:'**
+  String get syncFailed;
+
+  /// No description provided for @offlineMode.
+  ///
+  /// In ar, this message translates to:
+  /// **'غير متصل'**
+  String get offlineMode;
+
+  /// No description provided for @syncing.
+  ///
+  /// In ar, this message translates to:
+  /// **'جاري المزامنة...'**
+  String get syncing;
+
+  /// No description provided for @completeSunnahPrayer.
+  ///
+  /// In ar, this message translates to:
+  /// **'أكمل صلاة السنة:'**
+  String get completeSunnahPrayer;
+
+  /// No description provided for @completeAzkar.
+  ///
+  /// In ar, this message translates to:
+  /// **'أكمل الأذكار:'**
+  String get completeAzkar;
+
+  /// No description provided for @prayedSunnah.
+  ///
+  /// In ar, this message translates to:
+  /// **'صليت السنة'**
+  String get prayedSunnah;
+
+  /// No description provided for @completedAzkar.
+  ///
+  /// In ar, this message translates to:
+  /// **'أكملت الأذكار'**
+  String get completedAzkar;
+
+  /// No description provided for @excellentPrayerCompleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'ممتاز! تم إكمال الصلاة! 🎉'**
+  String get excellentPrayerCompleted;
+
+  /// No description provided for @excellentSunnahCompleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'ممتاز! تم إكمال صلاة السنة! 🎉'**
+  String get excellentSunnahCompleted;
+
+  /// No description provided for @excellentAzkarCompleted.
+  ///
+  /// In ar, this message translates to:
+  /// **'ممتاز! تم إكمال الأذكار! 🎉'**
+  String get excellentAzkarCompleted;
+
+  /// No description provided for @surahMemorized.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم حفظ السورة! 🎉 رائع!'**
+  String get surahMemorized;
+
+  /// No description provided for @surahUnmemorized.
+  ///
+  /// In ar, this message translates to:
+  /// **'تم إلغاء حفظ السورة'**
+  String get surahUnmemorized;
+
+  /// No description provided for @continueMemorizing.
+  ///
+  /// In ar, this message translates to:
+  /// **'استمر في الحفظ! أنت رائع!'**
+  String get continueMemorizing;
+
+  /// No description provided for @nextPrayer.
+  ///
+  /// In ar, this message translates to:
+  /// **'الصلاة القادمة'**
+  String get nextPrayer;
+
+  /// No description provided for @inHoursAndMinutes.
+  ///
+  /// In ar, this message translates to:
+  /// **'في {hours} ساعة و {minutes} دقيقة'**
+  String inHoursAndMinutes(Object hours, Object minutes);
+
+  /// No description provided for @inMinutes.
+  ///
+  /// In ar, this message translates to:
+  /// **'في {minutes} دقيقة'**
+  String inMinutes(Object minutes);
+
+  /// No description provided for @points.
+  ///
+  /// In ar, this message translates to:
+  /// **'النقاط'**
+  String get points;
+
+  /// No description provided for @fardLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الفرض'**
+  String get fardLabel;
+
+  /// No description provided for @sunnahLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'السنة'**
+  String get sunnahLabel;
+
+  /// No description provided for @azkarLabel.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأذكار'**
+  String get azkarLabel;
+
+  /// No description provided for @todayProgress.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقدمك اليوم'**
+  String get todayProgress;
+
+  /// No description provided for @fiveDailyPrayers.
+  ///
+  /// In ar, this message translates to:
+  /// **'الصلوات الخمس'**
+  String get fiveDailyPrayers;
+
+  /// No description provided for @sunnahAndRawatib.
+  ///
+  /// In ar, this message translates to:
+  /// **'السنن والرواتب'**
+  String get sunnahAndRawatib;
+
+  /// No description provided for @azkarSection.
+  ///
+  /// In ar, this message translates to:
+  /// **'الأذكار'**
+  String get azkarSection;
+
+  /// No description provided for @juzAmma.
+  ///
+  /// In ar, this message translates to:
+  /// **'جزء عم'**
+  String get juzAmma;
+
+  /// No description provided for @fromPeopleToNews.
+  ///
+  /// In ar, this message translates to:
+  /// **'من الناس إلى النبأ'**
+  String get fromPeopleToNews;
+
+  /// No description provided for @memorizationProgress.
+  ///
+  /// In ar, this message translates to:
+  /// **'تقدمك في الحفظ'**
+  String get memorizationProgress;
+
+  /// No description provided for @surahsMemorized.
+  ///
+  /// In ar, this message translates to:
+  /// **'{memorized} من {total} سورة محفوظة'**
+  String surahsMemorized(Object memorized, Object total);
+
+  /// No description provided for @percentComplete.
+  ///
+  /// In ar, this message translates to:
+  /// **'{percentage}% مكتمل'**
+  String percentComplete(Object percentage);
 }
 
 class _AppLocalizationsDelegate

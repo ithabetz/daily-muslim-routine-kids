@@ -83,7 +83,6 @@ class QuranMemorization {
   int getJuzCurrentDay(int juzNumber) {
     final targetMonth = getJuzTargetMonth(juzNumber);
     final now = DateTime.now();
-    final monthKey = '${now.year}-${targetMonth.toString().padLeft(2, '0')}';
     
     // If the target month is the current month, return current day
     if (targetMonth == now.month) {

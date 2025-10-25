@@ -48,8 +48,9 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
+@override
   Widget build(BuildContext context) {
+    // final l10n = AppLocalizations.of(context)!;
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => AppProvider()),
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<LocaleProvider>(
         builder: (context, localeProvider, child) {
           return MaterialApp(
-            title: 'الروتين الإسلامي اليومي - للأطفال',
+            title: AppLocalizations.of(context)?.appTitle ?? "Islamic Daily Routine Kids",
             locale: localeProvider.locale,
             localizationsDelegates: [
               AppLocalizations.delegate,
@@ -91,12 +92,12 @@ class MyApp extends StatelessWidget {
 class AppInitializer extends StatefulWidget {
   const AppInitializer({super.key});
 
-  @override
+@override
   State<AppInitializer> createState() => _AppInitializerState();
 }
 
 class _AppInitializerState extends State<AppInitializer> {
-  @override
+@override
   void initState() {
     super.initState();
     // Initialize app immediately without splash screen
@@ -134,8 +135,9 @@ class _AppInitializerState extends State<AppInitializer> {
     }
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
+    // final l10n = AppLocalizations.of(context)!;
     // Show a minimal loading screen while initializing
     return Scaffold(
       backgroundColor: KidTheme.primaryBlue,
@@ -145,7 +147,7 @@ class _AppInitializerState extends State<AppInitializer> {
           children: [
             // App Title - Large text as shown in the image
             Text(
-              'الروتين الإسلامي اليومي - للأطفال',
+              AppLocalizations.of(context)?.appTitle ?? "Islamic Daily Routine Kids",
               style: const TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -157,7 +159,7 @@ class _AppInitializerState extends State<AppInitializer> {
             
             // Subtitle - Smaller text as shown in the image
             Text(
-              'تعلم الصلوات والقرآن للأطفال',
+              AppLocalizations.of(context)?.appSubtitle ?? "Daily Islamic Activities for Kids",
               style: const TextStyle(
                 fontSize: 16,
                 color: Colors.white70,

@@ -63,18 +63,6 @@ class PrayerTimeService {
     };
   }
 
-  static PrayerType? getCurrentPrayer(Map<PrayerType, DateTime> prayerTimes) {
-    final now = DateTime.now();
-    
-    PrayerType? currentPrayer;
-    for (var entry in prayerTimes.entries) {
-      if (now.isAfter(entry.value)) {
-        currentPrayer = entry.key;
-      }
-    }
-    
-    return currentPrayer;
-  }
 
   static PrayerType? getNextPrayer(Map<PrayerType, DateTime> prayerTimes) {
     final now = DateTime.now();

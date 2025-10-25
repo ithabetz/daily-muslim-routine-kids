@@ -369,6 +369,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get timeNotSet => 'الوقت غير محدد';
 
   @override
+  String get timeNotDetermined => 'لم يتم تحديد الوقت';
+
+  @override
   String get prayerTimeTitle => 'وقت الصلاة';
 
   @override
@@ -469,6 +472,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get qiyamAlLaylDescription => 'صلاة الليل قبل الفجر';
 
   @override
+  String get excellentMessage => 'ممتاز! أنت رائع! 🌟';
+
+  @override
+  String get greatJobMessage => 'أحسنت! استمر هكذا! 👏';
+
+  @override
+  String get goodProgressMessage => 'جيد جداً! تابع التقدم! 😊';
+
+  @override
+  String get keepTryingMessage => 'لا بأس، حاول مرة أخرى! 💪';
+
+  @override
+  String get startPrayerMessage => 'ابدأ يومك بالصلاة! 🤲';
+
+  @override
+  String get startJourneyMessage => 'ابدأ رحلتك الجميلة! 🌈';
+
+  @override
   String get fard => 'الفرض';
 
   @override
@@ -479,4 +500,120 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get recommended => 'مستحب';
+
+  @override
+  String get welcomeGreeting => 'مرحباً! أهلاً وسهلاً';
+
+  @override
+  String get letsLearnTogether => 'مرحباً! دعنا نتعلم معاً! 🌟';
+
+  @override
+  String get continueLearning => 'استمر في التعلم والنمو! 🌈';
+
+  @override
+  String get letsStart => 'لنبدأ! 🚀';
+
+  @override
+  String get syncWithCloud => 'مزامنة مع السحابة';
+
+  @override
+  String get syncWithCloudDescription => 'تحميل البيانات من السحابة';
+
+  @override
+  String get syncSuccess => 'تم المزامنة بنجاح!';
+
+  @override
+  String get syncFailed => 'فشل في المزامنة:';
+
+  @override
+  String get offlineMode => 'غير متصل';
+
+  @override
+  String get syncing => 'جاري المزامنة...';
+
+  @override
+  String get completeSunnahPrayer => 'أكمل صلاة السنة:';
+
+  @override
+  String get completeAzkar => 'أكمل الأذكار:';
+
+  @override
+  String get prayedSunnah => 'صليت السنة';
+
+  @override
+  String get completedAzkar => 'أكملت الأذكار';
+
+  @override
+  String get excellentPrayerCompleted => 'ممتاز! تم إكمال الصلاة! 🎉';
+
+  @override
+  String get excellentSunnahCompleted => 'ممتاز! تم إكمال صلاة السنة! 🎉';
+
+  @override
+  String get excellentAzkarCompleted => 'ممتاز! تم إكمال الأذكار! 🎉';
+
+  @override
+  String get surahMemorized => 'تم حفظ السورة! 🎉 رائع!';
+
+  @override
+  String get surahUnmemorized => 'تم إلغاء حفظ السورة';
+
+  @override
+  String get continueMemorizing => 'استمر في الحفظ! أنت رائع!';
+
+  @override
+  String get nextPrayer => 'الصلاة القادمة';
+
+  @override
+  String inHoursAndMinutes(Object hours, Object minutes) {
+    return 'في $hours ساعة و $minutes دقيقة';
+  }
+
+  @override
+  String inMinutes(Object minutes) {
+    return 'في $minutes دقيقة';
+  }
+
+  @override
+  String get points => 'النقاط';
+
+  @override
+  String get fardLabel => 'الفرض';
+
+  @override
+  String get sunnahLabel => 'السنة';
+
+  @override
+  String get azkarLabel => 'الأذكار';
+
+  @override
+  String get todayProgress => 'تقدمك اليوم';
+
+  @override
+  String get fiveDailyPrayers => 'الصلوات الخمس';
+
+  @override
+  String get sunnahAndRawatib => 'السنن والرواتب';
+
+  @override
+  String get azkarSection => 'الأذكار';
+
+  @override
+  String get juzAmma => 'جزء عم';
+
+  @override
+  String get fromPeopleToNews => 'من الناس إلى النبأ';
+
+  @override
+  String get memorizationProgress => 'تقدمك في الحفظ';
+
+  @override
+  String surahsMemorized(Object memorized, Object total) {
+    return '$memorized من $total سورة محفوظة';
+  }
+
+  @override
+  String percentComplete(Object percentage) {
+    return '$percentage% مكتمل';
+  }
 }

@@ -78,20 +78,20 @@ class SettingsScreen extends StatelessWidget {
                 // Sync with Cloud button
                 ListTile(
                   leading: Icon(Icons.cloud_sync, color: KidTheme.primaryBlue),
-                  title: const Text('مزامنة مع السحابة'),
-                  subtitle: const Text('تحميل البيانات من السحابة'),
+                  title: Text(AppLocalizations.of(context)?.syncWithCloud ?? 'مزامنة مع السحابة'),
+                  subtitle: Text(AppLocalizations.of(context)?.syncWithCloudDescription ?? 'تحميل البيانات من السحابة'),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                   onTap: () async {
                     // Show loading dialog
                     showDialog(
                       context: context,
                       barrierDismissible: false,
-                      builder: (context) => const AlertDialog(
+                      builder: (context) => AlertDialog(
                         content: Row(
                           children: [
-                            CircularProgressIndicator(),
-                            SizedBox(width: 16),
-                            Text('جاري المزامنة...'),
+                            const CircularProgressIndicator(),
+                            const SizedBox(width: 16),
+                            Text(AppLocalizations.of(context)?.syncing ?? 'جاري المزامنة...'),
                           ],
                         ),
                       ),
@@ -103,7 +103,7 @@ class SettingsScreen extends StatelessWidget {
                         Navigator.of(context).pop(); // Close loading dialog
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: const Text('تم المزامنة بنجاح!'),
+                            content: Text(AppLocalizations.of(context)?.syncSuccess ?? 'تم المزامنة بنجاح!'),
                             backgroundColor: KidTheme.successGreen,
                           ),
                         );

@@ -118,8 +118,8 @@ class _QuranScreenState extends State<QuranScreen> {
                           });
                           
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('تم المزامنة بنجاح!'),
+                            SnackBar(
+                              content: Text(AppLocalizations.of(context)?.syncSuccess ?? 'تم المزامنة بنجاح'),
                               backgroundColor: KidTheme.successGreen,
                             ),
                           );
@@ -140,7 +140,7 @@ class _QuranScreenState extends State<QuranScreen> {
                         }
                       }
                     },
-                    tooltip: 'مزامنة مع السحابة',
+                    tooltip: AppLocalizations.of(context)?.syncWithCloud ?? 'مزامنة مع السحابة',
                   ),
                   
                   // Offline mode indicator
@@ -158,7 +158,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           Icon(Icons.cloud_off, size: 16, color: KidTheme.warningOrange),
                           const SizedBox(width: 4),
                           Text(
-                            'غير متصل',
+                            AppLocalizations.of(context)?.offlineMode ?? 'الوضع غير المتصل',
                             style: TextStyle(
                               fontSize: 12,
                               color: KidTheme.warningOrange,

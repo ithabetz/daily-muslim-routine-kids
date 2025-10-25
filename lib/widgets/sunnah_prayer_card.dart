@@ -122,7 +122,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'أكمل صلاة السنة:',
+                    l10n.completeSunnahPrayer,
                     style: TextStyle(
                       fontSize: 11,
                       fontWeight: FontWeight.w600,
@@ -139,7 +139,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
                     children: [
                       _buildKidCheckbox(
                         context: context,
-                        label: 'صليت السنة',
+                        label: l10n.prayedSunnah,
                         value: widget.prayer.isCompleted,
                         enabled: true,
                         onChanged: (value) => _updatePrayer(context, isCompleted: value),
@@ -199,6 +199,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
   }
 
   void _updatePrayer(BuildContext context, {bool? isCompleted}) {
+    final l10n = AppLocalizations.of(context)!;
     final provider = Provider.of<AppProvider>(context, listen: false);
     final wasCompleted = widget.prayer.isCompleted;
     
@@ -221,7 +222,7 @@ class _SunnahPrayerCardState extends State<SunnahPrayerCard> {
               const Icon(Icons.celebration, color: Colors.white),
               const SizedBox(width: 8),
               Text(
-                'ممتاز! تم إكمال صلاة السنة! 🎉',
+                l10n.excellentSunnahCompleted,
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
