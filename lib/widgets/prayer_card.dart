@@ -51,11 +51,11 @@ class _PrayerCardState extends State<PrayerCard> {
                   decoration: KidTheme.getStandardIconDecoration(isCompleted: widget.prayer.isCompleted),
                   child: Icon(
                     widget.prayer.type.icon,
-                    color: Colors.white,
+                    color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade600,
                     size: KidTheme.standardIconSize,
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 10),
                 
                 // Prayer info - Larger text
                 Expanded(
@@ -65,18 +65,18 @@ class _PrayerCardState extends State<PrayerCard> {
                       Text(
                         widget.prayer.type.getLocalizedName(l10n),
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: widget.prayer.isCompleted 
                               ? KidTheme.successGreen
                               : KidTheme.darkBlue,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 1),
                       Text(
                         timeString,
                         style: TextStyle(
-                          fontSize: 16,
+                          fontSize: 12,
                           color: widget.prayer.isCompleted 
                               ? KidTheme.successGreen.withOpacity(0.8)
                               : KidTheme.darkBlue.withOpacity(0.7),
@@ -96,17 +96,17 @@ class _PrayerCardState extends State<PrayerCard> {
                   decoration: KidTheme.getStandardPointsDecoration(isCompleted: widget.prayer.isCompleted),
                   child: Text(
                     '+${NumberFormatter.formatDecimal(widget.prayer.score, decimalPlaces: 1)}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade600,
                     ),
                   ),
                 ),
               ],
             ),
             
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
             
             // Checkboxes Section - Standardized
             Container(
@@ -126,14 +126,14 @@ class _PrayerCardState extends State<PrayerCard> {
                   Text(
                     AppLocalizations.of(context)?.completeYourPrayer ?? 'أكمل صلاتك',
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 9,
                       fontWeight: FontWeight.w600,
                       color: widget.prayer.isCompleted 
                           ? KidTheme.successGreen
                           : KidTheme.darkBlue,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 3),
                   
                   // Checkboxes in a more kid-friendly layout
                   Row(
@@ -206,11 +206,11 @@ class _PrayerCardState extends State<PrayerCard> {
             ),
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 1),
         Text(
           label,
           style: TextStyle(
-            fontSize: 9,
+            fontSize: 7,
             fontWeight: FontWeight.w500,
             color: enabled ? KidTheme.darkBlue : Colors.grey.shade600,
           ),

@@ -194,7 +194,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                 title: 'الأذكار',
                 icon: Icons.favorite,
                 initiallyExpanded: false,
-                children: _buildAzkarCards(),
+                children: _buildAzkarCards(provider),
               ),
               
             ],
@@ -347,23 +347,18 @@ class _PrayersScreenState extends State<PrayersScreen> {
   }
 
 
-  List<Widget> _buildAzkarCards() {
-    return [
-      // Morning Azkar
-      Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: AzkarCard(
-          azkar: AzkarTask(type: AzkarType.morning),
-        ),
-      ),
-      // Evening Azkar
-      Padding(
-        padding: const EdgeInsets.only(bottom: 8),
-        child: AzkarCard(
-          azkar: AzkarTask(type: AzkarType.evening),
-        ),
-      ),
-    ];
+  List<Widget> _buildAzkarCards(AppProvider provider) {
+    if (provider.todayProgress?.azkar.isEmpty ?? true) {
+      return [];
+    }
+    
+    return provider.todayProgress!.azkar
+        .where((azkar) => azkar.type == AzkarType.morning || azkar.type == AzkarType.evening)
+        .map((azkar) => Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: AzkarCard(azkar: azkar),
+        ))
+        .toList();
   }
 
   bool _isBasicSunnahForKids(SunnahPrayer prayer) {

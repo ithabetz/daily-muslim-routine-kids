@@ -317,11 +317,11 @@ class KidTheme {
   ];
 
   // Standardized card dimensions and colors for prayer page
-  static const double standardCardHeight = 140.0;
-  static const double standardCardPadding = 16.0;
+  static const double standardCardHeight = 100.0;
+  static const double standardCardPadding = 10.0;
   static const double standardCardBorderRadius = 16.0;
-  static const double standardIconSize = 28.0;
-  static const double standardIconPadding = 12.0;
+  static const double standardIconSize = 20.0;
+  static const double standardIconPadding = 6.0;
   
   // Base color for all prayer elements (white)
   static const Color basePrayerColor = Colors.white;
@@ -346,16 +346,24 @@ class KidTheme {
   /// Get standardized icon decoration for prayer elements
   static BoxDecoration getStandardIconDecoration({bool isCompleted = false}) {
     return BoxDecoration(
-      color: isCompleted ? successGreen : Colors.grey.shade400,
+      color: Colors.white,
       borderRadius: BorderRadius.circular(12),
+      border: Border.all(
+        color: isCompleted ? successGreen : Colors.grey.shade400,
+        width: 2,
+      ),
     );
   }
   
   /// Get standardized points indicator decoration
   static BoxDecoration getStandardPointsDecoration({bool isCompleted = false}) {
     return BoxDecoration(
-      color: isCompleted ? successGreen : Colors.grey.shade400,
+      color: Colors.white,
       borderRadius: BorderRadius.circular(16),
+      border: Border.all(
+        color: isCompleted ? successGreen : Colors.grey.shade400,
+        width: 2,
+      ),
     );
   }
 }

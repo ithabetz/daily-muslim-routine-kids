@@ -49,11 +49,11 @@ class _AzkarCardState extends State<AzkarCard> {
                   decoration: KidTheme.getStandardIconDecoration(isCompleted: widget.azkar.isCompleted),
                   child: Icon(
                     widget.azkar.type.icon,
-                    color: Colors.white,
+                    color: widget.azkar.isCompleted ? KidTheme.successGreen : Colors.grey.shade600,
                     size: KidTheme.standardIconSize,
                   ),
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 10),
                 
                 // Azkar info - Larger text
                 Expanded(
@@ -63,18 +63,18 @@ class _AzkarCardState extends State<AzkarCard> {
                       Text(
                         widget.azkar.type.getLocalizedName(l10n),
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: widget.azkar.isCompleted 
                               ? KidTheme.successGreen
                               : KidTheme.darkBlue,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 1),
                       Text(
                         widget.azkar.type.getLocalizedDescription(l10n),
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 12,
                           color: widget.azkar.isCompleted 
                               ? KidTheme.successGreen.withOpacity(0.8)
                               : KidTheme.darkBlue.withOpacity(0.7),
@@ -94,28 +94,28 @@ class _AzkarCardState extends State<AzkarCard> {
                   decoration: KidTheme.getStandardPointsDecoration(isCompleted: widget.azkar.isCompleted),
                   child: Text(
                     '+${NumberFormatter.formatDecimal(widget.azkar.weight, decimalPlaces: 1)}',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: widget.azkar.isCompleted ? KidTheme.successGreen : Colors.grey.shade600,
                     ),
                   ),
                 ),
               ],
             ),
             
-            const SizedBox(height: 12),
+            const SizedBox(height: 6),
             
             // Checkboxes Section - Standardized
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.6),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
                   color: widget.azkar.isCompleted 
                       ? KidTheme.highlightPrayerBorderColor
-                      : KidTheme.basePrayerBorderColor,
+                      : Colors.grey.shade300,
                 ),
               ),
               child: Column(
@@ -124,14 +124,14 @@ class _AzkarCardState extends State<AzkarCard> {
                   Text(
                     l10n.completeAzkar,
                     style: TextStyle(
-                      fontSize: 11,
+                      fontSize: 9,
                       fontWeight: FontWeight.w600,
                       color: widget.azkar.isCompleted 
                           ? KidTheme.successGreen
                           : KidTheme.darkBlue,
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 3),
                   
                   // Checkboxes in a more kid-friendly layout
                   Row(
@@ -182,11 +182,11 @@ class _AzkarCardState extends State<AzkarCard> {
             ),
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 1),
         Text(
           label,
           style: TextStyle(
-            fontSize: 9,
+            fontSize: 7,
             fontWeight: FontWeight.w500,
             color: enabled ? KidTheme.darkBlue : Colors.grey.shade600,
           ),
