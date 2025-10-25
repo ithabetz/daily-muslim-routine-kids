@@ -44,16 +44,10 @@ class _PrayerCardState extends State<PrayerCard> {
             // Header Row with Icon and Prayer Info
             Row(
               children: [
-                // Prayer Icon - Transparent container
+                // Prayer Icon - Standardized size
                 Container(
                   padding: EdgeInsets.all(KidTheme.standardIconPadding),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade400,
-                      width: 2,
-                    ),
-                  ),
+                  decoration: KidTheme.getStandardIconDecoration(isCompleted: widget.prayer.isCompleted),
                   child: Icon(
                     widget.prayer.type.icon,
                     color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade600,
@@ -92,19 +86,13 @@ class _PrayerCardState extends State<PrayerCard> {
                   ),
                 ),
                 
-                // Points indicator - Transparent container
+                // Points indicator - Standardized
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 12,
                     vertical: 6,
                   ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: widget.prayer.isCompleted ? KidTheme.successGreen : Colors.grey.shade400,
-                      width: 1,
-                    ),
-                  ),
+                  decoration: KidTheme.getStandardPointsDecoration(isCompleted: widget.prayer.isCompleted),
                   child: Text(
                     '+${NumberFormatter.formatDecimal(widget.prayer.score, decimalPlaces: 1)}',
                     style: TextStyle(
@@ -119,70 +107,59 @@ class _PrayerCardState extends State<PrayerCard> {
             
             const SizedBox(height: 6),
             
-            // Checkboxes Section - Transparent container
-            Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: widget.prayer.isCompleted 
-                      ? KidTheme.highlightPrayerBorderColor
-                      : Colors.grey.shade300,
+            // Checkboxes Section - Just text, no box
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  AppLocalizations.of(context)?.completeYourPrayer ?? 'أكمل صلاتك',
+                  style: TextStyle(
+                    fontSize: 9,
+                    fontWeight: FontWeight.w600,
+                    color: widget.prayer.isCompleted 
+                        ? KidTheme.successGreen
+                        : KidTheme.darkBlue,
+                  ),
                 ),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)?.completeYourPrayer ?? 'أكمل صلاتك',
-                    style: TextStyle(
-                      fontSize: 9,
-                      fontWeight: FontWeight.w600,
-                      color: widget.prayer.isCompleted 
-                          ? KidTheme.successGreen
-                          : KidTheme.darkBlue,
+                const SizedBox(height: 3),
+                
+                // Checkboxes in a more kid-friendly layout
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Expanded(
+                      child: _buildKidCheckbox(
+                        context: context,
+                        label: AppLocalizations.of(context)?.prayedOnTime ?? 'صليت في الوقت',
+                        value: widget.prayer.prayedOnTime,
+                        enabled: !widget.prayer.prayedOutOfTime,
+                        onChanged: (value) => _updatePrayer(context, prayedOnTime: value),
+                        color: KidTheme.successGreen,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 3),
-                  
-                  // Checkboxes in a more kid-friendly layout
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: _buildKidCheckbox(
-                          context: context,
-                          label: AppLocalizations.of(context)?.prayedOnTime ?? 'صليت في الوقت',
-                          value: widget.prayer.prayedOnTime,
-                          enabled: !widget.prayer.prayedOutOfTime,
-                          onChanged: (value) => _updatePrayer(context, prayedOnTime: value),
-                          color: KidTheme.successGreen,
-                        ),
+                    Expanded(
+                      child: _buildKidCheckbox(
+                        context: context,
+                        label: AppLocalizations.of(context)?.inMosque ?? 'في المسجد',
+                        value: widget.prayer.inMosque,
+                        enabled: (widget.prayer.prayedOutOfTime || widget.prayer.prayedOnTime),
+                        onChanged: (value) => _updatePrayer(context, inMosque: value),
+                        color: Colors.grey.shade400,
                       ),
-                      Expanded(
-                        child: _buildKidCheckbox(
-                          context: context,
-                          label: AppLocalizations.of(context)?.inMosque ?? 'في المسجد',
-                          value: widget.prayer.inMosque,
-                          enabled: (widget.prayer.prayedOutOfTime || widget.prayer.prayedOnTime),
-                          onChanged: (value) => _updatePrayer(context, inMosque: value),
-                          color: Colors.grey.shade400,
-                        ),
+                    ),
+                    Expanded(
+                      child: _buildKidCheckbox(
+                        context: context,
+                        label: AppLocalizations.of(context)?.prayedOutOfTime ?? 'صليت متأخراً',
+                        value: widget.prayer.prayedOutOfTime,
+                        enabled: true,
+                        onChanged: (value) => _updatePrayer(context, prayedOutOfTime: value),
+                        color: KidTheme.warningOrange,
                       ),
-                      Expanded(
-                        child: _buildKidCheckbox(
-                          context: context,
-                          label: AppLocalizations.of(context)?.prayedOutOfTime ?? 'صليت متأخراً',
-                          value: widget.prayer.prayedOutOfTime,
-                          enabled: true,
-                          onChanged: (value) => _updatePrayer(context, prayedOutOfTime: value),
-                          color: KidTheme.warningOrange,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
