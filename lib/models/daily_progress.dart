@@ -2,7 +2,6 @@ import 'prayer.dart';
 import 'azkar_task.dart';
 import 'sunnah_prayer.dart';
 import 'task_type.dart';
-import 'user_profile.dart';
 
 class DailyProgress {
   final DateTime date;
@@ -29,7 +28,6 @@ class DailyProgress {
         time: DateTime.now(),
         isCompleted: false,
         prayedOnTime: false,
-        inMosque: false,
         prayedOutOfTime: false,
       )).toList(),
       azkar: AzkarType.values.map((type) => AzkarTask(
@@ -51,7 +49,6 @@ class DailyProgress {
           time: prayer.time,
           isCompleted: status == PrayerStatus.performed,
           prayedOnTime: status == PrayerStatus.performed,
-          inMosque: prayer.inMosque,
           prayedOutOfTime: status == PrayerStatus.late,
         );
       }
@@ -69,61 +66,31 @@ class DailyProgress {
   DailyProgress updatePrayerDetails({
     required PrayerType prayerType,
     bool? prayedOnTime,
-    bool? inMosque,
     bool? prayedOutOfTime,
-    Gender? gender,
   }) {
     final updatedPrayers = prayers.map((prayer) {
       if (prayer.type == prayerType) {
-        // Apply gender-specific rules
         bool finalPrayedOnTime = prayedOnTime ?? prayer.prayedOnTime;
-        bool finalInMosque = inMosque ?? prayer.inMosque;
         bool finalPrayedOutOfTime = prayedOutOfTime ?? prayer.prayedOutOfTime;
         
-        // For boys: if prayed out of time, clear other options
-        if (gender == Gender.male && finalPrayedOutOfTime) {
-          finalPrayedOnTime = false;
-          finalInMosque = false;
-        }
-        
-        // For boys: if prayed on time, clear out of time option
-        if (gender == Gender.male && finalPrayedOnTime) {
-          finalPrayedOutOfTime = false;
-        }
-        
-        // For boys: mosque option is only valid if prayed on time
-        if (gender == Gender.male && finalInMosque && !finalPrayedOnTime) {
-          finalInMosque = false;
-        }
-        
-        // For girls: mutually exclusive - only one can be true
-        if (gender == Gender.female) {
-          if (finalPrayedOnTime) {
-            finalInMosque = false;
+        // Ensure mutual exclusivity: if one is selected, the other must be unselected
+        if (finalPrayedOnTime && finalPrayedOutOfTime) {
+          // If both are true, keep only the one that was just toggled
+          if (prayedOnTime != null && prayedOnTime) {
             finalPrayedOutOfTime = false;
-          } else if (finalInMosque) {
+          } else if (prayedOutOfTime != null && prayedOutOfTime) {
             finalPrayedOnTime = false;
-            finalPrayedOutOfTime = false;
-          } else if (finalPrayedOutOfTime) {
-            finalPrayedOnTime = false;
-            finalInMosque = false;
           }
         }
         
-        // For girls: mosque option is only valid if prayed on time
-        if (gender == Gender.female && finalInMosque && !finalPrayedOnTime) {
-          finalInMosque = false;
-        }
-        
         // Determine if prayer is completed based on any checkbox being true
-        final isCompleted = finalPrayedOnTime || finalInMosque || finalPrayedOutOfTime;
+        final isCompleted = finalPrayedOnTime || finalPrayedOutOfTime;
         
         return PrayerTask(
           type: prayerType,
           time: prayer.time,
           isCompleted: isCompleted,
           prayedOnTime: finalPrayedOnTime,
-          inMosque: finalInMosque,
           prayedOutOfTime: finalPrayedOutOfTime,
         );
       }
@@ -180,8 +147,7 @@ class DailyProgress {
     // ==========================================
     // FARD TASKS (50.0 points max)
     // ==========================================
-    // 5 Daily Prayers - Each prayer worth 10.0 points max (5.0 on-time + 5.0 mosque)
-    // Out of time prayer: 2.5 points only
+    // 5 Daily Prayers - Each prayer worth 10.0 points if on-time, 5.0 points if late
     // Total possible: 5 prayers × 10.0 points = 50.0 points
     double fardScore = 0;
     if (prayers.isNotEmpty) {

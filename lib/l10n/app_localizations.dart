@@ -1311,6 +1311,42 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'خطأ: {message}'**
   String errorWithMessage(Object message);
+
+  /// No description provided for @prayerHistory.
+  ///
+  /// In ar, this message translates to:
+  /// **'تاريخ الصلاة'**
+  String get prayerHistory;
+
+  /// No description provided for @last7Days.
+  ///
+  /// In ar, this message translates to:
+  /// **'آخر 7 أيام'**
+  String get last7Days;
+
+  /// No description provided for @last14Days.
+  ///
+  /// In ar, this message translates to:
+  /// **'آخر 14 يوم'**
+  String get last14Days;
+
+  /// No description provided for @last30Days.
+  ///
+  /// In ar, this message translates to:
+  /// **'آخر 30 يوم'**
+  String get last30Days;
+
+  /// No description provided for @noHistoryFound.
+  ///
+  /// In ar, this message translates to:
+  /// **'لم يتم العثور على تاريخ'**
+  String get noHistoryFound;
+
+  /// No description provided for @prayers.
+  ///
+  /// In ar, this message translates to:
+  /// **'صلاة'**
+  String get prayers;
 }
 
 class _AppLocalizationsDelegate

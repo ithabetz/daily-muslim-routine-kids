@@ -639,4 +639,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String errorWithMessage(Object message) {
     return 'خطأ: $message';
   }
+
+  @override
+  String get prayerHistory => 'تاريخ الصلاة';
+
+  @override
+  String get last7Days => 'آخر 7 أيام';
+
+  @override
+  String get last14Days => 'آخر 14 يوم';
+
+  @override
+  String get last30Days => 'آخر 30 يوم';
+
+  @override
+  String get noHistoryFound => 'لم يتم العثور على تاريخ';
+
+  @override
+  String get prayers => 'صلاة';
 }

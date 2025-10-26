@@ -243,5 +243,13 @@
   "timeUntilNext": "في {hours} ساعة و {minutes} دقيقة",
   "timeUntilNextMinutes": "في {minutes} دقيقة",
   "syncFailedWithError": "فشل في المزامنة: {error}",
-  "errorWithMessage": "خطأ: {message}"
+  "errorWithMessage": "خطأ: {message}",
+  
+  "@_HISTORY": {},
+  "prayerHistory": "تاريخ الصلاة",
+  "last7Days": "آخر 7 أيام",
+  "last14Days": "آخر 14 يوم",
+  "last30Days": "آخر 30 يوم",
+  "noHistoryFound": "لم يتم العثور على تاريخ",
+  "prayers": "صلاة"
 }

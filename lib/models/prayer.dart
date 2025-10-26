@@ -63,7 +63,6 @@ class PrayerTask {
   final TaskType taskType = TaskType.fard; // Prayers are Fard (mandatory)
   bool isCompleted;
   bool prayedOnTime;
-  bool inMosque;
   bool prayedOutOfTime;
 
   PrayerTask({
@@ -71,7 +70,6 @@ class PrayerTask {
     required this.time,
     this.isCompleted = false,
     this.prayedOnTime = false,
-    this.inMosque = false,
     this.prayedOutOfTime = false,
   });
 
@@ -81,7 +79,6 @@ class PrayerTask {
       'time': time.toIso8601String(),
       'isCompleted': isCompleted,
       'prayedOnTime': prayedOnTime,
-      'inMosque': inMosque,
       'prayedOutOfTime': prayedOutOfTime,
     };
   }
@@ -94,7 +91,6 @@ class PrayerTask {
       time: DateTime.parse(json['time']),
       isCompleted: json['isCompleted'] ?? false,
       prayedOnTime: json['prayedOnTime'] ?? false,
-      inMosque: json['inMosque'] ?? false,
       prayedOutOfTime: json['prayedOutOfTime'] ?? false,
     );
   }
@@ -102,30 +98,23 @@ class PrayerTask {
   double get score {
     if (!isCompleted) return 0.0;
     
-    // New scoring system: each prayer max 10.0 points
-    // - 5.0 points for praying on time
-    // - 5.0 points for praying in mosque
-    // - If prayed out of time: only 2.5 points (no mosque bonus)
-    
-    double totalScore = 0.0;
+    // Simplified scoring system:
+    // - 10 points for praying on time
+    // - 5 points for praying out of time
+    // - On-time and out-of-time are mutually exclusive
     
     if (prayedOnTime) {
-      totalScore += 5.0; // Five points for on time
+      return 10.0;
     }
     
-    if (inMosque && prayedOnTime) {
-      totalScore += 5.0; // Five points for in mosque (only if prayed on time)
+    if (prayedOutOfTime) {
+      return 5.0;
     }
     
-    // If prayed out of time but not on time, only 2.5 points
-    if (prayedOutOfTime && !prayedOnTime) {
-      totalScore = 2.5;
-    }
-    
-    return totalScore;
+    return 0.0;
   }
   
-  // Maximum possible score per prayer (on time)
+  // Maximum possible score per prayer
   static const double maxScore = 10.0;
 }
 

@@ -15,6 +15,7 @@ import '../l10n/app_localizations.dart';
 import '../utils/date_formatter.dart';
 import '../models/azkar_task.dart';
 import '../theme/kid_theme.dart';
+import 'prayer_history_screen.dart';
 
 class PrayersScreen extends StatefulWidget {
   const PrayersScreen({super.key});
@@ -59,6 +60,14 @@ class _PrayersScreenState extends State<PrayersScreen> {
     
     return BaseIslamicScreen(
       title: AppLocalizations.of(context)?.dailyRoutine ?? 'صلوات اليومية',
+      onHistoryPressed: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const PrayerHistoryScreen(),
+          ),
+        );
+      },
       header: Consumer<AppProvider>(
         builder: (context, provider, child) => _buildKidsHeader(provider),
       ),

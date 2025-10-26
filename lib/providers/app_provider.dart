@@ -385,7 +385,6 @@ class AppProvider with ChangeNotifier {
   Future<void> updatePrayerDetails({
     required PrayerType prayerType,
     bool? prayedOnTime,
-    bool? inMosque,
     bool? prayedOutOfTime,
   }) async {
     if (_todayProgress == null) return;
@@ -393,9 +392,7 @@ class AppProvider with ChangeNotifier {
     _todayProgress = _todayProgress!.updatePrayerDetails(
       prayerType: prayerType,
       prayedOnTime: prayedOnTime,
-      inMosque: inMosque,
       prayedOutOfTime: prayedOutOfTime,
-      gender: _userProfile?.gender,
     );
     await StorageService.saveDailyProgress(_todayProgress!);
     
@@ -458,7 +455,6 @@ class AppProvider with ChangeNotifier {
         time: DateTime.now(),
         isCompleted: false,
         prayedOnTime: false,
-        inMosque: false,
         prayedOutOfTime: false,
       ),
     );

@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import '../l10n/app_localizations.dart';
 import '../models/prayer.dart';
-import '../models/user_profile.dart';
 import '../providers/app_provider.dart';
 import '../utils/number_formatter.dart';
 import '../theme/kid_theme.dart';
@@ -124,7 +123,7 @@ class _PrayerCardState extends State<PrayerCard> {
                 ),
                 const SizedBox(height: 3),
                 
-                // Checkboxes in a more kid-friendly layout
+                // Checkboxes - Two options: On-time (10 points) or Out-of-time (5 points)
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -133,28 +132,18 @@ class _PrayerCardState extends State<PrayerCard> {
                         context: context,
                         label: AppLocalizations.of(context)?.prayedOnTime ?? 'صليت في الوقت',
                         value: widget.prayer.prayedOnTime,
-                        enabled: _isPrayedOnTimeEnabled(),
-                        onChanged: (value) => _updatePrayer(context, prayedOnTime: value),
+                        enabled: true,
+                        onChanged: (value) => _updatePrayer(context, prayedOnTime: value, prayedOutOfTime: false),
                         color: KidTheme.successGreen,
                       ),
                     ),
                     Expanded(
                       child: _buildKidCheckbox(
                         context: context,
-                        label: AppLocalizations.of(context)?.inMosque ?? 'في المسجد',
-                        value: widget.prayer.inMosque,
-                        enabled: _isInMosqueEnabled(),
-                        onChanged: (value) => _updatePrayer(context, inMosque: value),
-                        color: Colors.grey.shade400,
-                      ),
-                    ),
-                    Expanded(
-                      child: _buildKidCheckbox(
-                        context: context,
-                        label: AppLocalizations.of(context)?.prayedOutOfTime ?? 'صليت متأخراً',
+                        label: AppLocalizations.of(context)?.prayedOutOfTime ?? 'صليت خارج الوقت',
                         value: widget.prayer.prayedOutOfTime,
-                        enabled: _isPrayedOutOfTimeEnabled(),
-                        onChanged: (value) => _updatePrayer(context, prayedOutOfTime: value),
+                        enabled: true,
+                        onChanged: (value) => _updatePrayer(context, prayedOnTime: false, prayedOutOfTime: value),
                         color: KidTheme.warningOrange,
                       ),
                     ),
@@ -210,118 +199,23 @@ class _PrayerCardState extends State<PrayerCard> {
     );
   }
 
-  // Helper methods to determine checkbox states based on gender and current prayer state
-  bool _isPrayedOnTimeEnabled() {
-    final provider = Provider.of<AppProvider>(context, listen: false);
-    final gender = provider.userProfile?.gender;
-    
-    // For boys: if prayed out of time, disable all other options
-    if (gender == Gender.male && widget.prayer.prayedOutOfTime) {
-      return false;
-    }
-    
-    // For girls: if any other option is selected, disable this one
-    if (gender == Gender.female && (widget.prayer.inMosque || widget.prayer.prayedOutOfTime)) {
-      return false;
-    }
-    
-    return true;
-  }
-
-  bool _isInMosqueEnabled() {
-    final provider = Provider.of<AppProvider>(context, listen: false);
-    final gender = provider.userProfile?.gender;
-    
-    // For boys: if prayed out of time, disable all other options
-    if (gender == Gender.male && widget.prayer.prayedOutOfTime) {
-      return false;
-    }
-    
-    // For boys: mosque option is only available if prayed on time
-    if (gender == Gender.male) {
-      return widget.prayer.prayedOnTime;
-    }
-    
-    // For girls: mosque option is only available if prayed on time
-    if (gender == Gender.female) {
-      return widget.prayer.prayedOnTime && !widget.prayer.prayedOutOfTime;
-    }
-    
-    // Default: mosque option is only available if prayed on time
-    return widget.prayer.prayedOnTime;
-  }
-
-  bool _isPrayedOutOfTimeEnabled() {
-    final provider = Provider.of<AppProvider>(context, listen: false);
-    final gender = provider.userProfile?.gender;
-    
-    // For boys: if prayed on time, disable out of time option
-    if (gender == Gender.male && widget.prayer.prayedOnTime) {
-      return false;
-    }
-    
-    // For girls: if any other option is selected, disable this one
-    if (gender == Gender.female && (widget.prayer.prayedOnTime || widget.prayer.inMosque)) {
-      return false;
-    }
-    
-    return true;
-  }
-
   void _updatePrayer(
     BuildContext context, {
     bool? prayedOnTime,
-    bool? inMosque,
     bool? prayedOutOfTime,
   }) {
     final provider = Provider.of<AppProvider>(context, listen: false);
     final wasCompleted = widget.prayer.isCompleted;
     
-    // Check if prayer will be completed after this update
-    // Apply the same logic as in DailyProgress.updatePrayerDetails
+    // Determine if prayer will be completed after this update
     bool finalPrayedOnTime = prayedOnTime ?? widget.prayer.prayedOnTime;
-    bool finalInMosque = inMosque ?? widget.prayer.inMosque;
     bool finalPrayedOutOfTime = prayedOutOfTime ?? widget.prayer.prayedOutOfTime;
     
-    // Apply gender-specific rules (same as in DailyProgress)
-    final gender = provider.userProfile?.gender;
-    
-    if (gender == Gender.male && finalPrayedOutOfTime) {
-      finalPrayedOnTime = false;
-      finalInMosque = false;
-    }
-    
-    if (gender == Gender.male && finalPrayedOnTime) {
-      finalPrayedOutOfTime = false;
-    }
-    
-    if (gender == Gender.male && finalInMosque && !finalPrayedOnTime) {
-      finalInMosque = false;
-    }
-    
-    if (gender == Gender.female) {
-      if (finalPrayedOnTime) {
-        finalInMosque = false;
-        finalPrayedOutOfTime = false;
-      } else if (finalInMosque) {
-        finalPrayedOnTime = false;
-        finalPrayedOutOfTime = false;
-      } else if (finalPrayedOutOfTime) {
-        finalPrayedOnTime = false;
-        finalInMosque = false;
-      }
-    }
-    
-    if (gender == Gender.female && finalInMosque && !finalPrayedOnTime) {
-      finalInMosque = false;
-    }
-    
-    final willBeCompleted = finalPrayedOnTime || finalInMosque || finalPrayedOutOfTime;
+    final willBeCompleted = finalPrayedOnTime || finalPrayedOutOfTime;
     
     provider.updatePrayerDetails(
       prayerType: widget.prayer.type,
       prayedOnTime: prayedOnTime,
-      inMosque: inMosque,
       prayedOutOfTime: prayedOutOfTime,
     );
     
