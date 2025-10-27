@@ -134,7 +134,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text('فشل في المزامنة: $e'),
+                              content: Text(AppLocalizations.of(context)?.syncFailedWithError(e.toString()) ?? 'فشل في المزامنة: $e'),
                               backgroundColor: KidTheme.errorRed,
                             ),
                           );
@@ -220,7 +220,7 @@ class _QuranScreenState extends State<QuranScreen> {
               ),
               const SizedBox(width: 16),
               Text(
-                'جزء عم',
+                AppLocalizations.of(context)?.juzAmma ?? 'جزء عم',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -229,7 +229,7 @@ class _QuranScreenState extends State<QuranScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                'من الناس إلى النبأ',
+                AppLocalizations.of(context)?.fromPeopleToNews ?? 'من الناس إلى النبأ',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -245,7 +245,7 @@ class _QuranScreenState extends State<QuranScreen> {
           Column(
             children: [
               Text(
-                'تقدمك في الحفظ',
+                AppLocalizations.of(context)?.memorizationProgress ?? 'تقدمك في الحفظ',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
@@ -269,7 +269,7 @@ class _QuranScreenState extends State<QuranScreen> {
                   secondScore: 0.0,
                   thirdScore: 0.0,
                   totalScore: progressPercentage,
-                  firstLabel: 'محفوظة',
+                  firstLabel: AppLocalizations.of(context)?.memorized ?? 'محفوظة',
                   secondLabel: '',
                   thirdLabel: '',
                   centerLabel: '%',
@@ -279,7 +279,7 @@ class _QuranScreenState extends State<QuranScreen> {
               const SizedBox(height: 12),
               
               Text(
-                '$memorizedCount من $totalSurahs سورة محفوظة',
+                AppLocalizations.of(context)?.surahsMemorized(memorizedCount, totalSurahs) ?? '$memorizedCount من $totalSurahs سورة محفوظة',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -339,7 +339,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'استمر في الحفظ! أنت رائع!',
+                  AppLocalizations.of(context)?.continueMemorizing ?? 'استمر في الحفظ! أنت رائع!',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -349,7 +349,7 @@ class _QuranScreenState extends State<QuranScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'استمر في الحفظ! أنت رائع!',
+                  AppLocalizations.of(context)?.continueMemorizing ?? 'استمر في الحفظ! أنت رائع!',
                   style: TextStyle(
                     fontSize: 14,
                     color: KidTheme.darkOrange.withOpacity(0.8),
@@ -488,7 +488,7 @@ class _QuranScreenState extends State<QuranScreen> {
                     const SizedBox(width: 4),
                     Flexible(
                       child: Text(
-                        isMemorized ? 'محفوظة!' : 'لم تحفظ',
+                        isMemorized ? AppLocalizations.of(context)?.memorized ?? 'محفوظة!' : AppLocalizations.of(context)?.notMemorized ?? 'لم تحفظ',
                         style: TextStyle(
                           fontSize: 8,
                           fontWeight: FontWeight.bold,
@@ -527,8 +527,8 @@ class _QuranScreenState extends State<QuranScreen> {
                 const SizedBox(width: 8),
                 Text(
                   updatedMemorization.isSurahMemorized(surahNumber)
-                    ? 'تم حفظ السورة! 🎉 رائع!'
-                    : 'تم إلغاء حفظ السورة',
+                    ? AppLocalizations.of(context)?.surahMemorized ?? 'تم حفظ السورة! 🎉 رائع!'
+                    : AppLocalizations.of(context)?.surahUnmemorized ?? 'تم إلغاء حفظ السورة',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -549,7 +549,7 @@ class _QuranScreenState extends State<QuranScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${AppLocalizations.of(context)?.error ?? 'خطأ'}: $e'),
+            content: Text(AppLocalizations.of(context)?.errorWithMessage(e.toString()) ?? 'خطأ: $e'),
             backgroundColor: Colors.red,
           ),
         );

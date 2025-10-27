@@ -70,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('${l10n.failedToUpdateProfile}: $e'),
+          content: Text(AppLocalizations.of(context)?.errorWithMessage(e.toString()) ?? '${l10n.failedToUpdateProfile}: $e'),
           backgroundColor: KidTheme.errorRed,
         ),
       );
@@ -123,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${l10n.error}: $e'),
+            content: Text(AppLocalizations.of(context)?.errorWithMessage(e.toString()) ?? '${l10n.error}: $e'),
             backgroundColor: KidTheme.errorRed,
           ),
         );

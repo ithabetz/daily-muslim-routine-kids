@@ -113,7 +113,7 @@ class SettingsScreen extends StatelessWidget {
                         Navigator.of(context).pop(); // Close loading dialog
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text('فشل في المزامنة: $e'),
+                            content: Text(AppLocalizations.of(context)?.syncFailedWithError(e.toString()) ?? 'فشل في المزامنة: $e'),
                             backgroundColor: KidTheme.errorRed,
                           ),
                         );

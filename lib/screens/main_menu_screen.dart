@@ -94,9 +94,9 @@ class MainMenuScreen extends StatelessWidget {
                 // Daily Prayers Card - Larger and more engaging
                 _buildKidsMenuCard(
                   context: context,
-                  title: 'صلوات اليومية',
+                  title: l10n.dailyRoutine,
                   titleEnglish: l10n.dailyRoutine,
-                  description: 'تعلم الصلوات الخمس اليومية والأذكار',
+                  description: l10n.dailyRoutineDescription,
                   descriptionEnglish: l10n.dailyRoutineDescription,
                   icon: Icons.mosque,
                   color: KidTheme.primaryBlue,
@@ -114,9 +114,9 @@ class MainMenuScreen extends StatelessWidget {
                 // Quran Card - Larger and more engaging
                 _buildKidsMenuCard(
                   context: context,
-                  title: 'قرآن الكريم',
+                  title: l10n.quranKareem,
                   titleEnglish: l10n.quranKareem,
-                  description: 'تعلم جزء عم مع السور الجميلة',
+                  description: l10n.quranDescription,
                   descriptionEnglish: l10n.quranDescription,
                   icon: Icons.menu_book,
                   color: KidTheme.primaryBlue,
@@ -302,7 +302,7 @@ class MainMenuScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      AppLocalizations.of(context)?.letsStart ?? 'Let\'s Start',
+                      AppLocalizations.of(context)?.letsStart ?? 'لنبدأ! 🚀',
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -238,5 +238,10 @@
   "fromPeopleToNews": "من الناس إلى النبأ",
   "memorizationProgress": "تقدمك في الحفظ",
   "surahsMemorized": "{memorized} من {total} سورة محفوظة",
-  "percentComplete": "{percentage}% مكتمل"
+  "percentComplete": "{percentage}% مكتمل",
+  "nextPrayerTime": "الصلاة القادمة",
+  "timeUntilNext": "في {hours} ساعة و {minutes} دقيقة",
+  "timeUntilNextMinutes": "في {minutes} دقيقة",
+  "syncFailedWithError": "فشل في المزامنة: {error}",
+  "errorWithMessage": "خطأ: {message}"
 }

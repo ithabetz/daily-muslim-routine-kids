@@ -58,7 +58,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
     final l10n = AppLocalizations.of(context)!;
     
     return BaseIslamicScreen(
-      title: 'صلوات اليومية',
+      title: AppLocalizations.of(context)?.dailyRoutine ?? 'صلوات اليومية',
       header: Consumer<AppProvider>(
         builder: (context, provider, child) => _buildKidsHeader(provider),
       ),
@@ -72,7 +72,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
           };
 
           return ScoreCardContainer(
-            title: 'تقدمك اليوم',
+            title: AppLocalizations.of(context)?.todayProgress ?? 'تقدمك اليوم',
             content: UnifiedRingsWidget(
               configuration: ActivityRingsConfiguration(
                 firstProgress: (breakdown['fard'] ?? 0.0) / 50.0, // Fard max: 50 points
@@ -85,10 +85,10 @@ class _PrayersScreenState extends State<PrayersScreen> {
                 secondScore: breakdown['sunnah'] ?? 0.0,
                 thirdScore: breakdown['azkar'] ?? 0.0,
                 totalScore: provider.todayScore,
-                firstLabel: 'الفرض',
-                secondLabel: 'السنة',
-                thirdLabel: 'الأذكار',
-                centerLabel: 'النقاط',
+                firstLabel: AppLocalizations.of(context)?.fardLabel ?? 'الفرض',
+                secondLabel: AppLocalizations.of(context)?.sunnahLabel ?? 'السنة',
+                thirdLabel: AppLocalizations.of(context)?.azkarLabel ?? 'الأذكار',
+                centerLabel: AppLocalizations.of(context)?.points ?? 'النقاط',
               ),
             ),
             bottomWidget: Container(
@@ -135,7 +135,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
                           ),
                           const SizedBox(width: 8),
                           Text(
-                            'الصلاة القادمة',
+                            AppLocalizations.of(context)?.nextPrayer ?? 'الصلاة القادمة',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
@@ -154,7 +154,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
 
               // Fard Section - Five Daily Prayers
               CollapsibleSection(
-                title: 'الصلوات الخمس',
+                title: AppLocalizations.of(context)?.fiveDailyPrayers ?? 'الصلوات الخمس',
                 icon: Icons.mosque,
                 initiallyExpanded: false,
                 children: provider.todayProgress!.prayers.map((prayer) {
@@ -169,7 +169,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
               
               // Sunnah and Rawatib Section
               CollapsibleSection(
-                title: 'السنن والرواتب',
+                title: AppLocalizations.of(context)?.sunnahAndRawatib ?? 'السنن والرواتب',
                 icon: Icons.star,
                 initiallyExpanded: false,
                 children: (() {
@@ -190,7 +190,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
               
               // Azkar Section
               CollapsibleSection(
-                title: 'الأذكار',
+                title: AppLocalizations.of(context)?.azkarSection ?? 'الأذكار',
                 icon: Icons.favorite,
                 initiallyExpanded: false,
                 children: _buildAzkarCards(provider),
@@ -292,7 +292,7 @@ class _PrayersScreenState extends State<PrayersScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'الصلاة القادمة',
+                  AppLocalizations.of(context)?.nextPrayerTime ?? 'الصلاة القادمة',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
@@ -311,7 +311,9 @@ class _PrayersScreenState extends State<PrayersScreen> {
                 if (hours > 0 || minutes > 0) ...[
                   const SizedBox(height: 4),
                   Text(
-                    'في ${hours > 0 ? '$hours ساعة و ' : ''}$minutes دقيقة',
+                    hours > 0 
+                      ? AppLocalizations.of(context)?.timeUntilNext(hours, minutes) ?? 'في $hours ساعة و $minutes دقيقة'
+                      : AppLocalizations.of(context)?.timeUntilNextMinutes(minutes) ?? 'في $minutes دقيقة',
                     style: TextStyle(
                       fontSize: 12,
                       color: KidTheme.primaryBlue,

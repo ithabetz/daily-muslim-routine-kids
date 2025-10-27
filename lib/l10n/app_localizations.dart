@@ -1281,6 +1281,36 @@ abstract class AppLocalizations {
   /// In ar, this message translates to:
   /// **'{percentage}% مكتمل'**
   String percentComplete(Object percentage);
+
+  /// No description provided for @nextPrayerTime.
+  ///
+  /// In ar, this message translates to:
+  /// **'الصلاة القادمة'**
+  String get nextPrayerTime;
+
+  /// No description provided for @timeUntilNext.
+  ///
+  /// In ar, this message translates to:
+  /// **'في {hours} ساعة و {minutes} دقيقة'**
+  String timeUntilNext(Object hours, Object minutes);
+
+  /// No description provided for @timeUntilNextMinutes.
+  ///
+  /// In ar, this message translates to:
+  /// **'في {minutes} دقيقة'**
+  String timeUntilNextMinutes(Object minutes);
+
+  /// No description provided for @syncFailedWithError.
+  ///
+  /// In ar, this message translates to:
+  /// **'فشل في المزامنة: {error}'**
+  String syncFailedWithError(Object error);
+
+  /// No description provided for @errorWithMessage.
+  ///
+  /// In ar, this message translates to:
+  /// **'خطأ: {message}'**
+  String errorWithMessage(Object message);
 }
 
 class _AppLocalizationsDelegate

@@ -616,4 +616,27 @@ class AppLocalizationsAr extends AppLocalizations {
   String percentComplete(Object percentage) {
     return '$percentage% مكتمل';
   }
+
+  @override
+  String get nextPrayerTime => 'الصلاة القادمة';
+
+  @override
+  String timeUntilNext(Object hours, Object minutes) {
+    return 'في $hours ساعة و $minutes دقيقة';
+  }
+
+  @override
+  String timeUntilNextMinutes(Object minutes) {
+    return 'في $minutes دقيقة';
+  }
+
+  @override
+  String syncFailedWithError(Object error) {
+    return 'فشل في المزامنة: $error';
+  }
+
+  @override
+  String errorWithMessage(Object message) {
+    return 'خطأ: $message';
+  }
 }

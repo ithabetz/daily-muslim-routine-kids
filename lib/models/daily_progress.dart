@@ -192,9 +192,7 @@ class DailyProgress {
     // SUNNAH PRAYERS (30.0 points max)
     // ==========================================
     double sunnahPrayerScore = 0;
-    double sunnahPrayerMaxScore = 0;
     for (var s in sunnahPrayers) {
-      sunnahPrayerMaxScore += s.weight;
       if (s.isCompleted) {
         sunnahPrayerScore += s.weight;
       }
@@ -231,9 +229,7 @@ class DailyProgress {
 
     // Calculate Sunnah Prayers score separately
     double sunnahPrayerScore = 0;
-    double sunnahPrayerMaxScore = 0;
     for (var s in sunnahPrayers) {
-      sunnahPrayerMaxScore += s.weight;
       if (s.isCompleted) sunnahPrayerScore += s.weight;
     }
     // Direct calculation: total weight = 30.0, so no conversion needed
@@ -256,29 +252,6 @@ class DailyProgress {
     };
   }
 
-  Map<String, double> getCompletionPercentages() {
-    Map<String, double> percentages = {};
-    
-    // Prayer completion (Fard)
-    if (prayers.isNotEmpty) {
-      int completedPrayers = prayers.where((p) => p.isCompleted).length;
-      percentages['fard'] = (completedPrayers / prayers.length) * 100;
-    }
-    
-    // Azkar completion (separate category)
-    if (azkar.isNotEmpty) {
-      int completedAzkar = azkar.where((a) => a.isCompleted).length;
-      percentages['azkar'] = (completedAzkar / azkar.length) * 100;
-    }
-    
-    // Sunnah prayers completion (separate category)
-    if (sunnahPrayers.isNotEmpty) {
-      int completedSunnah = sunnahPrayers.where((s) => s.isCompleted).length;
-      percentages['sunnah'] = (completedSunnah / sunnahPrayers.length) * 100;
-    }
-    
-    return percentages;
-  }
 
   Map<String, dynamic> toJson() {
     return {

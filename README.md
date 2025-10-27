@@ -15,6 +15,8 @@ This app provides a complete Islamic daily routine tracking system for children,
 - **☁️ Cloud Sync**: Data synchronization across devices
 - **🔔 Notifications**: Prayer time reminders with custom sounds
 - **📍 Location Services**: GPS-based prayer time calculations
+- **🌍 Internationalization**: Full Arabic localization with English support
+- **📱 Offline Support**: Complete functionality without internet connection
 
 ## 🌟 Features
 
@@ -100,6 +102,19 @@ Login Screen → Setup Screen → Main Menu
 Signup Screen → Location Setup → App Features
 ```
 
+### Complete Screen Structure
+
+| Screen | Purpose | Key Features |
+|--------|---------|--------------|
+| **Login Screen** | User authentication | Email/password login, forgot password, signup navigation |
+| **Signup Screen** | Account creation | User registration, gender selection, validation |
+| **Setup Screen** | Initial configuration | Location detection, city selection, GPS integration |
+| **Main Menu Screen** | App navigation hub | Welcome message, feature cards, settings access |
+| **Prayers Screen** | Daily prayer tracking | Five daily prayers, sunnah prayers, azkar, progress rings |
+| **Quran Screen** | Quran memorization | Juz 30 surahs, memorization tracking, progress visualization |
+| **Profile Screen** | User account management | Profile editing, account deletion, logout |
+| **Settings Screen** | App configuration | Location settings, data management, app info |
+
 ### Comprehensive Features Table
 
 | Feature Category | Components | Description |
@@ -124,22 +139,23 @@ Signup Screen → Location Setup → App Features
 - **Notifications**: Local notifications for prayer times and reminders
 
 ### Key Services
-- **AuthService**: Firebase authentication with user management
-- **CloudStorageService**: Firestore integration for data sync
-- **NotificationService**: Prayer time notifications with custom sounds
-- **PrayerTimeService**: Adhan library integration for accurate prayer times
-- **QuranMemorizationService**: Local and cloud storage for memorization progress
-- **StorageService**: Local data persistence and management
+- **AuthService**: Firebase authentication with user management and profile handling
+- **CloudStorageService**: Firestore integration for data sync and backup
+- **NotificationService**: Prayer time notifications with custom sounds and scheduling
+- **PrayerTimeService**: Adhan library integration for accurate prayer time calculations
+- **QuranMemorizationService**: Local and cloud storage for memorization progress tracking
+- **StorageService**: Local data persistence and management with SharedPreferences
 
 ### Reusable Widgets & Components
-- **BaseIslamicScreen**: Common screen layout with consistent structure
-- **PrayerCard**: Interactive prayer tracking with detailed options
-- **SunnahPrayerCard**: Sunnah prayer tracking component
+- **BaseIslamicScreen**: Common screen layout with consistent structure and pull-to-refresh
+- **PrayerCard**: Interactive prayer tracking with detailed options (on-time, in-mosque, out-of-time)
+- **SunnahPrayerCard**: Sunnah prayer tracking component with completion status
 - **AzkarCard**: Dhikr practice tracking with celebration animations
-- **SurahCard**: Quran memorization tracking cards
-- **UnifiedRingsWidget**: Three-ring progress visualization
+- **UnifiedRingsWidget**: Three-ring progress visualization for scoring system
 - **CelebrationAnimations**: Sparkle effects and confetti for achievements
-- **CollapsibleSection**: Expandable sections for organized content
+- **CollapsibleSection**: Expandable sections for organized content display
+- **PrayingChildAnimation**: Lottie animation for engaging prayer experience
+- **SurahCard**: Quran memorization tracking with visual feedback
 
 ### Key Dependencies
 ```yaml
@@ -175,6 +191,17 @@ dependencies:
 - **Offline Support**: Full functionality without internet
 - **Child Safety**: Secure authentication and data privacy
 - **Educational Focus**: Learning-oriented interface design
+
+### 🌍 Internationalization & Localization
+- **Primary Language**: Arabic (ar) with complete localization
+- **Fallback Support**: English strings for development and testing
+- **Localization Files**: 
+  - `app_ar.arb`: Complete Arabic translations (240+ strings)
+  - `app_localizations.dart`: Generated localization class
+  - `app_localizations_ar.dart`: Arabic implementation
+- **String Management**: All user-facing text sourced from localization files
+- **RTL Support**: Right-to-left text direction for Arabic
+- **Cultural Adaptation**: Islamic terminology and child-friendly language
 
 ## 🎯 Target Audience
 

@@ -17,33 +17,6 @@ enum AzkarType {
 }
 
 extension AzkarTypeExtension on AzkarType {
-  String get displayName {
-    switch (this) {
-      case AzkarType.morning:
-        return 'أذكار الصباح';
-      case AzkarType.evening:
-        return 'أذكار المساء';
-      case AzkarType.quranReading:
-        return 'قراءة القرآن';
-      case AzkarType.quranListening:
-        return 'الاستماع للقرآن';
-      case AzkarType.istighfar:
-        return 'الاستغفار (100 مرة)';
-      case AzkarType.salatAlaNabi:
-        return 'الصلاة على النبي (100 مرة)';
-      case AzkarType.laHawlaWaLaQuwwata:
-        return 'لا حول ولا قوة إلا بالله (100 مرة)';
-      case AzkarType.tasbih:
-        return 'سبحان الله (100 مرة)';
-      case AzkarType.tahmid:
-        return 'الحمد لله (100 مرة)';
-      case AzkarType.takbir:
-        return 'الله أكبر (100 مرة)';
-      case AzkarType.laIlahaIllaAllah:
-        return 'لا إله إلا الله (100 مرة)';
-    }
-  }
-
   String getLocalizedName(AppLocalizations l10n) {
     switch (this) {
       case AzkarType.morning:
