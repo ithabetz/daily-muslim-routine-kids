@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/daily_progress.dart';
+import '../models/sunnah_prayer.dart';
 import '../services/storage_service.dart';
 import '../theme/kid_theme.dart';
 import '../l10n/app_localizations.dart';
@@ -234,8 +235,8 @@ class _PrayerHistoryScreenState extends State<PrayerHistoryScreen> {
             
             const SizedBox(height: 12),
             
-            // Prayer Completion Status
-            _buildPrayerStatus(progress, l10n),
+            // Completion Status for all categories
+            _buildCompletionStatus(progress, l10n),
           ],
         ),
       ),
@@ -280,24 +281,95 @@ class _PrayerHistoryScreenState extends State<PrayerHistoryScreen> {
     );
   }
 
-  Widget _buildPrayerStatus(DailyProgress progress, AppLocalizations l10n) {
-    final completedCount = progress.prayers.where((p) => p.isCompleted).length;
-    final totalCount = progress.prayers.length;
+  Widget _buildCompletionStatus(DailyProgress progress, AppLocalizations l10n) {
+    // Count completed prayers
+    final completedPrayers = progress.prayers.where((p) => p.isCompleted).length;
+    final totalPrayers = progress.prayers.length;
+    
+    // Count completed Sunnah prayers (only the basic ones for kids)
+    final basicSunnahTypes = [
+      SunnahPrayerType.qiyamAlLayl,
+      SunnahPrayerType.fajrSunnahBefore,
+      SunnahPrayerType.salatAlDuha,
+      SunnahPrayerType.dhuhrSunnahBefore1,
+      SunnahPrayerType.dhuhrSunnahBefore2,
+      SunnahPrayerType.dhuhrSunnahAfter,
+      SunnahPrayerType.maghribSunnahAfter,
+      SunnahPrayerType.ishaSunnahAfter,
+    ];
+    final completedSunnah = progress.sunnahPrayers
+        .where((p) => basicSunnahTypes.contains(p.type) && p.isCompleted)
+        .length;
+    final totalSunnah = basicSunnahTypes.length;
+    
+    // Count completed Azkar
+    final completedAzkar = progress.azkar.where((a) => a.isCompleted).length;
+    final totalAzkar = progress.azkar.length;
     
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Expanded(
+          child: _buildStatusItem(
+            Icons.mosque,
+            completedPrayers,
+            totalPrayers,
+            l10n.prayers,
+            KidTheme.fardPrayerColor,
+          ),
+        ),
+        Container(width: 1, height: 30, color: KidTheme.lightGray.withOpacity(0.3)),
+        Expanded(
+          child: _buildStatusItem(
+            Icons.star,
+            completedSunnah,
+            totalSunnah,
+            l10n.sunnahLabel,
+            KidTheme.sunnahPrayerColor,
+          ),
+        ),
+        Container(width: 1, height: 30, color: KidTheme.lightGray.withOpacity(0.3)),
+        Expanded(
+          child: _buildStatusItem(
+            Icons.favorite,
+            completedAzkar,
+            totalAzkar,
+            l10n.azkarLabel,
+            KidTheme.azkarPrayerColor,
+          ),
+        ),
+      ],
+    );
+  }
+  
+  Widget _buildStatusItem(IconData icon, int completed, int total, String label, Color color) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
-          Icons.check_circle,
-          color: KidTheme.primaryBlue,
-          size: 16,
+          icon,
+          color: color,
+          size: 20,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(height: 4),
         Text(
-          '$completedCount / $totalCount ${l10n.prayers}',
+          '$completed/$total',
           style: TextStyle(
-            fontSize: 13,
+            fontSize: 12,
+            fontWeight: FontWeight.bold,
             color: KidTheme.darkBlue,
           ),
+          textAlign: TextAlign.center,
+        ),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 10,
+            color: KidTheme.darkBlue.withOpacity(0.7),
+          ),
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
       ],
     );
